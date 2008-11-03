@@ -1,0 +1,17 @@
+<apex:component controller="fbComponentController">
+<!-- Optional attributes -->
+<apex:attribute name="label" type="String" assignTo="{!f_label1}" required="false"
+description="The label to display on the left side of the text box." />
+
+<apex:attribute name="name" type="String" required="false" assignTo="{!f_name}" 
+description="The name for the control. " />
+<apex:attribute name="value" type="String" required="false" assignTo="{!f_value}" 
+description="The default text that populates the text box. " />
+<apex:attribute name="maxlength" type="Integer" required="false" assignTo="{!f_maxlength}" 
+description="The maximum length of the input allowed in the text box." />
+
+<apex:outputText value="{!fbEditorTextTag}" escape="false"/>
+<apex:componentBody />
+<apex:outputText value="{!fbEditorTextTagEnd}" escape="false"/>
+
+</apex:component>

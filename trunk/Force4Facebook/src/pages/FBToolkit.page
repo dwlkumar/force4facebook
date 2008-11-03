@@ -1,0 +1,80 @@
+<apex:page showHeader="false" controller="FacebookPageComponentController" extensions="FBTestController" >
+<c:FacebookPage apiKey="94d6f19471b9376ee736c5be8f5e813b">
+
+<apex:outputPanel layout="block" >
+  <h1>
+    Client-side XFBML, rendered directly with JS</h1>
+  <p>
+    Demo using different FBML tags</p>
+  <p>fbName tag: <c:fbName uid="525031753" capitalize="true" shownetwork="true" /></p>
+  <p>fbPronoun tag: <c:fbPronoun uid="525031753" possessive="true" reflexive="true" /></p>
+  <div style="">
+    <div>fb:profile-pic Variations</div>
+    <c:fbProfilePic uid="525031753">
+    </c:fbProfilePic>
+    <c:fbProfilePic uid="525031753" size="thumb">
+    </c:fbProfilePic>
+    <c:fbProfilePic uid="525031753" size="small">
+    </c:fbProfilePic>
+    <c:fbProfilePic uid="525031753" size="pic_square" shownetwork="true">
+    </c:fbProfilePic>
+  </div>
+  <div>
+    <p>Groups</p>
+    <c:fbGroupLink gid="7406420086" />
+  </div>
+  <p>Events</p>
+  <c:fbEventLink eid="14400738508" />
+  <div>
+    <p>User links/status</p>
+    Link: <c:fbUserLink uid="525031753" /> Status: <c:fbUserStatus uid="525031753" />
+      <div>
+          <c:fbProfilePic uid="525031753" />
+          <c:fbUserStatus uid="525031753" />
+      </div>
+      <span>and </span>
+          <c:fbUserLink uid="12313213123" ifcantsee="Someone I can't see" ></c:fbUserLink><br/>
+  </div>
+
+</apex:outputPanel>
+ 
+
+  	<h2>XFBML rendered as an iframe from facebook.com</h2>
+    <c:fbServerFBML style="width: 755px;">
+        <script type="text/fbml">
+        <c:fbFBML >
+        <c:fbRequestForm f_action="url for post invite action, see wiki.developers.facebook.com for fb:request-form details" 
+          method="POST" 
+          invite="true" 
+          type="XFBML" 
+          content="This is a test invitation from XFBML test app {!formContent} ">
+          <c:fbMultiFriendSelector showborder="false" actiontext="Invite your friends to use Connect." />
+        </c:fbRequestForm>
+        </c:fbFBML>
+        </script>
+	</c:fbServerFBML>
+
+
+  
+  <apex:repeat value="{!friends}" var="f">
+      <br/>
+      <c:fbName uid="{!f}" firstnameonly="false" />&nbsp;&nbsp;&nbsp;
+       <apex:commandLink value="Get Info" action="{!getUserInfo}" id="getInfoLink" rerender="uinfo">
+          <apex:param name="fuid" value="{!f}"/>
+      </apex:commandLink> 
+    <c:fbWallPost uid="{!f}" />
+  </apex:repeat>
+	
+  	<apex:repeat value="{!parameters}" var="p">
+		<apex:outputText value="{!p}" /><br/>
+	</apex:repeat>
+	
+- 	<apex:repeat value="{!friends}" var="f">
+   		<apex:outputPanel layout="block">
+			<c:fbName uid="{!f}" firstnameonly="false" />&nbsp;&nbsp;&nbsp;
+			<c:fbWallPost uid="{!f}" />
+		</apex:outputPanel>
+	</apex:repeat>
+
+</c:FacebookPage>
+</apex:page>

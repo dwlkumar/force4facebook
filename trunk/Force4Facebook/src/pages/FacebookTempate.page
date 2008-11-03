@@ -1,0 +1,91 @@
+<apex:page controller="FBTemplateController" action="{!init}"> 
+<apex:includescript value="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php" />
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://dev.live.com/contactscontrol"> 
+<script>
+	function handleErrors() {
+		return true;
+	}
+
+	window.onerror = handleErrors;
+</script>
+<apex:form > 
+ 
+<apex:outputPanel layout="block" style="display: none" id="login">
+	<c:fbLoginButton ></c:fbLoginButton> 
+</apex:outputPanel>
+
+<apex:outputPanel layout="block" style="display: none" id="wrapper" >
+ 	<apex:insert name="body"/>
+ 	hey dude
+</apex:outputPanel>
+
+<apex:actionFunction name="sendSessionKey" action="{!registerUser}" oncomplete="javascript:FB.XFBML.Host.parseDomTree();" >
+	<apex:param name="fb_sig_session_key" assignTo="{!sessionKeyJS}" value="" />
+	<apex:param name="fb_sig_user" assignTo="{!fbUserIdJS}" value="" />
+	<apex:param name="fb_sig_api_key" assignTo="{!appKeyJS}" value="" />
+</apex:actionFunction>
+
+<script type="text/javascript">
+	window.api_key = "{!$CurrentPage.parameters.apiKey}";
+	if (!window.api_key) {
+		window.api_key = "{!$CurrentPage.parameters.fb_sig_api_key}";
+	}
+	if (!window.api_key) {
+		window.api_key = "{!apiKeyByAppName}";
+	}
+	/*
+	* API key, this should be initialized before any another function in this file is called.
+	*/
+	var is_initialized = false;
+
+	/*
+	* Ensure Facebook app is initialized and call callback afterward
+	*
+	*/
+	function ensure_init(callback) {
+		if(!window.api_key) {
+			window.alert("api_key is not set");
+		}
+		
+		if(window.is_initialized) {
+			callback();
+		} else {
+			FB_RequireFeatures(["XFBML", "CanvasUtil"], function() {
+				FB.FBDebug.LogLevel = 4;
+				FB.Facebook.init(window.api_key, "xd_receiver");
+				window.is_initialized = true;
+				callback();
+			}); 
+		}
+	}
+	
+	function facebook_onload(already_logged_into_facebook) {
+		ensure_init(function() 
+		{
+			FB.Connect.requireSession();
+			FB.Facebook.get_sessionState().waitUntilReady(function(session) {
+				var is_now_logged_into_facebook = session ? true : false;
+				document.getElementById("{!$Component.login}").style.display = "none";
+				document.getElementById("{!$Component.wrapper}").style.display = "block";
+	
+				updateValues = '"' + session.session_key + '","' + session.uid + '","' + window.api_key + '"';
+				window.setTimeout('sendSessionKey(' + updateValues + ')', 1000);
+			});
+		});
+	} 
+	
+	/*
+	* Prompts the user to grant a permission to the application.
+	*/
+	function facebook_prompt_permission(permission) {
+		ensure_init(function() {
+			FB.Connect.showPermissionDialog(permission);
+		});
+	}
+	
+	facebook_onload("false");
+</script>
+</apex:form>
+</html>
+</apex:page>

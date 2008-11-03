@@ -1,0 +1,8 @@
+<apex:component controller="fbComponentController"> 
+<apex:attribute name="eid" type="String" assignTo="{!f_eid}" required="true" description="Friend user id." /> 
+<!-- Optional attributes --> 
+
+<apex:outputText value="{!fbEventLinkTag}" escape="false"/> 
+<apex:componentBody /> 
+<apex:outputText value="{!fbEventLinkTagEnd}" escape="false"/> 
+</apex:component>

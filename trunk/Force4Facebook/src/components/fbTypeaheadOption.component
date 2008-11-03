@@ -1,0 +1,10 @@
+<apex:component controller="fbComponentController" >
+
+<apex:attribute name="val" type="String" assignTo="{!f_value1}" required="false" 
+description="The value assigned to the fb:typeahead-input element, used in the POST request when the form is submitted. " />
+
+<apex:outputText value="{!fBTypeaheadOptionTag}" escape="false" />
+<apex:componentBody />
+<apex:outputText value="{!fBTypeaheadOptionTagEnd}" escape="false"/>
+
+</apex:component>

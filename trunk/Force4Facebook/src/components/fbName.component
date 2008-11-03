@@ -1,0 +1,30 @@
+<apex:component controller="fbComponentController" > 
+<!-- Required attributes --> 
+<apex:attribute name="uid" type="String" assignTo="{!f_uid}" required="true" description="Friend user id." /> 
+<!-- Optional attributes --> 
+<apex:attribute name="firstnameonly" type="Boolean" assignTo="{!f_firstnameonly}" required="false" 
+description="Show only the user's first name. (Default value is false.)" /> 
+<apex:attribute name="linked" type="Boolean" assignTo="{!f_linked}" required="false" 
+description="Link to the user's profile. (Default value is true.)"/> 
+<apex:attribute name="lastnameonly" type="Boolean" assignTo="{!f_lastnameonly}" required="false" 
+description="Show only the user's last name. (Default value is false.)" /> 
+<apex:attribute name="possessive" type="Boolean" assignTo="{!f_possessive}" required="false" 
+description="Make the user's name possessive (e.g. Joe's instead of Joe). (Default value is false.)" /> 
+<apex:attribute name="reflexive" type="Boolean" assignTo="{!f_reflexive}" required="false" 
+description="Use 'yourself' if useyou is true. (Default value is false.)" /> 
+<apex:attribute name="shownetwork" type="Boolean" assignTo="{!f_shownetwork}" required="false" 
+description="Displays the primary network for the uid. (Default value is false.)" /> 
+<apex:attribute name="useyou" type="Boolean" assignTo="{!f_useyou}" required="false" 
+description="Use 'you' if uid matches the logged in user. (Default value is true.)" /> 
+<apex:attribute name="ifcantsee" type="String" assignTo="{!f_ifcantsee}" required="false" 
+description="Alternate text to display if the logged in user cannot access the user specified. (Default value is [empty string].)" /> 
+<apex:attribute name="capitalize" type="Boolean" assignTo="{!f_capitalize}" required="false" 
+description="Capitalize the text if useyou==true and loggedinuser==uid. (Default value is false.)" /> 
+<apex:attribute name="subjectid" type="String" assignTo="{!f_subjectid}" required="false" 
+description="The Facebook ID of the subject of the sentence where this name is the object of the verb of the sentence. Will use the reflexive when appropriate. When subjectid is used, uid is considered to be the object and uid's name is produced." /> 
+
+<apex:outputText value="{!fBNameTag}" escape="false" /> 
+<apex:componentBody /> 
+<apex:outputText value="{!fBNameTagEnd}" escape="false"/> 
+
+</apex:component>

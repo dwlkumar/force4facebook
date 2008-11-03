@@ -1,0 +1,19 @@
+<apex:page controller="FacebookTestPageController">
+	<apex:composition template="FacebookTempate">
+		<apex:define name="body">
+			<apex:outputPanel id="target">
+			hello world
+			<apex:outputPanel id="debugger" layout="block">
+				<textarea rows="10" cols="80">
+					<apex:repeat value="{!debugStatements}" var="debug">
+						{!debug}
+					</apex:repeat>
+				</textarea>
+			</apex:outputPanel>
+			<apex:commandButton value="Refresh" id="refreshButton" rerender="debugger" />
+			
+			<p>fbName tag: <c:fbName uid="{!fbc.FBUserId__c}" capitalize="true" shownetwork="true" /></p>
+			</apex:outputPanel>
+		</apex:define>
+	</apex:composition>
+</apex:page>

@@ -1,0 +1,9 @@
+<apex:component controller="fbComponentController">
+<!-- Optional attributes -->
+<apex:attribute name="version" type="Double" assignTo="{!f_version}" required="false"
+description="Indicates whether the button is visible or hidden. See the Notes below for further explanation. " />
+
+<apex:outputText value="{!fbFBMLTag}" escape="false"/>
+<apex:componentBody />
+<apex:outputText value="{!fbFBMLTagEnd}" escape="false"/>
+</apex:component>

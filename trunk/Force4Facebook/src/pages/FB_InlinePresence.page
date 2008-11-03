@@ -1,0 +1,68 @@
+<apex:page showHeader="false" controller="FacebookPageComponentController" extensions="FB_InlinePresenceController" action="{!init}" >
+	<c:FacebookPage id="fbp" 
+					apiKey="1ddde354953f8a3d5d927868039cc50e" 
+					receiverPath="xd_receiver" 
+					redirectUrl="FB_InlinePresence"
+					displayStyle="none"
+					applicationSecret="9d7295233da156f42761758bc159063b"
+					>
+
+<style>
+table {
+	font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
+	font-size: 10pt;
+}
+</style>
+	<table cellpadding="4px" >
+		<tr>
+			<td valign="top">
+				<apex:image value="{!fbUserInfo.pic}" />
+			</td>
+			<td valign="top">
+				<table>
+					<tr>
+						<td width="70px" valign="top"	>
+							<apex:outputText value="Status:" />
+						</td>
+						<td>
+							<apex:outputText value="{!fbUserInfo.first_name} {!fbUserInfo.status.message}" />
+						</td>
+					</tr>
+					<tr>
+						<td valign="top" colspan="2">
+							<apex:outputText value="Networks:" />
+							<apex:dataList value="{!fbUserInfo.affiliations}" var="n" >
+								<apex:outputText value="{!n.name} - {!n.a_type}" />
+							</apex:dataList>
+						</td>
+					</tr>
+					<tr>
+						<td valign="top" colspan="2">
+							<apex:outputText value="Work History:" />
+							<apex:dataList value="{!fbUserInfo.work_history}" var="w" >
+								<apex:outputText value="{!w.company_name} - {!w.position}" />
+							</apex:dataList>
+						</td>
+					</tr>
+					<tr>
+						<td width="70px" valign="top"	>
+							<apex:outputText value="Birthday:" />
+						</td>
+						<td>
+							<apex:outputText value="{!fbUserInfo.birthday}" />
+						</td>
+					</tr>
+					<tr>
+						<td width="70px" valign="top"	>
+							<apex:outputText value="Hometown:" />
+						</td>
+						<td>
+							<apex:outputText value="{!fbUserInfo.hometown_location.city}, {!fbUserInfo.hometown_location.state}" />
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+	</c:FacebookPage>
+</apex:page>

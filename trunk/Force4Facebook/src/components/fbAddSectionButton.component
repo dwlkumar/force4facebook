@@ -1,0 +1,11 @@
+<apex:component controller="fbComponentController"> 
+
+<apex:attribute name="section" type="String" assignTo="{!f_section}" required="true" 
+description="Specifies whether to add a condensed profile box to the main profile (profile) or an application info section to the Info tab (info)." /> 
+<!-- Optional attributes --> 
+
+<apex:outputText value="{!fbAddSectionButtonTag}" escape="false"/> 
+<apex:componentBody /> 
+<apex:outputText value="{!fbAddSectionButtonTagEnd}" escape="false"/> 
+
+</apex:component>

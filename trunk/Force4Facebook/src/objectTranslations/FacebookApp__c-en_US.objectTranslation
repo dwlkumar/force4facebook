@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <value>Facebook App</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Facebook Apps</value>
+    </caseValues>
+    <fields>
+        <label><!-- App Key --></label>
+        <name>AppKey__c</name>
+    </fields>
+    <fields>
+        <label><!-- App Secret --></label>
+        <name>AppSecret__c</name>
+    </fields>
+    <fields>
+        <label><!-- Facebook Email --></label>
+        <name>FBEmail__c</name>
+    </fields>
+    <fields>
+        <label><!-- FBUserId --></label>
+        <name>FBUserId__c</name>
+    </fields>
+    <fields>
+        <label><!-- SessionKey --></label>
+        <name>SessionKey__c</name>
+    </fields>
+    <fields>
+        <label><!-- UserType --></label>
+        <name>UserType__c</name>
+    </fields>
+    <fields>
+        <label><!-- User --></label>
+        <name>User__c</name>
+        <relationshipLabel><!-- Facebook Apps --></relationshipLabel>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

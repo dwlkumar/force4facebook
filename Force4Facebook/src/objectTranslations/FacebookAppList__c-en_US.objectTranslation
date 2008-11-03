@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <value>FacebookAppList</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>FacebookAppLists</value>
+    </caseValues>
+    <fields>
+        <label><!-- AppKey --></label>
+        <name>AppKey__c</name>
+    </fields>
+    <fields>
+        <label><!-- AppSecret --></label>
+        <name>AppSecret__c</name>
+    </fields>
+    <fields>
+        <label><!-- app_id --></label>
+        <name>app_id__c</name>
+    </fields>
+    <fields>
+        <label><!-- canvas_name --></label>
+        <name>canvas_name__c</name>
+    </fields>
+    <fields>
+        <label><!-- company_name --></label>
+        <name>company_name__c</name>
+    </fields>
+    <fields>
+        <label><!-- daily_active_users --></label>
+        <name>daily_active_users__c</name>
+    </fields>
+    <fields>
+        <label><!-- description --></label>
+        <name>description__c</name>
+    </fields>
+    <fields>
+        <label><!-- display_name --></label>
+        <name>display_name__c</name>
+    </fields>
+    <fields>
+        <label><!-- icon_url --></label>
+        <name>icon_url__c</name>
+    </fields>
+    <fields>
+        <label><!-- logo_url --></label>
+        <name>logo_url__c</name>
+    </fields>
+    <fields>
+        <label><!-- monthly_active_users --></label>
+        <name>monthly_active_users__c</name>
+    </fields>
+    <fields>
+        <label><!-- weekly_active_users --></label>
+        <name>weekly_active_users__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

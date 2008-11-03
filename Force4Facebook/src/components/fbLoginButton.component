@@ -1,0 +1,11 @@
+<apex:component controller="fbComponentController"> 
+<!-- Optional attributes --> 
+<apex:attribute name="condition" type="String" assignTo="{!f_condition}" required="false" description="Indicates whether the button is visible or hidden. See the Notes below for further explanation." /> 
+<apex:attribute name="size" type="String" assignTo="{!f_size1}" required="false" description="Specifies the size of the button. Specify small, medium, or large. (Default value is large.)" /> 
+<apex:attribute name="autologoutlink" type="Boolean" assignTo="{!f_autologoutlink}" required="false" description="If true and the user is already connected and has a session, then the button image changes to indicate the user can log out. Clicking the button logs the user out of Facebook and all connected sessions." /> 
+
+
+<apex:outputText value="{!fbLoginButtonTag}" escape="false"/> 
+<apex:componentBody /> 
+<apex:outputText value="{!fbLoginButtonTagEnd}" escape="false"/> 
+</apex:component>

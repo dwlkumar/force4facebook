@@ -1,0 +1,20 @@
+<apex:component controller="fbComponentController"> 
+<apex:attribute name="uid" type="String" assignTo="{!f_uid3}" required="true" description="Friend user id." /> 
+<!-- Optional attributes --> 
+<apex:attribute name="useyou" type="Boolean" assignTo="{!f_useyou1}" required="false" 
+description="Use the word 'you' if uid is viewing the page. (Default value is true.)" /> 
+<apex:attribute name="possessive" type="Boolean" assignTo="{!f_possessive1}" required="false" 
+description="Use the possessive form (his/her/your/their). (Default value is false.)" /> 
+<apex:attribute name="reflexive" type="Boolean" assignTo="{!f_reflexive1}" required="false" 
+description="Use the reflexive form (himself/herself/yourself/themself). (Default value is false.)" /> 
+<apex:attribute name="objective" type="Boolean" assignTo="{!f_objective}" required="false" 
+description="Use the objective form (him/her/you/them). (Default value is false.)" /> 
+<apex:attribute name="usethey" type="Boolean" assignTo="{!f_usethey}" required="false" 
+description="Use 'they' if gender is not specified. (Default value is true.)" /> 
+<apex:attribute name="capitalize" type="Boolean" assignTo="{!f_capitalize1}" required="false" 
+description="Force a capital letter for the pronoun. (Default value is false.)" /> 
+
+<apex:outputText value="{!fbPronounTag}" escape="false"/> 
+<apex:componentBody /> 
+<apex:outputText value="{!fbPronounTagEnd}" escape="false"/> 
+</apex:component>

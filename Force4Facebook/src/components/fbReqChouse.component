@@ -1,0 +1,12 @@
+<apex:component controller="fbComponentController">
+<!-- Required attributes -->
+<apex:attribute name="url" type="String" assignTo="{!f_url}" required="true"
+description="The URL to which the button should take the user upon click. must be an absolute. " />
+<apex:attribute name="label" type="String" assignTo="{!f_label}" required="true"
+description="Specifies the text to display on this button. " />
+
+
+<apex:outputText value="{!fbReqChoiceTag}" escape="false"/>
+<apex:componentBody />
+<apex:outputText value="{!fbReqChoiceTagEnd}" escape="false"/>
+</apex:component>

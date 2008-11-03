@@ -1,0 +1,11 @@
+<apex:component controller="fbComponentController">
+<!-- Optional attributes -->
+<apex:attribute name="condition" type="String" assignTo="{!f_condition1}" required="false"
+description="Indicates whether the button is visible or hidden. See the Notes below for further explanation. " />
+<apex:attribute name="style" type="String" assignTo="{!f_style}" required="false"
+description="Indicates whether the button is visible or hidden. See the Notes below for further explanation. " />
+
+<apex:outputText value="{!fbServerFBMLTag}" escape="false"/>
+<apex:componentBody />
+<apex:outputText value="{!fbServerFBMLTagEnd}" escape="false"/>
+</apex:component>

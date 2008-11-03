@@ -1,0 +1,94 @@
+<apex:page showHeader="false" controller="FBToolkitPageController">
+	<apex:composition template="FacebookTempate">
+		<apex:define name="body">
+		
+			<p>fbName tag: <c:fbName uid="{!fbUserId}" capitalize="true" shownetwork="true" /></p>
+			<apex:outputPanel layout="block" >
+				<h1>
+			    	Client-side XFBML
+			    </h1>
+			  	<h2> 
+				    Demo using different FBML tags
+				</h2>
+				<table>
+					<tr>
+						<td>
+							fbName tag: 
+						</td>
+						<td>
+							<c:fbName uid="{!fbUserId}" capitalize="true" shownetwork="true" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							fbPronoun tag:
+						</td>
+						<td><c:fbPronoun uid="{!fbUserId}" possessive="true" reflexive="true"></c:fbPronoun></td>
+					</tr>
+					<tr>
+						<td rowspan="4">
+					    	fb:profile-pic Variations
+					    </td>
+					</tr>
+					<tr><td><c:fbProfilePic uid="{!fbUserId}" /></td></tr>
+					<tr><td><c:fbProfilePic uid="{!fbUserId}" size="thumb" /></td></tr>
+					<tr><td><c:fbProfilePic uid="{!fbUserId}" size="small" /></td></tr>
+			    	<tr><td><c:fbProfilePic uid="{!fbUserId}" size="pic_square" shownetwork="true" /></td></tr>
+					<tr>
+						<td>Groups</td>
+						<td><c:fbGroupLink gid="7406420086" /></td>
+					</tr>
+					<tr>
+						<td>Events</td>
+						<td><c:fbEventLink eid="14400738508" /></td>
+					</tr>
+					<tr>
+						<td>User links/status</td>
+						<td><table>
+								<tr><td>Link:</td><td><c:fbUserLink uid="{!fbUserId}" /></td></tr>
+								<tr><td>Status:</td><td><c:fbUserStatus uid="{!fbUserId}" /></td></tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td>Someone who is not your friend</td>
+						<td><c:fbUserLink uid="12313213123" ifcantsee="Someone I can't see" /></td>
+					</tr>
+				</table>
+			</apex:outputPanel> 
+			 
+			
+			  	<h2>XFBML rendered as an iframe from facebook.com</h2>
+			    <c:fbServerFBML style="width: 755px;">
+			        <script type="text/fbml">
+        				<c:fbFBML >
+					        <c:fbRequestForm f_action="url for post invite action, see wiki.developers.facebook.com for fb:request-form details" 
+						          method="POST" 
+						          invite="true" 
+						          type="XFBML" 
+						          content="This is a test invitation from XFBML test app {!formContent} ">
+								<c:fbMultiFriendSelector showborder="false" actiontext="Invite your friends to use Connect." />
+					        </c:fbRequestForm>
+				        </c:fbFBML>
+			        </script>
+				</c:fbServerFBML>
+			  
+				
+		   		<apex:outputPanel layout="block">
+				    <c:fbServerFBML style="width: 755px;">
+				        <script type="text/fbml">
+	        				<c:fbFBML >
+					   			<c:fbWall >
+									<c:fbWallPost uid="{!fbUserId}">
+										<c:fbName uid="{!fbUserId}" firstnameonly="false" />
+										are a Facebook Force Developer
+									</c:fbWallPost>
+								</c:fbWall>
+				       		</c:fbFBML>
+			        	</script>
+					</c:fbServerFBML>
+				</apex:outputPanel>
+	
+		</apex:define>
+	</apex:composition>
+</apex:page>

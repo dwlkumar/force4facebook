@@ -1,0 +1,124 @@
+<apex:page showHeader="true" controller="FacebookPageComponentController" extensions="FBToolkitConnectController" action="{!init}" >
+<c:FacebookPage id="myPage"  
+    apiKey="{!$CurrentPage.parameters.apiKey}" 
+    receiverPath="xd_receiver" displayStyle="block"
+>
+        <apex:outputPanel id="keys" >
+        	<apex:outputText value="Session Key: {!mySessionKey}" /><br/>
+        	<apex:outputText value="User id: {!myUserId}" /><br/>
+        	<apex:outputText value="Sig: {!mySig}" /><br/>
+        	<apex:outputText value="Secret: {!myApiSecret}" /><br/>
+        	<apex:outputText value="Api Key: {!apiKey}" /><br/> 
+        	<apex:outputText value="Expires: {!myExpires}" /><br/> 
+		</apex:outputPanel>
+        
+        <apex:actionFunction name="pushKey" action="{!updateSessionKey}" rerender="keys,test">
+        	<apex:param name="one" value="" assignTo="{!mySessionKey}" />
+            <apex:param name="paramTwo" assignTo="{!myUserId}" value="" />
+            <apex:param name="paramThree" assignTo="{!mySig}" value="" />
+            <apex:param name="paramFour" value="" />
+            <apex:param name="paramFive" assignTo="{!apiKey}" value="" />
+            <apex:param name="paramSix" assignTo="{!myExpires}" value="" />
+        </apex:actionFunction>
+        <h1>Facebook Connect</h1>
+     
+        <p>fbName tag: 
+            <c:fbName uid="{!myUserId}" capitalize="true" shownetwork="true" />
+        </p>
+
+        <p>fbPronoun tag: 
+            <!-- <c:fbPronoun uid="{!myUserId}" possessive="true" reflexive="true" /> -->
+        </p>
+         
+        <div style="">
+            <div>fb:profile-pic Variations</div>
+            <c:fbProfilePic uid="{!myUserId}">
+            </c:fbProfilePic>
+            <c:fbProfilePic uid="{!myUserId}" size="thumb">
+            </c:fbProfilePic>
+            <c:fbProfilePic uid="{!myUserId}" size="small">
+            </c:fbProfilePic>
+            <c:fbProfilePic uid="{!myUserId}" size="pic_square" shownetwork="true">
+            </c:fbProfilePic>
+        </div>
+        <div>
+            <p>Groups</p>
+            <c:fbGroupLink gid="7406420086" />
+        </div>
+        <p>Events</p>
+        <c:fbEventLink eid="14400738508" /> 
+        <div>
+            <p>User links/status</p>
+            Link: <c:fbUserLink uid="{!myUserId}" /> Status: <c:fbUserStatus uid="{!myUserId}" />
+            <div>
+                <c:fbProfilePic uid="{!myUserId}" />
+                <c:fbUserStatus uid="{!myUserId}" />
+            </div>
+            <span>and </span>
+            <c:fbUserLink uid="12313213123" ifcantsee="Someone I can't see" ></c:fbUserLink><br/>
+        </div>
+
+		<apex:outputPanel layout="block" id="test1">
+	        <script>
+/*				FB_RequireFeatures(["XFBML", "Connect","CanvasUtil"], function(){
+					FB.Facebook.init("1ddde354953f8a3d5d927868039cc50e", "xd_receiver");
+					var mySession = FB.Facebook.apiClient.get_session();
+					FB.Facebook.get_sessionState().waitUntilReady(function(session) {
+					});
+				});        */
+			</script>
+        </apex:outputPanel>
+
+        <h2>XFBML rendered as an iframe from facebook.com</h2>
+        <c:fbServerFBML style="width: 755px;">
+            <script type="text/fbml">
+                <c:fbFBML >
+					<c:fbBoard xid="Dave_Carroll" 
+								canpost="true" 
+								candelete="false" 
+								canmark="false" 
+								cancreatetopic="true" 
+								numtopics="5" 
+								returnurl="http://na1.salesforce.com/apex/FBToolkit_connect?apikey=1ddde354953f8a3d5d927868039cc50e">
+						<c:fbTitle >Discuss Me!</c:fbTitle>
+					</c:fbBoard>
+			<apex:repeat value="{!friends}" var="ml">
+				<c:fbWallPost uid="{!ml}"></c:fbWallPost>
+			</apex:repeat>
+				</c:fbFBML>
+			</script>
+        </c:fbServerFBML> 
+
+
+<!-- 
+
+						<apex:repeat value="{!friends}" var="ml" >
+							<c:fbWallPost uid="{!ml}"></c:fbWallPost>
+						</apex:repeat>
+
+                    <c:fbRequestForm f_action="url for post invite action, see wiki.developers.facebook.com for fb:request-form details" 
+                              method="POST" 
+                              invite="true" 
+                              type="XFBML" 
+                              content="This is a test invitation from XFBML test app {!formContent} ">
+                        <c:fbMultiFriendSelector showborder="false" actiontext="Invite your friends to use Connect." />
+                    </c:fbRequestForm>
+
+					<c:fbBoard xid="Dave_Carroll" 
+								canpost="true" 
+								candelete="false" 
+								canmark="false" 
+								cancreatetopic="true" 
+								numtopics="5" 
+								returnurl="http://na1.salesforce.com/apex/FBToolkit_connect?apikey=1ddde354953f8a3d5d927868039cc50e">
+						<c:fbTitle >Discuss Me!</c:fbTitle>
+					</c:fbBoard>
+
+
+
+<apex:outputText value="{!wallPosts}" escape="false" />
+<c:fbWallPost uid="202888"></c:fbWallPost><c:fbWallPost uid="1109103"></c:fbWallPost><c:fbWallPost uid="1211179"></c:fbWallPost><c:fbWallPost uid="3321084"></c:fbWallPost><c:fbWallPost uid="4804544"></c:fbWallPost><c:fbWallPost uid="6816259"></c:fbWallPost><c:fbWallPost uid="10200882"></c:fbWallPost><c:fbWallPost uid="500044457"></c:fbWallPost><c:fbWallPost uid="500071116"></c:fbWallPost><c:fbWallPost uid="500078483"></c:fbWallPost><c:fbWallPost uid="500093930"></c:fbWallPost><c:fbWallPost uid="500104430"></c:fbWallPost><c:fbWallPost uid="501314559"></c:fbWallPost><c:fbWallPost uid="507986395"></c:fbWallPost><c:fbWallPost uid="509054762"></c:fbWallPost><c:fbWallPost uid="513439162"></c:fbWallPost><c:fbWallPost uid="527006474"></c:fbWallPost><c:fbWallPost uid="528292771"></c:fbWallPost><c:fbWallPost uid="531443774"></c:fbWallPost><c:fbWallPost uid="532805546"></c:fbWallPost><c:fbWallPost uid="533772570"></c:fbWallPost><c:fbWallPost uid="534378641"></c:fbWallPost><c:fbWallPost uid="538155823"></c:fbWallPost><c:fbWallPost uid="540152728"></c:fbWallPost><c:fbWallPost uid="540271981"></c:fbWallPost><c:fbWallPost uid="542867395"></c:fbWallPost><c:fbWallPost uid="543164114"></c:fbWallPost><c:fbWallPost uid="547508456"></c:fbWallPost><c:fbWallPost uid="549161183"></c:fbWallPost><c:fbWallPost uid="554707160"></c:fbWallPost><c:fbWallPost uid="555977904"></c:fbWallPost><c:fbWallPost uid="556066038"></c:fbWallPost><c:fbWallPost uid="563899618"></c:fbWallPost><c:fbWallPost uid="565958903"></c:fbWallPost><c:fbWallPost uid="566601947"></c:fbWallPost><c:fbWallPost uid="577431969"></c:fbWallPost><c:fbWallPost uid="578695751"></c:fbWallPost><c:fbWallPost uid="589813474"></c:fbWallPost><c:fbWallPost uid="591698451"></c:fbWallPost><c:fbWallPost uid="599967027"></c:fbWallPost><c:fbWallPost uid="603581039"></c:fbWallPost><c:fbWallPost uid="610912607"></c:fbWallPost><c:fbWallPost uid="612121016"></c:fbWallPost><c:fbWallPost uid="616020834"></c:fbWallPost><c:fbWallPost uid="620081624"></c:fbWallPost><c:fbWallPost uid="623391015"></c:fbWallPost><c:fbWallPost uid="627831298"></c:fbWallPost><c:fbWallPost uid="629603003"></c:fbWallPost><c:fbWallPost uid="630062637"></c:fbWallPost><c:fbWallPost uid="635872086"></c:fbWallPost><c:fbWallPost uid="645063277"></c:fbWallPost><c:fbWallPost uid="649887460"></c:fbWallPost><c:fbWallPost uid="652688599"></c:fbWallPost><c:fbWallPost uid="653975129"></c:fbWallPost><c:fbWallPost uid="668287580"></c:fbWallPost><c:fbWallPost uid="669086711"></c:fbWallPost><c:fbWallPost uid="669560624"></c:fbWallPost><c:fbWallPost uid="671941095"></c:fbWallPost><c:fbWallPost uid="675454930"></c:fbWallPost><c:fbWallPost uid="679224781"></c:fbWallPost><c:fbWallPost uid="679472728"></c:fbWallPost><c:fbWallPost uid="679717574"></c:fbWallPost><c:fbWallPost uid="681476329"></c:fbWallPost><c:fbWallPost uid="686751830"></c:fbWallPost><c:fbWallPost uid="688252183"></c:fbWallPost><c:fbWallPost uid="688956318"></c:fbWallPost><c:fbWallPost uid="690071005"></c:fbWallPost><c:fbWallPost uid="690200862"></c:fbWallPost><c:fbWallPost uid="690454501"></c:fbWallPost><c:fbWallPost uid="699748976"></c:fbWallPost><c:fbWallPost uid="703129465"></c:fbWallPost><c:fbWallPost uid="708427925"></c:fbWallPost><c:fbWallPost uid="709783833"></c:fbWallPost><c:fbWallPost uid="717810700"></c:fbWallPost><c:fbWallPost uid="722012312"></c:fbWallPost><c:fbWallPost uid="724439752"></c:fbWallPost><c:fbWallPost uid="733962753"></c:fbWallPost><c:fbWallPost uid="739715398"></c:fbWallPost><c:fbWallPost uid="741649831"></c:fbWallPost><c:fbWallPost uid="746647624"></c:fbWallPost><c:fbWallPost uid="746811966"></c:fbWallPost><c:fbWallPost uid="749144002"></c:fbWallPost><c:fbWallPost uid="766292291"></c:fbWallPost><c:fbWallPost uid="770410334"></c:fbWallPost><c:fbWallPost uid="773111843"></c:fbWallPost><c:fbWallPost uid="784584679"></c:fbWallPost><c:fbWallPost uid="785797717"></c:fbWallPost><c:fbWallPost uid="789353055"></c:fbWallPost><c:fbWallPost uid="815149950"></c:fbWallPost><c:fbWallPost uid="834242541"></c:fbWallPost><c:fbWallPost uid="842450121"></c:fbWallPost><c:fbWallPost uid="863735633"></c:fbWallPost><c:fbWallPost uid="1388174596"></c:fbWallPost><c:fbWallPost uid="1432095613"></c:fbWallPost><c:fbWallPost uid="1448181562"></c:fbWallPost>
+ -->        
+
+</c:FacebookPage>
+</apex:page>

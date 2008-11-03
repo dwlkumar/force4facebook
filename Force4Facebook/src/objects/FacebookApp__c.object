@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <fields>
+        <fullName>AppKey__c</fullName>
+        <label>App Key</label>
+        <length>50</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>AppSecret__c</fullName>
+        <label>App Secret</label>
+        <length>50</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>FBEmail__c</fullName>
+        <label>Facebook Email</label>
+        <type>Email</type>
+    </fields>
+    <fields>
+        <fullName>FBUserId__c</fullName>
+        <label>FBUserId</label>
+        <length>50</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>SessionKey__c</fullName>
+        <label>SessionKey</label>
+        <length>50</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>UserType__c</fullName>
+        <label>UserType</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Standard</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PowerPartner</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PowerCustomerSuccess</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CustomerSuccess</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Guest</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>User__c</fullName>
+        <label>User</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>FacebookApp</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <label>Facebook App</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>FBUserId__c</columns>
+        <columns>SessionKey__c</columns>
+        <columns>FBEmail__c</columns>
+        <columns>NAME</columns>
+        <columns>AppKey__c</columns>
+        <columns>AppSecret__c</columns>
+        <columns>User__c</columns>
+        <columns>LAST_UPDATE</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>App Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Facebook Apps</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

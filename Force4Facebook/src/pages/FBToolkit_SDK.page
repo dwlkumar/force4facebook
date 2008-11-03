@@ -1,0 +1,39 @@
+<apex:page showHeader="true" controller="FBTestControllerSDK" action="{!init}">
+  <h3>Test Page</h3>
+  <h3>User Info</h3>
+  <apex:form >
+  <apex:outputText value="{!userInfo.name}" /><br/>
+
+  <apex:outputPanel id="uinfo">
+      <apex:outputText value="{!userInfo.aboutMe}" /><br/>
+      <apex:image value="{!userInfo.pic}" />
+  </apex:outputPanel>
+<!--  <apex:repeat value="{!friends}" var="f">
+      <br/>
+      <c:fbName uid="{!f}" firstnameonly="false" />&nbsp;&nbsp;&nbsp;
+      <apex:commandLink value="Get Info" action="{!getUserInfo}" id="getInfoLink" rerender="uinfo">
+          <apex:param name="fuid" value="{!f}"/>
+      </apex:commandLink>
+    <c:fbWallPost uid="{!f}" />
+  </apex:repeat> -->
+      <apex:pageBlock >
+          <apex:pageBlockTable value="{!myEvents}" var="me">
+              <apex:column >
+                  <apex:image value="{!me.pic}" />
+              </apex:column>
+              <apex:column value="{!me.name}" />
+              <apex:column value="{!me.event_type}" />
+              <apex:column value="{!me.start_time}" />
+              <apex:column value="{!me.end_time}" />
+          </apex:pageBlockTable>
+      </apex:pageBlock>
+      <apex:pageBlock >
+          <apex:pageBlockTable value="{!myFriends}" var="mf">
+              <apex:column >
+                  <apex:image value="{!mf.pic}" />
+              </apex:column>
+              <apex:column value="{!mf.name}" />
+          </apex:pageBlockTable>
+      </apex:pageBlock>
+    </apex:form>
+</apex:page>

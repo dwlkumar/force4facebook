@@ -1,0 +1,12 @@
+<apex:component controller="fbComponentController"> 
+<apex:attribute name="uid" type="String" assignTo="{!f_uid5}" required="true" description="Friend user id." /> 
+<!-- Optional attributes --> 
+<apex:attribute name="ifcantsee" type="String" assignTo="{!f_ifcantsee1}" required="false" 
+description="The alternate text to display if the user cannot see the specified user ID. " /> 
+<apex:attribute name="shownetwork" type="Boolean" assignTo="{!f_shownetwork2}" required="false" 
+description="Indicates whether to display the network name. (Default value is true.)" /> 
+
+<apex:outputText value="{!fbUserLinkTag}" escape="false"/> 
+<apex:componentBody /> 
+<apex:outputText value="{!fbUserLinkTagEnd}" escape="false"/> 
+</apex:component>

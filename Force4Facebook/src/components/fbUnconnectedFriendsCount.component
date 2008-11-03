@@ -1,0 +1,9 @@
+<apex:component controller="fbComponentController">
+<!-- Optional attributes -->
+<apex:attribute name="condition" type="String" assignTo="{!f_condition2}" required="false"
+description="Indicates whether the button is visible or hidden. See the Notes below for further explanation. " />
+
+<apex:outputText value="{!fbUnconnectedFriendsCountTag}" escape="false"/>
+<apex:componentBody />
+<apex:outputText value="{!fbUnconnectedFriendsCountTagEnd}" escape="false"/>
+</apex:component>

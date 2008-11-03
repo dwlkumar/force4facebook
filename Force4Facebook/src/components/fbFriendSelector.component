@@ -1,0 +1,20 @@
+<apex:component controller="fbComponentController" >
+
+<apex:attribute name="uid" type="String" assignTo="{!f_uid8}" required="true" description="Friend user id." />
+<apex:attribute name="name" type="String" assignTo="{!f_name2}" required="false" 
+description="Show only the user's first name. (Default value is false.)" />
+<apex:attribute name="idname" type="String" assignTo="{!f_idname}" required="false" 
+description="Link to the user's profile. (Default value is true.)"/>
+<apex:attribute name="include_me" type="Boolean" assignTo="{!f_include_me}" required="false" 
+description="Show only the user's last name. (Default value is false.)" /> 
+<apex:attribute name="exclude_ids" type="String" assignTo="{!f_exclude_ids1}" required="false" 
+description="Make the user's name possessive (e.g. Joe's instead of Joe). (Default value is false.)" />
+<apex:attribute name="include_lists" type="Boolean" assignTo="{!include_lists}" required="false" 
+description="Make the user's name possessive (e.g. Joe's instead of Joe). (Default value is false.)" />
+
+<apex:outputText value="{!fBFriendSelectorTag}" escape="false" />
+<apex:componentBody />
+<apex:outputText value="{!fBFriendSelectorTagEnd}" escape="false"/>
+
+
+</apex:component>

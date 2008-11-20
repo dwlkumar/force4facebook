@@ -1,7 +1,0 @@
-<apex:component controller="fbComponentController"> 
-
-<apex:outputText value="{!fbWallTag}" escape="false"/>
-<apex:componentBody />
-<apex:outputText value="{!fbWallTagEnd}" escape="false"/>
-
-</apex:component>

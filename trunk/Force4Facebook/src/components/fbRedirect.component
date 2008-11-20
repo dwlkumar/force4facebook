@@ -1,9 +1,0 @@
-<apex:component controller="fbComponentController">
-<!-- Required attributes -->
-<apex:attribute name="url" type="String" assignTo="{!f_url1}" required="true"
-description="The type of request or invitation to generate. This corresponds to the word that is displayed on the home page. For example, 'event.'" />
-
-<apex:outputText value="{!fbRedirectTag}" escape="false"/>
-<apex:componentBody />
-<apex:outputText value="{!fbRedirectTagEnd}" escape="false"/>
-</apex:component>

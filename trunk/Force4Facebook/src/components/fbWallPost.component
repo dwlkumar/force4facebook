@@ -1,8 +1,0 @@
-<apex:component controller="fbComponentController"> 
-<apex:attribute name="uid" type="String" assignTo="{!f_uid2}" description="The id of the user to display" /> 
-<apex:attribute name="t" type="String" assignTo="{!f_t}" description="The id of the user to display" /> 
-
-<apex:outputText value="{!fbWallPostTag}" escape="false" /> 
-<apex:componentBody /> 
-<apex:outputText value="{!fbWallPostTagEnd}" escape="false" /> 
-</apex:component>

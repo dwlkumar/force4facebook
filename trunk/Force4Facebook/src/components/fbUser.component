@@ -1,7 +1,0 @@
-<apex:component controller="fbComponentController"> 
-<apex:attribute name="uid" type="String" assignTo="{!f_uid1}" description="The id of the user to display" /> 
-
-<apex:outputText value="{!fbUserTag}" escape="false" /> 
-<apex:componentBody /> 
-<apex:outputText value="{!fbUserTagEnd}" escape="false"/> 
-</apex:component>

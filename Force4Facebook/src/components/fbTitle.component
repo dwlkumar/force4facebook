@@ -1,7 +1,0 @@
-<apex:component controller="fbComponentController"> 
-
-<apex:outputText value="{!fbTitleTag}" escape="false"/>
-<apex:componentBody />
-<apex:outputText value="{!fbTitleTagEnd}" escape="false"/>
-
-</apex:component>

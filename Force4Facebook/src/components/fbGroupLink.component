@@ -1,8 +1,0 @@
-<apex:component controller="fbComponentController"> 
-<apex:attribute name="gid" type="String" assignTo="{!f_gid}" required="true" description="Friend user id." /> 
-<!-- Optional attributes --> 
-
-<apex:outputText value="{!fbGroupLinkTag}" escape="false"/> 
-<apex:componentBody /> 
-<apex:outputText value="{!fbGroupLinkTagEnd}" escape="false"/> 
-</apex:component>

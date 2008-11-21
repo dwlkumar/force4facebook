@@ -34,7 +34,6 @@
         <members>Contact</members>
         <members>Contract</members>
         <members>Event</members>
-        <members>Idea</members>
         <members>Lead</members>
         <members>Opportunity</members>
         <members>OpportunityLineItem</members>

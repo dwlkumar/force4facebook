@@ -8,14 +8,6 @@
       <apex:outputText value="{!userInfo.aboutMe}" /><br/>
       <apex:image value="{!userInfo.pic}" />
   </apex:outputPanel>
-<!--  <apex:repeat value="{!friends}" var="f">
-      <br/>
-      <c:fbName uid="{!f}" firstnameonly="false" />&nbsp;&nbsp;&nbsp;
-      <apex:commandLink value="Get Info" action="{!getUserInfo}" id="getInfoLink" rerender="uinfo">
-          <apex:param name="fuid" value="{!f}"/>
-      </apex:commandLink>
-    <c:fbWallPost uid="{!f}" />
-  </apex:repeat> -->
       <apex:pageBlock >
           <apex:pageBlockTable value="{!myEvents}" var="me">
               <apex:column >

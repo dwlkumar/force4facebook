@@ -12,7 +12,7 @@
 <apex:form > 
  
 <apex:outputPanel layout="block" style="display: none" id="login">
-	<c:fbLoginButton ></c:fbLoginButton> 
+	<fb:login-button />
 </apex:outputPanel>
 
 <apex:outputPanel layout="block" style="display: none" id="wrapper" >

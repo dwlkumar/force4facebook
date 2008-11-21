@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Profile xmlns="http://soap.sforce.com/2006/04/metadata">
-    <applicationVisibilities>
-        <application>Force_com</application>
-        <default>true</default>
-        <visible>true</visible>
-    </applicationVisibilities>
-    <classAccesses>
-        <apexClass>ChangePasswordController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
     <classAccesses>
         <apexClass>FBTemplateController</apexClass>
         <enabled>true</enabled>
@@ -110,10 +101,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>FacebookNetwork</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>FacebookPageComponentController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -139,10 +126,6 @@
     </classAccesses>
     <classAccesses>
         <apexClass>FacebookUtils</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>ForgotPasswordController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -174,18 +157,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>SiteLoginController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>SiteRegisterController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>TEGenController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>UrlBuilder</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -195,10 +166,6 @@
     </classAccesses>
     <classAccesses>
         <apexClass>fbComponentController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>startHereController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <fieldLevelSecurities>
@@ -880,10 +847,6 @@
     </fieldLevelSecurities>
     <fieldLevelSecurities>
         <editable>true</editable>
-        <field>Idea.Status</field>
-    </fieldLevelSecurities>
-    <fieldLevelSecurities>
-        <editable>true</editable>
         <field>Lead.Address</field>
     </fieldLevelSecurities>
     <fieldLevelSecurities>
@@ -973,6 +936,10 @@
     <fieldLevelSecurities>
         <editable>true</editable>
         <field>Lead.Website</field>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>MyObject__c.MyField__c</field>
     </fieldLevelSecurities>
     <fieldLevelSecurities>
         <editable>true</editable>
@@ -1139,10 +1106,10 @@
         <layout>FacebookApp__c-Facebook App Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Idea-Idea Layout</layout>
+        <layout>Lead-Lead Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Lead-Lead Layout</layout>
+        <layout>MyObject__c-MyObject Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Opportunity-Opportunity Layout</layout>
@@ -1223,14 +1190,14 @@
         <allowDelete>true</allowDelete>
         <allowEdit>true</allowEdit>
         <allowRead>true</allowRead>
-        <object>Idea</object>
+        <object>Lead</object>
     </objectPermissions>
     <objectPermissions>
         <allowCreate>true</allowCreate>
         <allowDelete>true</allowDelete>
         <allowEdit>true</allowEdit>
         <allowRead>true</allowRead>
-        <object>Lead</object>
+        <object>MyObject__c</object>
     </objectPermissions>
     <objectPermissions>
         <allowCreate>true</allowCreate>
@@ -1253,22 +1220,6 @@
         <allowRead>true</allowRead>
         <object>Solution</object>
     </objectPermissions>
-    <pageAccesses>
-        <apexPage>BandwidthExceeded</apexPage>
-        <enabled>true</enabled>
-    </pageAccesses>
-    <pageAccesses>
-        <apexPage>ChangePassword</apexPage>
-        <enabled>true</enabled>
-    </pageAccesses>
-    <pageAccesses>
-        <apexPage>Exception</apexPage>
-        <enabled>true</enabled>
-    </pageAccesses>
-    <pageAccesses>
-        <apexPage>FBToolkit</apexPage>
-        <enabled>true</enabled>
-    </pageAccesses>
     <pageAccesses>
         <apexPage>FBToolkitPage</apexPage>
         <enabled>true</enabled>
@@ -1294,80 +1245,15 @@
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>
-        <apexPage>FileNotFound</apexPage>
-        <enabled>true</enabled>
-    </pageAccesses>
-    <pageAccesses>
-        <apexPage>ForgotPassword</apexPage>
-        <enabled>true</enabled>
-    </pageAccesses>
-    <pageAccesses>
-        <apexPage>ForgotPasswordConfirm</apexPage>
-        <enabled>true</enabled>
-    </pageAccesses>
-    <pageAccesses>
-        <apexPage>IdeasHome</apexPage>
-        <enabled>true</enabled>
-    </pageAccesses>
-    <pageAccesses>
-        <apexPage>InMaintenance</apexPage>
-        <enabled>true</enabled>
-    </pageAccesses>
-    <pageAccesses>
-        <apexPage>SiteLogin</apexPage>
-        <enabled>true</enabled>
-    </pageAccesses>
-    <pageAccesses>
-        <apexPage>SiteRegister</apexPage>
-        <enabled>true</enabled>
-    </pageAccesses>
-    <pageAccesses>
-        <apexPage>SiteRegisterConfirm</apexPage>
-        <enabled>true</enabled>
-    </pageAccesses>
-    <pageAccesses>
-        <apexPage>SiteTemplate</apexPage>
-        <enabled>true</enabled>
-    </pageAccesses>
-    <pageAccesses>
-        <apexPage>Start_Here</apexPage>
-        <enabled>true</enabled>
-    </pageAccesses>
-    <pageAccesses>
-        <apexPage>StdExceptionTemplate</apexPage>
-        <enabled>true</enabled>
-    </pageAccesses>
-    <pageAccesses>
-        <apexPage>Unauthorized</apexPage>
-        <enabled>true</enabled>
-    </pageAccesses>
-    <pageAccesses>
-        <apexPage>UnderConstruction</apexPage>
-        <enabled>true</enabled>
-    </pageAccesses>
-    <pageAccesses>
-        <apexPage>newtest</apexPage>
-        <enabled>true</enabled>
-    </pageAccesses>
-    <pageAccesses>
         <apexPage>xd_receiver</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
-    <recordTypeVisibilities>
-        <default>false</default>
-        <recordType>Idea.InternalIdeasIdeaRecordType</recordType>
-        <visible>false</visible>
-    </recordTypeVisibilities>
     <tabVisibilities>
         <tab>FacebookAppList__c</tab>
         <visibility>DefaultOn</visibility>
     </tabVisibilities>
     <tabVisibilities>
         <tab>FacebookApp__c</tab>
-        <visibility>DefaultOn</visibility>
-    </tabVisibilities>
-    <tabVisibilities>
-        <tab>Start_Here</tab>
         <visibility>DefaultOn</visibility>
     </tabVisibilities>
 </Profile>

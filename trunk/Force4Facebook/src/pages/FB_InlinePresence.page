@@ -1,11 +1,7 @@
 <apex:page showHeader="false" controller="FacebookPageComponentController" extensions="FB_InlinePresenceController" action="{!init}" >
-	<c:FacebookPage id="fbp" 
-					apiKey="1ddde354953f8a3d5d927868039cc50e" 
-					receiverPath="xd_receiver" 
-					redirectUrl="FB_InlinePresence"
-					displayStyle="none"
-					applicationSecret="9d7295233da156f42761758bc159063b"
-					>
+	<div xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://dev.live.com/contactscontrol">
+	<apex:composition template="FacebookTempate">
+		<apex:define name="body">
 
 <style>
 table {
@@ -13,6 +9,8 @@ table {
 	font-size: 10pt;
 }
 </style>
+	<div xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://dev.live.com/contactscontrol">
+
 	<table cellpadding="4px" >
 		<tr>
 			<td valign="top">
@@ -64,5 +62,8 @@ table {
 			</td>
 		</tr>
 	</table>
-	</c:FacebookPage>
+	</div>
+	</apex:define>
+	</apex:composition>
+	</div>
 </apex:page>

@@ -1,6 +1,7 @@
 <apex:page controller="FacebookTestPageController">
 	<apex:composition template="FacebookTempate">
 		<apex:define name="body">
+			<div xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://dev.live.com/contactscontrol">
 			<apex:outputPanel id="target">
 			hello world
 			<apex:outputPanel id="debugger" layout="block">
@@ -12,8 +13,9 @@
 			</apex:outputPanel>
 			<apex:commandButton value="Refresh" id="refreshButton" rerender="debugger" />
 			
-			<p>fbName tag: <c:fbName uid="{!fbc.FBUserId__c}" capitalize="true" shownetwork="true" /></p>
+			<p>fbName tag: <fb:name uid="{!fbc.FBUserId__c}" capitalize="true" shownetwork="true" /></p>
 			</apex:outputPanel>
+			</div>
 		</apex:define>
 	</apex:composition>
 </apex:page>

@@ -17,7 +17,6 @@
 
 <apex:outputPanel layout="block" style="display: none" id="wrapper" >
  	<apex:insert name="body"/>
- 	hey dude
 </apex:outputPanel>
 
 <apex:actionFunction name="sendSessionKey" action="{!registerUser}" oncomplete="javascript:FB.XFBML.Host.parseDomTree();" >

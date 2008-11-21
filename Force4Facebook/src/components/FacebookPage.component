@@ -7,10 +7,11 @@
 <script src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php" type="text/javascript"></script>
 
 <apex:form >
+<div xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://dev.live.com/contactscontrol">
 
 <apex:outputPanel layout="block" style="display: none" id="login">
 	<apex:outputText value="{!loginPrompt}" /><br/>
-	<c:fbLoginButton ></c:fbLoginButton> 
+	<fb:login-button ></fb:login-button> 
 </apex:outputPanel>
 
 <apex:outputPanel layout="block" style="display: none" id="wrapper">
@@ -81,6 +82,6 @@
 	
 	facebook_onload("false");
 </script>
+</div>
 </apex:form>
-<apex:includeScript value="{!$Resource.facebookPageComponent}" />
 </apex:component>

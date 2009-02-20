@@ -1,0 +1,14 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+
+Add your content here.
+
+<wiki:gadget url="http://google-code-project-hosting-gadgets.googlecode.com/svn/build/prod/issueupdates/gcIssueUpdates.xml&amp;up_projectName=&amp;synd=open&amp;w=320&amp;h=200&amp;title=__UP_force4facebook__+issue+updates&amp;border=%23ffffff%7C3px%2C1px+solid+%23999999&amp"></script>" height="200" border="0" /> 
+
+= Details =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages

@@ -2,4 +2,4 @@
 
 = Issues =
 
-<wiki:gadget url="http://google-code-project-hosting-gadgets.googlecode.com/svn/build/prod/issueupdates/gcIssueUpdates.xml" up_projectName="force4facebook" height="100%" border="0" /> 
+<wiki:gadget url="http://google-code-project-hosting-gadgets.googlecode.com/svn/build/prod/issueupdates/gcIssueUpdates.xml" up_projectName="force4facebook" height="100%" width="100%" border="0" /> 

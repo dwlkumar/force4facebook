@@ -1,4 +1,7 @@
 public class FacebookSession {
+	public class FacebookClientException extends Exception {}
+	
+    public static final List<String> RSVP_TYPES = new List<String> { 'attending', 'unsure', 'declined', 'not_replied' };
     
     private FacebookClient  fbClient;
     private long            loggedInUserId  = 0;
@@ -38,37 +41,48 @@ public class FacebookSession {
     public String getLoginPage() {
         return fbClient.openLoginPage();
     }
-    public List<Event> getEvents( Long userId, List<Long> eventIds, Long startTime, Long endTime, String rsvpStatus ) //throws FacebookClientException
+    public List<FacebookEvent> getEvents( Long userId, List<Long> eventIds, Long startTime, Long endTime, String rsvpStatus ) //throws FacebookClientException
     {
         List<Object> params = new List<Object>();
         params.add('uid');
         params.add(String.valueOf(userId));
-        //params.add('eids');
-        //params.add(eventIds);
+        params.add('eids');
+        params.add(FacebookUtils.listToString(eventIds));
         params.add('start_time');
         params.add(String.valueOf(startTime));
         params.add('end_time');
         params.add(String.valueOf(endTime));
         params.add('rsvp_status'); 
         params.add(String.valueOf(rsvpStatus)); 
-        String resp = fbClient.callMethod( new FaceBookMethod(FaceBookMethod.Events_GET, ''), params);
-        List<Event> result = new List<Event>();
+        String resp = fbClient.callMethod( new FaceBookMethod(FaceBookMethod.Events_GET, 'XML'), params);
+        List<FacebookEvent> result = new List<FacebookEvent>();
+        XMLDom r = new XMLDom(resp);
+        List<XMLDom.Element> events = r.getElementsByTagName('event');
+        for (XMLDom.Element event : events) {
+            System.debug(LoggingLevel.INFO, 'Adding an event...');
+            result.add(new FacebookEvent(event));
+        }
         return result; 
         // "uid", userId, "eids", eventIds,     "start_time", startTime, "end_time", endTime, "rsvp_status", rsvpStatus.toString() ) );
     }
  
-    public List<Event> getEvents( List<String> eventIds ) //throws FacebookClientException
+    public List<FacebookEvent> getEvents( List<Long> eventIds ) //throws FacebookClientException
     {
-        String resp = fbClient.callMethod( new FaceBookMethod(FaceBookMethod.Events_GET, ''), 'eids', eventIds );
-        List<Event> result = new List<Event>();
+        String resp = fbClient.callMethod( new FaceBookMethod(FaceBookMethod.Events_GET, 'XML'), new List<String> { 'eids', FacebookUtils.listToString(eventIds) });
+        List<FacebookEvent> result = new List<FacebookEvent>();
+        System.debug('Get event responded '+resp);
+        XMLDom r = new XMLDom(resp);
+        List<XMLDom.Element> events = r.getElementsByTagName('event');
+        for (XMLDom.Element event : events) {
+            result.add(new FacebookEvent(event));
+        }
         return result; 
     }
 
-    public Event getEvent( Long eventId ) //throws FacebookClientException
+    public FacebookEvent getEvent( Long eventId ) //throws FacebookClientException
     {
-        List<String> eids = new List<String>();
-        eids.add(String.valueOf(eventId));
-        return getEvents( eids )[0];
+    	List<FacebookEvent> events = getEvents( new List<Long>{ eventId } ); 
+        return (events != null && events.size()>0)?events[0]:null;
     }
     
     public String registerTemplateBundle(String oneLineStoryTemplates, String shortStoryTemplates) {
@@ -89,12 +103,10 @@ public class FacebookSession {
     public List<FacebookEvent> getEvents() //throws FacebookClientException
     { 
         String resp = fbClient.callMethod( new FaceBookMethod(FaceBookMethod.Events_GET, 'XML') );
-        System.debug(LoggingLevel.INFO, '\n\nGetEvents:\n' + resp);
         List<FacebookEvent> result = new List<FacebookEvent>();
         XMLDom r = new XMLDom(resp);
         List<XMLDom.Element> events = r.getElementsByTagName('event');
         for (XMLDom.Element event : events) {
-            System.debug(LoggingLevel.INFO, 'Adding an event...');
             result.add(new FacebookEvent(event));
         }
         return result;
@@ -118,6 +130,7 @@ public class FacebookSession {
         System.debug(LoggingLevel.INFO, '\n\nGetFriends:\n' + resp);
         List<String> result = new List<String>();
         XMLDom r = new XMLDom(resp);
+        checkResponse(r.root);
         List<XMLDom.Element> friends = r.getElementsByTagName('uid');
         for (XMLDom.Element friend : friends) {
             System.debug(LoggingLevel.INFO, 'Adding an friend...');
@@ -148,7 +161,19 @@ public class FacebookSession {
         return parseQueryResponse(r.root);
     }
 
+	public static void checkResponse(XMLDom.Element root) {
+    	System.debug('Response is ' + root.nodeName);
+        if ( root.childNodes[0].nodeName.equals('error_response') )
+        {
+        	String error_code = root.childNodes[0].getElementByTagName('error_code').nodeValue;
+        	String error_message = root.childNodes[0].getElementByTagName('error_msg').nodeValue;
+        	
+        	throw new FacebookClientException(error_code + ': ' + error_message);
+        }
+	}
+	
     private List<IFacebookQueryResult> parseQueryResponse(XMLDom.Element root) {
+    	checkResponse(root);
         List<IFacebookQueryResult> results = new List<IFacebookQueryResult>();
         List<XMLDom.Element> items = root.childNodes[0].childNodes;
         for (XMLDom.Element item : items) {
@@ -186,18 +211,30 @@ public class FacebookSession {
         return result;
     }
         
-    // TODO - implement
-    public List<String> createEvent() {
-        String resp = fbClient.callMethod( new FacebookMethod(FacebookMethod.Events_CREATE, 'XML') );
-        System.debug(LoggingLevel.INFO, '\n\nGetFriends:\n' + resp);
+    public Long createEvent(FacebookEvent event) {
+    	JSONObject eventJsonObject = event.toJSON(true);
+        String resp = fbClient.callMethod( new FacebookMethod(FacebookMethod.Events_CREATE, 'XML'), new List<String> { 'event_info', eventJsonObject.dump() } );
         List<String> result = new List<String>();
         XMLDom r = new XMLDom(resp);
-        List<XMLDom.Element> friends = r.getElementsByTagName('uid');
-        for (XMLDom.Element friend : friends) {
-            System.debug(LoggingLevel.INFO, 'Adding an friend...');
-            result.add(friend.nodeValue);
-        }
-        return result;
+        checkResponse(r.root);
+        return Long.valueOf(r.root.getValue('events_create_response'));
+    }
+
+    public Integer editEvent(Long eid, FacebookEvent event) {
+    	JSONObject eventJsonObject = event.toJSON(true);
+        String resp = fbClient.callMethod( new FacebookMethod(FacebookMethod.Events_EDIT, 'XML'), new List<String> { 'eid', String.valueOf(eid), 'event_info', eventJsonObject.dump() } );
+        List<String> result = new List<String>();
+        XMLDom r = new XMLDom(resp);
+        checkResponse(r.root);
+        return Integer.valueOf(r.root.getValue('events_edit_response'));
+    }
+
+    public Integer cancelEvent(Long eid) {
+        String resp = fbClient.callMethod( new FacebookMethod(FacebookMethod.Events_CANCEL, 'XML'), new List<String> { 'eid', String.valueOf(eid) } );
+        List<String> result = new List<String>();
+        XMLDom r = new XMLDom(resp);
+        checkResponse(r.root);
+        return Integer.valueOf(r.root.getValue('events_cancel_response'));
     }
      
     public List<String> setInfo(String title, List<FacebookInfoSection> itemInfo, String userId, String pageType) {
@@ -214,6 +251,7 @@ public class FacebookSession {
         System.debug(LoggingLevel.INFO, '\n\nSet Info:\n' + resp);
         List<String> result = new List<String>();
         XMLDom r = new XMLDom(resp);
+        checkResponse(r.root);
         return null;
     }
 
@@ -231,6 +269,7 @@ public class FacebookSession {
         System.debug(LoggingLevel.INFO, '\n\nSet Info Options:\n' + resp);
         List<String> result = new List<String>();
         XMLDom r = new XMLDom(resp);
+        checkResponse(r.root);
         return null;
     }
 
@@ -243,6 +282,7 @@ public class FacebookSession {
         System.debug(LoggingLevel.INFO, '\n\nSet FBML:\n' + resp);
         List<String> result = new List<String>();
         XMLDom r = new XMLDom(resp);
+        checkResponse(r.root);
         return null;
     }
 
@@ -265,6 +305,8 @@ public class FacebookSession {
         System.debug(LoggingLevel.INFO, '\n\nGet User Info:\n' + resp);
         List<FacebookUserInfo> result = new List<FacebookUserInfo>();
         XMLDom r = new XMLDom(resp);
+        checkResponse(r.root);
+        
         List<XMLDom.Element> infos = r.getElementsByTagName('user');
         for (XMLDom.Element info : infos) {
             System.debug(LoggingLevel.INFO, 'Getting info...');
@@ -273,9 +315,34 @@ public class FacebookSession {
         return result;
     }
     
-    /*public EventMembersByStatus getEventMembers( long eventId ) //throws FacebookClientException
+    public List<FacebookEventMember> getEventMembers( long eventId ) //throws FacebookClientException
     {
-        return ( fbClient.callMethod( Events.GET_MEMBERS, 'eid', eventId ) );
-    }*/
+        String resp = fbClient.callMethod( new FacebookMethod(FacebookMethod.Events_GET_MEMBERS, 'XML'), new List<String> { 'eid', String.valueOf(eventId) } );
+        List<FacebookEventMember> result = new List<FacebookEventMember>();
+        System.debug(resp);
+        XMLDom r = new XMLDom(resp);
+        checkResponse(r.root);
+        
+        for ( String rsvpType: RSVP_TYPES )
+        {
+        	XMLDom.Element rsvpGroup = r.getElementByTagName(rsvpType);
+        	
+        	if ( rsvpGroup != null )
+        	{
+        		List<XMLDom.Element> members = rsvpGroup.getElementsByTagName('uid');
+        		
+		        for (XMLDom.Element member : members) {
+		        	FacebookEventMember eventMember = new FacebookEventMember();
+		        	eventMember.rsvp_status = rsvpType;
+		        	eventMember.eid = String.valueOf(eventId);
+		        	eventMember.uid = member.textContent();
+		        	System.debug('Adding attendee '+member.textContent()+' for event ' + eventId + ' as ' + rsvpType);
+		            result.add(eventMember);
+		        }
+        	}
+        }
+        
+        return result;
+    }
 
 }

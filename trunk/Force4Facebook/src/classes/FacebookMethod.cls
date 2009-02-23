@@ -45,8 +45,9 @@ public class FacebookMethod {
     public static String Events_GET = 'facebook.events.get';
     public static String Events_GET_MEMBERS = 'facebook.events.getMembers';
     public static String Events_CREATE = 'facebook.events.create';
+    public static String Events_EDIT = 'facebook.events.edit';
+    public static String Events_CANCEL = 'facebook.events.cancel';
     
-
     public static String  Friends_GET             = 'facebook.friends.get';
     public static String  Friends_GET_APP_USERS   = 'facebook.friends.getAppUsers';
     public static String  Friends_GET_REQUESTS    = 'facebook.friends.getRequests';

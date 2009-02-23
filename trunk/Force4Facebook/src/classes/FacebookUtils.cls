@@ -37,6 +37,15 @@ public class FacebookUtils {
 		}
 	}
     
+    public static String listToString(List<Long> longList)
+    {
+    	String ids = '';
+        for (Long id : longList) {
+            ids += id + ',';
+        }
+        return ids.substring(0, ids.length() - 1);
+    }
+    
     public static String mapOut(Map<String, String> theMap) {
     	String out = '';
     	for (String key : theMap.keySet()) {

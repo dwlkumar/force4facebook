@@ -162,7 +162,6 @@ public class FacebookSession {
     }
 
 	public static void checkResponse(XMLDom.Element root) {
-    	System.debug('Response is ' + root.nodeName);
         if ( root.childNodes[0].nodeName.equals('error_response') )
         {
         	String error_code = root.childNodes[0].getElementByTagName('error_code').nodeValue;
@@ -286,6 +285,14 @@ public class FacebookSession {
         return null;
     }
 
+	public String getLoggedInUser()
+	{
+		String resp = fbClient.callMethod( new FacebookMethod(FacebookMethod.Users_GET_LOGGED_IN_USER, 'XML'), new List<String> {} );
+		XMLDom r = new XMLDom(resp);
+		checkResponse(r.root);
+		return r.root.getValue('users_getLoggedInUser_response');
+	}
+	
     public List<FacebookUserInfo> getUserInfo(List<String> uids, List<String> fieldNames) {
         List<String> params = new List<String>();
         params.add('uids');

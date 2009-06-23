@@ -1,0 +1,11 @@
+<apex:page showHeader="false" id="FacebookSiteTemplate">
+  <apex:insert name="header">
+    <c:FacebookSiteHeader />
+    <hr/>
+  </apex:insert>
+  <apex:insert name="body"/>
+  <apex:insert name="footer">
+    <hr/>
+    <c:FacebookSiteFooter />
+  </apex:insert>
+</apex:page>

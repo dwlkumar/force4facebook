@@ -1,0 +1,44 @@
+<apex:component id="headerComponent">
+  <apex:panelGrid cellpadding="0" cellspacing="0" width="98%" border="0" columns="2" style="text-align: left;" id="theHeader">
+    <apex:image url="{!$Site.Prefix}{!$Label.site.img_path}/force_logo.gif" style="align: left;" alt="Salesforce" width="233" height="55" title="Salesforce"/>
+    <apex:panelGrid cellpadding="0" cellspacing="0" width="100%" border="0" columns="1" style="text-align: right;" id="Links">
+	  <apex:panelGroup rendered="{!AND(ISPICKVAL($User.UserType,'Guest'), $Site.LoginEnabled)}">
+		<apex:outputLink value="{!$Page.SiteLogin}">{!$Label.site.login_button}</apex:outputLink>
+		<apex:outputText value=" | "/>
+		<apex:outputLink value="{!$Page.ForgotPassword}">{!$Label.site.forgot_your_password_q}</apex:outputLink>
+		<apex:outputText value=" | " rendered="{!$Site.RegistrationEnabled}"/>
+		<apex:outputLink value="{!$Page.SiteRegister}" rendered="{!$Site.RegistrationEnabled}">{!$Label.site.new_user_q}</apex:outputLink>
+	  </apex:panelGroup>
+			<apex:outputPanel rendered="{!NOT(ISPICKVAL($User.UserType,'Guest'))}">
+				<a href="" onclick="loadnred();" style="cursor: pointer;"> 
+					{!$Label.site.logout}
+				</a>
+			</apex:outputPanel>
+    </apex:panelGrid>
+  </apex:panelGrid>
+<script>
+	
+		function addLoadEvent(func) {
+			var oldonload = window.onload;
+			if (typeof window.onload != 'function') {
+				window.onload = func;
+			} else {
+				window.onload = function() {
+					if (oldonload) {
+						oldonload();
+					}
+					func();
+				}
+			}
+		} 	
+		function initFacebook() {
+			FB.init("b1d078589d16d4cfffb0d4f282786091", "/xd_receiver");
+		} 
+	  	
+	  	function loadnred() {
+	  		FB.Connect.logoutAndRedirect("{!SUBSTITUTE($Site.CurrentSiteUrl, 'http:', 'https:')}" + 
+		  				"secur/logout.jsp");
+			return true;
+		}
+		addLoadEvent(initFacebook);
+	</script></apex:component>

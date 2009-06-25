@@ -1,11 +1,13 @@
 <apex:page showHeader="false" id="FacebookSiteTemplate">
-  <apex:insert name="header">
-    <c:FacebookSiteHeader />
-    <hr/>
-  </apex:insert>
-  <apex:insert name="body"/>
-  <apex:insert name="footer">
-    <hr/>
-    <c:FacebookSiteFooter />
-  </apex:insert>
+	<apex:outputPanel layout="block" style="width: 700px; margin-left: auto; margin-right: auto;">
+		<apex:insert name="header">
+			<c:MyFacebookSiteHeader />
+			<hr/>
+		</apex:insert>
+		<apex:insert name="body"/>
+		<apex:insert name="footer">
+			<hr/>
+			<c:MyFacebookSiteFooter />
+		</apex:insert>
+	</apex:outputPanel>
 </apex:page>

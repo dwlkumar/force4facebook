@@ -1,0 +1,27 @@
+<apex:page showHeader="false" controller="MyProtectedPageController" >
+	<apex:composition template="FacebookSiteTemplate">
+		<apex:define name="body">
+			<apex:form >
+				<c:FacebookConnect2 hideUI="true" 
+					myController="{!this}"
+					whereAmI="MyProtectedPage" 
+					autoCheckConnection="yes"
+					createPortalUser="false"
+					loginPage="SiteLogin"
+					loginMessage="You can now use Facebook to login to this site!"
+					loginFooterMessage="You can use this area to provide some fine print for you use if you so choose." />
+					 
+					<apex:commandLink action="{!URLFOR('/')}">
+						<apex:outputText value="Home" />
+					</apex:commandLink>
+					<hr />
+					<apex:outputText value="Current User's Facebook Id: " />
+					<apex:outputText value="{!currentUID}" />
+				
+					<fb:comments xmlns:fb="http://www.facebook.com/2008/fbml"></fb:comments>
+
+			</apex:form>
+			
+		</apex:define>
+	</apex:composition>
+</apex:page>

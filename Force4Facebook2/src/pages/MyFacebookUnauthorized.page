@@ -23,7 +23,7 @@
                 </apex:panelGroup>
                 <apex:outputText value=""/>
                 <apex:outputText value=""/>
-                <c:SiteLogin rendered="{!$Site.LoginEnabled}" id="siteLogin"/>
+                <c:MyFacebookSiteLogin rendered="{!$Site.LoginEnabled}" id="siteLogin"/>
                 <br/>
               </apex:panelGrid> 
             </apex:outputPanel>

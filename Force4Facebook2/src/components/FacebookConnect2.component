@@ -1,4 +1,4 @@
-<apex:component controller="FBCAuthenticator" allowDML="true">
+<apex:component controller="FBCAuthenticator" allowDML="true" selfClosing="true">
 	
 	<apex:attribute name="myController" type="AbsFacebookController" assignTo="{!clientController}" required="false" description="" />
 	<apex:attribute name="LoginTitle" assignTo="{!loginTitle}" default="Login using Facebook!" type="String" required="false" description="The title for the dialog to login using Facebook." />
@@ -9,12 +9,21 @@
 	<apex:attribute name="Debug" type="String" required="false" default="off" description="" />
 	<apex:attribute name="autoCheckConnection" type="String" required="false" default="no" description="" />
 	<apex:attribute name="hideUI" type="Boolean" required="false" default="false" description="" />
+	<apex:attribute name="whereAmI" type="String" required="true" description="" assignTo="{!whereAmI}" />
+	<apex:attribute name="loginPage" type="String" required="true" description="" />
 	
 	<apex:includescript value="https://www.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php" />
+
+	<div xmlns:fb="http://www.facebook.com/2008/fbml" >
 	
-	<script>
-	
+		<script>
+		var connectionState;
 		var apiKey = "f0bb630f21df10fe16546a299d7f8d6b";
+		/*var connectionHandler = {
+			"reloadIfSessionStateChanged" : false,
+			"ifUserConnected":  connected,
+			"ifUserNotConnected": unconnected
+		}*/
 		
 		function myAlert(msg) {
 			if ("{!Debug}" != "off") {
@@ -44,22 +53,24 @@
 			addLoadEvent(checkMyConnection);
 		}
 
-		FB.init(apiKey, "/xd_receiver", connected, unconnected); 
+		FB.init(apiKey, "/xd_receiver", { "ifUserConnected": connected, "ifUserNotConnected": unconnected, "reloadIfSessionStateChanged":false}); 
 		var conn, unconn;
 		
 		function checkMyConnection(arg1, arg2) {
+			myAlert("Check My Connection");
 			conn =  arg1;
 			unconn = arg2;
 			if ("{!NOT(isPortalUser)}" == "true") {
-				FB.init(apiKey, "/xd_receiver"); 
-				FB.Connect.ifUserConnected(connected, unconnected);
+				//FB.init(apiKey, "/xd_receiver", {"reloadIfSessionStateChanged":false}); 
+				//FB.Connect.ifUserConnected(connected, unconnected);
 			} else {
-				FB.init(apiKey, "/xd_receiver"); 
-				FB.Connect.ifUserConnected(connected, unconnected);
+				//FB.init(apiKey, "/xd_receiver", {"reloadIfSessionStateChanged":false});
+				//FB.Connect.ifUserConnected(connected, unconnected);
 			}
 		}
 		
 		function update_user() {
+			myAlert("Update User");
 			var api = FB.Facebook.apiClient;
 			var session = api.get_session();
 
@@ -76,11 +87,22 @@
 		}
 		 	
 		function connected() {
-			document.getElementById("checking_label").innerHTML = "Connecting Using Facebook Connect";
-			window.setTimeout(showConnectedUI, 2000);
+			if (connectionState != "connected") {
+				if (connectionState == "unconnected") {
+					myAlert("Just logged in to facebook, if we are a portal user, do nothing or else update user.");
+				} else {
+					myAlert("State change\nFrom: " + connectionState + "\nTo: connected");
+				}
+			}
+			connectionState = "connected";
+			if (document.getElementById("checking_label")) {
+				document.getElementById("checking_label").innerHTML = "Connecting Using Facebook Connect";
+			}
+			window.setTimeout(showConnectedUI, 200);
 		}
 		
 		function showConnectedUI() {
+			myAlert("showConnectedUI");
 			var api = FB.Facebook.apiClient;
 			var session = api.get_session();
 
@@ -103,13 +125,32 @@
 			}
 		}
 		function unconnected() {
-			//alert("unconnected");
-			window.setTimeout(showUnconnectedUI, 2000);
+			if (connectionState != "unconnected") {
+				if (connectionState == "connected") {
+					document.location.href = "{!$Site.Prefix}/secur/logout.jsp";
+				} else {
+					if ("{!isPortalUser}" == "true") {
+						document.location.href = "{!$Site.Prefix}/{!loginPage}";
+					}
+					//myAlert("State change\nFrom: " + connectionState + "\nTo: not connected");
+				}
+			}
+			connectionState = "unconnected";
+			window.setTimeout(showUnconnectedUI, 200);
 		}
 		function showUnconnectedUI() {
-			document.getElementById("checking").style.display = "none";
-			document.getElementById("fbconnect").style.display = "block";
-			FB.XFBML.Host.parseDomTree();
+			myAlert("showUnconnectedUI");
+			if (document.getElementById("checking")) {
+				document.getElementById("checking").style.display = "none";
+			}
+			if (document.getElementById("fbconnect")) {
+				document.getElementById("fbconnect").style.display = "block";
+			}
+			
+			//if ("{!autoCheckConnection}" != "no") {
+			if (FB) {
+				FB.XFBML.Host.parseDomTree();
+			}
 			if (unconn) { unconn(); } 
 		}
 		function askPerms() {
@@ -124,44 +165,34 @@
 			myAlert("update perms");
 			update_user();
 		}
-	</script>
-	<style>
-		.pgridCol {
-			width: 326px;
-			margin-left: auto;
-			margin-right: auto;
-			text-align: center;
-		}
-	</style>
+		</script>
 	
-	
-	<apex:actionRegion >
-		<apex:outputPanel id="areaone">
-			<apex:actionFunction name="registerUser" action="{!registerUser}" oncomplete="redirectLogin();" >
-				<apex:param name="isLoggedIn" assignTo="{!isLoggedIn}" value=""/>
-				<apex:param name="expires" assignTo="{!expires}" value=""/>
-				<apex:param name="secret" assignTo="{!secret}" value=""/>
-				<apex:param name="sessionKey" assignTo="{!sessionKey}" value=""/>
-				<apex:param name="sig" assignTo="{!sig}" value=""/>
-				<apex:param name="uid" assignTo="{!uid}" value=""/>
-				<apex:param name="APIKey" assignTo="{!APIKey}" value="" />
-			</apex:actionFunction>
-		</apex:outputPanel>
-	</apex:actionRegion>
+		<apex:actionRegion >
+			<apex:outputPanel id="areaone">
+				<apex:actionFunction name="registerUser" action="{!registerUser}" oncomplete="redirectLogin();" >
+					<apex:param name="isLoggedIn" assignTo="{!isLoggedIn}" value=""/>
+					<apex:param name="expires" assignTo="{!expires}" value=""/>
+					<apex:param name="secret" assignTo="{!secret}" value=""/>
+					<apex:param name="sessionKey" assignTo="{!sessionKey}" value=""/>
+					<apex:param name="sig" assignTo="{!sig}" value=""/>
+					<apex:param name="uid" assignTo="{!uid}" value=""/>
+					<apex:param name="APIKey" assignTo="{!APIKey}" value="" />
+				</apex:actionFunction>
+			</apex:outputPanel>
+		</apex:actionRegion>
 
 
-	<div id="fb_conn_pan" style="width: 250px;display: {!IF(hideUI, 'none', 'block')};" >
-		<apex:outputPanel rendered="{!NOT(AND(isFacebookUser, isPortalUser))}">
-			<div class="hd">
-	    		<apex:outputText value="{!loginTitle}" />
-	  		</div>
-	  	</apex:outputPanel> 
-		<div class="bd">
-	    	<apex:pageBlock >
-	        	<apex:pageBlockSection columns="1">
-			    	<apex:panelGrid columns="1" >
-			      		<apex:panelGroup >
-			      			<div xmlns:fb="http://www.facebook.com/2008/fbml" >
+		<div id="fb_conn_pan" style="width: 250px; display: {!IF(hideUI, 'none', 'block')}" >
+			<apex:outputPanel rendered="{!NOT(AND(isFacebookUser, isPortalUser))}">
+				<div class="hd">
+		    		<apex:outputText value="{!loginTitle}" />
+		  		</div>
+		  	</apex:outputPanel> 
+			<div class="bd">
+		    	<apex:pageBlock >
+		        	<apex:pageBlockSection columns="1">
+				    	<apex:panelGrid columns="1" >
+				      		<apex:panelGroup >
 			      				<apex:outputPanel id="login">
 			      					<apex:outputPanel rendered="{!NOT(isPortalUser)}" >
 					      				<apex:outputText value="{!loginMessage}" style="font-family: verdana; font-size: bigger;" />
@@ -179,21 +210,20 @@
 										</apex:outputPanel>
 									</apex:outputPanel>
 								</apex:outputPanel>
-								<p />
-							</div>
-						</apex:panelGroup>
-			      	</apex:panelGrid>
-	            	<!--  <apex:inputField id="fName" value="{!newIdea.Title}" /> -->
-	          	</apex:pageBlockSection>
-			</apex:pageBlock>
+								<p /> 
+							</apex:panelGroup>
+				      	</apex:panelGrid>
+		          	</apex:pageBlockSection>
+				</apex:pageBlock>
+			</div>
+			<div class="ft" style="font-size: 10px;">
+				<apex:outputPanel >{!loginFooterMessage}</apex:outputPanel>
+			</div>
 		</div>
-		<div class="ft" style="font-size: 10px;">
-			<apex:outputPanel >{!loginFooterMessage}</apex:outputPanel>
-		</div>
-	</div>
-
-	<script>
-		FB.XFBML.Host.parseDomTree();
-	</script>
 	
+		<script>
+			FB.XFBML.Host.parseDomTree();
+		</script>
+		<apex:componentBody />
+	</div>
 </apex:component>

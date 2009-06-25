@@ -2,10 +2,17 @@ public abstract class AbsAuthenticator {
 
     protected String PORTAL_ACCOUNT_ID;
     protected String appSecret;
-
+	public String whereAmI { get; 
+		set {
+			whereAmI = value;
+			System.debug('\n\nAbsAuthenticator from ' + whereAmI + '\n\n');
+		 }
+	}
+	
 	public Boolean createPortalUser { get; set; }
 	public AbsFacebookController clientController { get; 
 		set {
+			System.debug('\n\nSetting client controller.\n\n');
 			if (value != null) {
 				clientController = value;
 				clientController.setAuthenticator(this);
@@ -18,6 +25,7 @@ public abstract class AbsAuthenticator {
 	}
 	
     public AbsAuthenticator() {
+		System.debug('\n\nI say I am in the constructor.');
     }
     
     

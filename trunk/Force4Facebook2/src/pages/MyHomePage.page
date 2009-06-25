@@ -1,0 +1,20 @@
+<apex:page showHeader="false">
+	<apex:composition template="FacebookSiteTemplate">
+		<apex:define name="body">
+			<apex:outputText value="This is my new site's home page" />
+			<br />
+			<apex:form forceSSL="true">
+				<c:FacebookConnect2 hideUI="true" 
+					autoCheckConnection="no"
+					createPortalUser="false" 
+					whereAmI="MyHomePage"
+					loginPage="SiteLogin"
+					loginMessage="You can now use Facebook to login to this site!"
+					loginFooterMessage="You can use this area to provide some fine print for you use if you so choose." />
+				<apex:commandLink action="{!URLFOR($Page.MyProtectedPage)}">
+					<apex:outputText value="Go to Protected Content" />
+				</apex:commandLink>
+			</apex:form>
+		</apex:define>
+	</apex:composition>
+</apex:page>

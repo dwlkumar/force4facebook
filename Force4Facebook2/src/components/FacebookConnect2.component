@@ -1,15 +1,20 @@
 <apex:component controller="FBCAuthenticator" allowDML="true" selfClosing="true">
 	
+	<!-- MyController should always be set to {!this} on the page.  For this to work you need to make your controller
+		be an extension of AbsFacebookController. -->
 	<apex:attribute name="myController" type="AbsFacebookController" assignTo="{!clientController}" required="false" description="" />
+	<!-- Title shown on the Facebook Connect dialog created at the bottom of this page -->
 	<apex:attribute name="LoginTitle" assignTo="{!loginTitle}" default="Login using Facebook!" type="String" required="false" description="The title for the dialog to login using Facebook." />
+	<!--  This is an additional message displayed to the user on the login dialog. -->
 	<apex:attribute name="LoginMessage" assignTo="{!loginMessage}" default="You can use Facebook now to register on this site." type="String" required="false" description="Simple message shown on the dialog to explain to users." />
+	<!-- The footer message for the login dialog. -->
 	<apex:attribute name="LoginFooterMessage" assignTo="{!loginFooterMessage}" type="String" required="false" description="Might be a terms of use (short) or other fine print." />
-	<apex:attribute name="CreatePortalUser" assignTo="{!createPortalUser}" type="Boolean" required="false" default="true" description="" />
-	<apex:attribute name="RedirectAfterLogin" assignTo="{!loginRedirect}" type="String" required="false" description="" />
+	<!-- Setting this to on will spam you with alerts. -->
 	<apex:attribute name="Debug" type="String" required="false" default="off" description="" />
+	<!-- When set to yes will attempt to login automatically. -->
 	<apex:attribute name="autoCheckConnection" type="String" required="false" default="no" description="" />
-	<apex:attribute name="hideUI" type="Boolean" required="false" default="false" description="" />
-	<apex:attribute name="whereAmI" type="String" required="true" description="" assignTo="{!whereAmI}" />
+	<!-- Most pages don't need the UI, this is how you turn it off. -->
+	<apex:attribute name="showUI" type="Boolean" required="false" default="false" description="" />
 	<apex:attribute name="loginPage" type="String" required="true" description="" />
 	
 	<apex:includescript value="https://www.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php" />
@@ -74,18 +79,26 @@
 			var api = FB.Facebook.apiClient;
 			var session = api.get_session();
 
-			/*myAlert("UPDATE_USER FUNCTION: Is Logged In: " + api._isLoggedIn + "\n" + 
+			myAlert("UPDATE_USER FUNCTION: Is Logged In: " + api._isLoggedIn + "\n" + 
 				"Expires: " + session.expires + "\n" + 
 				"Session Secret: " + session.secret + "\n" + 
 				"Session Key: " + session.session_key + "\n" + 
 				"Session Sig: " + session.sig + "\n" + 
 				"User Id: " + session.uid + "\n" + 
-				"API Key: " + api._apiKey);*/
-	
-			registerUser(api._isLoggedIn, session.expires, session.secret, 
-				session.session_key, session.sig, session.uid, api._apiKey);
+				"API Key: " + api._apiKey);
+				registerUser(api._isLoggedIn, 
+							session.expires, 
+							session.secret, 
+							session.session_key, 
+							session.sig, 
+							session.uid, 
+							api._apiKey);
 		}
-		 	
+		
+		function inFacebook() {
+			return document.location.href.indexOf('fb_sig_in_new_facebook') != -1;
+		}
+		
 		function connected() {
 			if (connectionState != "connected") {
 				if (connectionState == "unconnected") {
@@ -107,14 +120,16 @@
 			var session = api.get_session();
 
 			var isGuest = "{!ISPICKVAL($User.UserType, 'Guest')}";
-			/*myAlert("CONNECTED FUNCTION: Is Logged In: " + api._isLoggedIn + "\n" + 
+			myAlert("CONNECTED FUNCTION: Is Logged In: " + api._isLoggedIn + "\n" + 
 				"Expires: " + session.expires + "\n" + 
 				"Session Secret: " + session.secret + "\n" + 
 				"Session Key: " + session.session_key + "\n" + 
 				"Session Sig: " + session.sig + "\n" + 
 				"User Id: " + session.uid + "\n" + 
-				"API Key: " + api._apiKey);		*/	
-			/*myAlert("Is Guest: " + isGuest);*/
+				"API Key: " + api._apiKey);			
+			
+			myAlert("Is Guest: " + isGuest);
+			
 			if (isGuest == "true") {
 				update_user();
 			} else {
@@ -169,7 +184,7 @@
 	
 		<apex:actionRegion >
 			<apex:outputPanel id="areaone">
-				<apex:actionFunction name="registerUser" action="{!registerUser}" oncomplete="redirectLogin();" >
+				<apex:actionFunction name="registerUser" action="{!registerUser}" rerender="dude" >
 					<apex:param name="isLoggedIn" assignTo="{!isLoggedIn}" value=""/>
 					<apex:param name="expires" assignTo="{!expires}" value=""/>
 					<apex:param name="secret" assignTo="{!secret}" value=""/>
@@ -182,7 +197,7 @@
 		</apex:actionRegion>
 
 
-		<div id="fb_conn_pan" style="width: 250px; display: {!IF(hideUI, 'none', 'block')}" >
+		<div id="fb_conn_pan" style="width: 250px; display: {!IF(showUI, 'block', 'none')}" >
 			<apex:outputPanel rendered="{!NOT(AND(isFacebookUser, isPortalUser))}">
 				<div class="hd">
 		    		<apex:outputText value="{!loginTitle}" />

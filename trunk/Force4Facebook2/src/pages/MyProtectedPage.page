@@ -1,25 +1,42 @@
 <apex:page showHeader="false" controller="MyProtectedPageController" >
-	<apex:composition template="FacebookSiteTemplate">
+	<apex:composition template="MyFacebookSiteTemplate">
 		<apex:define name="body">
 			<apex:form >
-				<c:FacebookConnect2 hideUI="true" 
-					myController="{!this}"
-					whereAmI="MyProtectedPage" 
+				<c:FacebookConnect2 myController="{!this}"
 					autoCheckConnection="yes"
-					createPortalUser="false"
 					loginPage="SiteLogin"
 					loginMessage="You can now use Facebook to login to this site!"
 					loginFooterMessage="You can use this area to provide some fine print for you use if you so choose." />
 					 
-					<apex:commandLink action="{!URLFOR('/')}">
-						<apex:outputText value="Home" />
-					</apex:commandLink>
+					<apex:outputPanel style="font-size: 12pt" style="color: blue;" >
+						<apex:commandLink action="{!URLFOR('/')}{!params}" style="text-decoration: none;">
+							<apex:outputText value="Home " />
+						</apex:commandLink>
+						<apex:commandLink action="{!URLFOR('/MyOtherProtectedPage')}{!params}" style="text-decoration: none;">
+							<apex:outputText value="| Other Page" />
+						</apex:commandLink> 
+					</apex:outputPanel>
+					
 					<hr />
+					<apex:outputPanel style="font-size: 12pt" >
+						<h2>What happened?</h2>
+						<br/>
+						You got to this page because you used your Facebook credentials to execute a single sign on to a Customer Portal salesforce.com user.  When you logout you will be logged out of Facebook (for this browser session) as will as this site.
+						<br /><br />
+						<h2>What am I seeing below?</h2>
+						<br />
+						Below you are seeing comments entered by the Facebook users of this site.  The comments are specific to this page and are rendered and saved by Facebook. Go ahead, leave a comment!
+						<br/><br />Why not take a look at the next page?&nbsp;&nbsp;
+						<apex:commandLink action="{!URLFOR('/MyOtherProtectedPage')}{!params}" style="color: blue; text-decoration: none;">
+							<apex:outputText value="Next Page" />
+						</apex:commandLink> 
+						<br />
+					</apex:outputPanel>
 					<apex:outputText value="Current User's Facebook Id: " />
 					<apex:outputText value="{!currentUID}" />
 				
-					<fb:comments xmlns:fb="http://www.facebook.com/2008/fbml"></fb:comments>
-
+					<fb:comments xid="testPage" xmlns:fb="http://www.facebook.com/2008/fbml"></fb:comments>
+					 
 			</apex:form>
 			
 		</apex:define>

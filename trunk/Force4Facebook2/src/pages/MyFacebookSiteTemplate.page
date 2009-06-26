@@ -1,13 +1,24 @@
-<apex:page showHeader="false" id="FacebookSiteTemplate">
-	<apex:outputPanel layout="block" style="width: 700px; margin-left: auto; margin-right: auto;">
-		<apex:insert name="header">
-			<c:MyFacebookSiteHeader />
-			<hr/>
-		</apex:insert>
-		<apex:insert name="body"/>
+<apex:page showHeader="false" >
+<apex:styleSheet value="{!URLFOR($Resource.assets, 'assets/css/styles.css')}" />
+	<div id="fbfdc_wrap" >
+		<div id="fbfdc_header" style="padding-top: 30px;">
+			<apex:outputPanel layout="block" >
+				<apex:insert name="header">
+					<c:MyFacebookSiteHeader />
+					<hr/>
+				</apex:insert>
+			</apex:outputPanel>
+		</div>
+		<div id="fbfdc_main" class="clearfix">
+			<div style="height: 100%;">
+				<apex:insert name="body" />
+			</div
+		</div>
+	</div>
+	<div id="fbfdc_footer">
 		<apex:insert name="footer">
 			<hr/>
 			<c:MyFacebookSiteFooter />
 		</apex:insert>
-	</apex:outputPanel>
+	</div> 
 </apex:page>

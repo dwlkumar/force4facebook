@@ -1,13 +1,14 @@
-<apex:page showHeader="false" standardController="GFCUser__c" extensions="HomePageExtension" recordsetVar="myusers">
+<apex:page showHeader="false" standardController="GFCUser__c" extensions="MyHomePageExtension" recordsetVar="myusers">
 	<apex:composition template="MyFacebookSiteTemplate">
 		<apex:define name="body">
 			<style>
-			 ul li {
-	margin-left: 0;
-	padding: 3px 15px;
-	list-style: none;
-	display: inline;
-	}
+			 .fdiv {
+			 	float: left;
+			 	width: 60px;
+			 	margin-left: 15px;
+			 	margin-bottom: 15px;
+			}
+			.clearboth { clear: both; }
 			</style>
 			<script>
 				var apiKey = "f0bb630f21df10fe16546a299d7f8d6b";
@@ -42,15 +43,23 @@
 							Try it now!
 						</apex:commandLink>
 					</apex:outputPanel>
-				</center>
 				<apex:outputPanel >
-					<apex:dataList value="{!myusers}" var="mu" >
-							<apex:outputPanel style="max-width: 30px;">
+				<br /><br class="clearboth"/>
+				<hr />
+				<div style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; text-align: left; width: 100%; background-color: #E5E6E6;">
+				<span style="font-size: 12pt;">There are already <strong>{!userCount}</strong> people using this site!</span>
+				</div>
+				<hr />
+				<div style="width: 100%; margin-top: 25px;">
+					<apex:repeat value="{!myusers}" var="mu" >
+							<div class="fdiv">
 								<fb:profile-pic size="square" uid="{!mu.name}" xmlns:fb="http://www.facebook.com/2008/fbml" />
 								<fb:name uid="{!mu.name}" xmlns:fb="http://www.facebook.com/2008/fbml"/>
-							</apex:outputPanel>
-					</apex:dataList>
+							</div>
+					</apex:repeat>
+				</div>
 				</apex:outputPanel>
+				</center>
 				<br />
 				<!-- 
 				<apex:outputPanel >

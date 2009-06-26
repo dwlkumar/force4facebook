@@ -1,4 +1,26 @@
 public virtual class FBCAuthenticator extends AbsAuthenticator {
+  
+  
+  
+/*Key: _fb_q = 1
+Key: fb_sig = fc68437d647ba70c46395300e1af224c
+Key: fb_sig_added = 1
+Key: fb_sig_api_key = f0bb630f21df10fe16546a299d7f8d6b
+Key: fb_sig_app_id = 94778684485
+Key: fb_sig_expires = 1246118400
+Key: fb_sig_ext_perms = auto_publish_recent_activity
+Key: fb_sig_in_iframe = 1
+Key: fb_sig_in_new_facebook = 1
+Key: fb_sig_locale = en_US
+Key: fb_sig_profile_update_time = 1241728107
+Key: fb_sig_session_key = 2.xmGloEFLsENAZAZCYVy96w__.86400.1246118400-525031753
+Key: fb_sig_ss = WfV42BVehCS3ctBByp3mdw__
+Key: fb_sig_time = 1246031953.2545
+Key: fb_sig_user = 525031753  
+ */
+  
+  
+  
     
 	public String loginTitle { get; set; }
 	public String loginMessage { get; set; }
@@ -6,6 +28,11 @@ public virtual class FBCAuthenticator extends AbsAuthenticator {
 	
 	public Boolean getIsFacebookUser() {
 		return [Select Id From GFCUser__c Where User__c = :UserInfo.getUserId()].size() > 0;
+	}
+	public String getParameterString() {
+		String url = Apexpages.currentPage().getUrl();
+		params = url.substring(url.indexOf('?'), url.length());
+		return params;
 	}
 	
     public FBCAuthenticator() {
@@ -34,14 +61,24 @@ public virtual class FBCAuthenticator extends AbsAuthenticator {
     public String sessionKey { get; set; }
     public String sig { get; set; }
     public String uid { get; set; }
-
-
+	public String params { get; set; }
+	
 	/****************************************************************************/
     /*  See header comments for AbsAuthenticator.registerUser()
     */
 	/****************************************************************************/
     public virtual override PageReference registerUser() {
 		try { 
+			if (Apexpages.currentPage().getParameters().containsKey('fb_sig_session_key')) {
+	    		Map<String, String> params = Apexpages.currentPage().getParameters();
+	    		APIKey = params.get('fb_sig_api_key');
+	    		expires = params.get('fb_sig_expires');
+	    		secret = params.get('fb_sig_ss');
+	    		sessionKey = params.get('fb_sig_session_key');
+	    		sig = params.get('fb_sig');
+	    		uid = params.get('fb_sig_user');
+			}
+			System.debug('\n\nAttempt at parameter retrieval: sessionKey = [' + Apexpages.currentPage().getParameters().get('fb_sig_session_key') + '] \n\n');
 			System.debug('\n\nAuth values from page:\n' + '\tAPIKey: ' + APIKey + '\n' + '\tSession Secret: ' + secret + '\n' + '\tSession Key: ' + sessionKey + '\n\n');
 			String userName = uid + '@' + uid + '.com';
 			String password = generatePassword(uid, APIKey, appSecret);

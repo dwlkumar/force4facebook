@@ -25,11 +25,14 @@
 				</apex:panelGrid>
 				<apex:panelGrid columns="1">
 					<apex:panelGroup >
+						<!-- 
+							This is what provides the UI for the FBC. You can control various aspects with the attributes.
+							To see what is being passed around set debug="on".
+						 -->
 						<c:FacebookConnect2 autoCheckConnection="yes" 
 							debug="off" 
-							createPortalUser="false"
+							showUI="true"
 							loginMessage="You can now use Facebook to login to this site!" 
-							whereAmI="FacebookSiteLogin.component"
 							loginPage="SiteLogin"
 							loginFooterMessage="You can use this area to provide some fine print for you use if you so choose." />
 					</apex:panelGroup>

@@ -24,7 +24,7 @@
                 <apex:outputText value=""/>
                 <apex:outputText value=""/>
                 <c:MyFacebookSiteLogin rendered="{!$Site.LoginEnabled}" id="siteLogin"/>
-                <br/>
+                <br/> 
               </apex:panelGrid> 
             </apex:outputPanel>
           </apex:panelGrid> 

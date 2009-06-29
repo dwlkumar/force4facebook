@@ -1,25 +1,25 @@
 public virtual class FBCAuthenticator extends AbsAuthenticator {
+
+  	private String portalAccountId = '<PASTE PORTAL ACCOUNT ID HERE>';
+  	private String myAppSecret = '<PASTE YOUR APP SECRET HERE>';
   
-  
-  
-/*Key: _fb_q = 1
-Key: fb_sig = fc68437d647ba70c46395300e1af224c
-Key: fb_sig_added = 1
-Key: fb_sig_api_key = f0bb630f21df10fe16546a299d7f8d6b
-Key: fb_sig_app_id = 94778684485
-Key: fb_sig_expires = 1246118400
-Key: fb_sig_ext_perms = auto_publish_recent_activity
-Key: fb_sig_in_iframe = 1
-Key: fb_sig_in_new_facebook = 1
-Key: fb_sig_locale = en_US
-Key: fb_sig_profile_update_time = 1241728107
-Key: fb_sig_session_key = 2.xmGloEFLsENAZAZCYVy96w__.86400.1246118400-525031753
-Key: fb_sig_ss = WfV42BVehCS3ctBByp3mdw__
-Key: fb_sig_time = 1246031953.2545
-Key: fb_sig_user = 525031753  
- */
-  
-  
+	/* Sample URL query string from Facebook whilst on the Facebook Platform
+	Key: _fb_q = 1
+	Key: fb_sig = fc68437d647ba70c46395300e1af224c
+	Key: fb_sig_added = 1
+	Key: fb_sig_api_key = f0bb6a299d7f8d6b
+	Key: fb_sig_app_id = 94778684485
+	Key: fb_sig_expires = 1246118400
+	Key: fb_sig_ext_perms = auto_publish_recent_activity
+	Key: fb_sig_in_iframe = 1
+	Key: fb_sig_in_new_facebook = 1
+	Key: fb_sig_locale = en_US
+	Key: fb_sig_profile_update_time = 1241728107
+	Key: fb_sig_session_key = 2.xmGloEFLsENAZAZCYVy96w__.86400.1246118400-525031753
+	Key: fb_sig_ss = WfV42ctBByp3mdw__
+	Key: fb_sig_time = 1246031953.2545
+	Key: fb_sig_user = 525031753  
+	 */
   
     
 	public String loginTitle { get; set; }
@@ -36,8 +36,8 @@ Key: fb_sig_user = 525031753
 	}
 	
     public FBCAuthenticator() {
-    	PORTAL_ACCOUNT_ID = '0018000000TRxIf';
-    	appSecret = 'eeaa80fa0ac4c20a4d451b9f56fecb3e';
+    	PORTAL_ACCOUNT_ID = portalAccountId;
+    	appSecret = myAppSecret;
         try {
 	        if (userExists(UserInfo.getUsername())) {
 	            GFCUser__c u = [Select g.Sig__c, g.SessionKey__c, g.Secret__c, g.Name, g.Id, g.APIKey__c From GFCUser__c g Where g.User__c = :UserInfo.getUserId()][0];

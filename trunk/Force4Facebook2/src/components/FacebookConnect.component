@@ -23,7 +23,7 @@
 	
 		<script>
 		var connectionState;
-		var apiKey = "f0bb630f21df10fe16546a299d7f8d6b";
+		var apiKey = "93d25aa60c11815cb065a900bf9ed80f";
 		
 		function myAlert(msg) {
 			if ("{!Debug}" != "off") {
@@ -173,7 +173,7 @@
 	
 		<apex:actionRegion >
 			<apex:outputPanel id="areaone">
-				<apex:actionFunction name="registerUser" action="{!registerUser}" rerender="dude" >
+				<apex:actionFunction name="registerUser" action="{!registerUser}" rerender="yodude" >
 					<apex:param name="isLoggedIn" assignTo="{!isLoggedIn}" value=""/>
 					<apex:param name="expires" assignTo="{!expires}" value=""/>
 					<apex:param name="secret" assignTo="{!secret}" value=""/>
@@ -184,7 +184,6 @@
 				</apex:actionFunction>
 			</apex:outputPanel>
 		</apex:actionRegion>
-
 
 		<div id="fb_conn_pan" style="width: 250px; display: {!IF(showUI, 'block', 'none')}" >
 			<apex:outputPanel rendered="{!NOT(AND(isFacebookUser, isPortalUser))}">

@@ -1,5 +1,7 @@
 <apex:component controller="FBCAuthenticator" allowDML="true" selfClosing="true">
 	
+	<script> var apiKey = "<PASTE YOUR API KEY HERE>"; </script>
+
 	<!-- MyController should always be set to {!this} on the page.  For this to work you need to make your controller
 		be an extension of AbsFacebookController. -->
 	<apex:attribute name="myController" type="AbsFacebookController" assignTo="{!clientController}" required="false" description="" />
@@ -23,7 +25,6 @@
 	
 		<script>
 		var connectionState;
-		var apiKey = "93d25aa60c11815cb065a900bf9ed80f";
 		
 		function myAlert(msg) {
 			if ("{!Debug}" != "off") {

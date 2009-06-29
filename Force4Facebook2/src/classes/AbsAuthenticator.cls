@@ -2,11 +2,10 @@ public abstract class AbsAuthenticator {
 
     protected String PORTAL_ACCOUNT_ID;
     protected String appSecret;
-	public String whereAmI { get; 
-		set {
-			whereAmI = value;
-			System.debug('\n\nAbsAuthenticator from ' + whereAmI + '\n\n');
-		 }
+    public String errorMessage { get; set; }
+    
+	public class AuthenticatorException extends Exception {
+		
 	}
 	
 	public Boolean createPortalUser { get; set; }

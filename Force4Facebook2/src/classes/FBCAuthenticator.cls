@@ -36,8 +36,8 @@ Key: fb_sig_user = 525031753
 	}
 	
     public FBCAuthenticator() {
-    	PORTAL_ACCOUNT_ID = '0018000000Sk2RX';
-    	appSecret = 'ebaadb77f54eb6a9bcc87009bb379df8';
+    	PORTAL_ACCOUNT_ID = '0018000000TRxIf';
+    	appSecret = 'eeaa80fa0ac4c20a4d451b9f56fecb3e';
         try {
 	        if (userExists(UserInfo.getUsername())) {
 	            GFCUser__c u = [Select g.Sig__c, g.SessionKey__c, g.Secret__c, g.Name, g.Id, g.APIKey__c From GFCUser__c g Where g.User__c = :UserInfo.getUserId()][0];
@@ -118,10 +118,13 @@ Key: fb_sig_user = 525031753
 					System.debug('\n\nThe damn user was not created!~!!!\n' + u.Username + 
 						'\n' + u.Email + '\n' + u.CommunityNickname + '\n' +
 						accountId + '\n' + password);
+						
+					throw new AuthenticatorException('Portal User not created.\n' + Site.getErrorMessage());
 				}
 			}
 		} catch(Exception ex) {
 			System.debug('\n\nERROR - REGISTERUSER - \n' + ex.getMessage());
+			errorMessage = ex.getMessage();
 		}
         
 		return null;

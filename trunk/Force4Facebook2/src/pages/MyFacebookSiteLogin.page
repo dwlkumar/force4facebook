@@ -13,7 +13,7 @@
                 <apex:panelGroup >
                   <br/>
                   <apex:outputText style="font-size: larger; font-weight: bold;" value="{!$Label.site.login}"/>
-                  <br/>
+                  <br/> 
                   <c:MyFacebookSiteLogin id="siteLogin"/>
                   <br/>
                 </apex:panelGroup>

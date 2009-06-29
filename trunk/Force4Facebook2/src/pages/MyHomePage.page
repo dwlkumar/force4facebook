@@ -10,11 +10,6 @@
 			}
 			.clearboth { clear: both; }
 			</style>
-			<script>
-				var apiKey = "f0bb630f21df10fe16546a299d7f8d6b";
-				FB.init(apiKey, "/xd_receiver"); 
-				
-			</script> 
 			<apex:form forceSSL="true">
 				<c:FacebookConnect autoCheckConnection="no"
 					loginPage="SiteLogin"

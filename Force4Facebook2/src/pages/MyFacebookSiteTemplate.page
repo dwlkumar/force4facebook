@@ -12,7 +12,7 @@
 		<div id="fbfdc_main" class="clearfix">
 			<div style="height: 100%;">
 				<apex:insert name="body" />
-			</div
+			</div>
 		</div>
 	</div>
 	<div id="fbfdc_footer">

@@ -1,4 +1,4 @@
-<apex:component controller="SiteLoginController" id="loginComponent">
+<apex:component controller="MyFacebookSiteLoginController" id="loginComponent">
 	<apex:form id="loginForm" forceSSL="true">
 <apex:pageMessages id="errors"/>
 		<div id="checking">

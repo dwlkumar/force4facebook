@@ -1,8 +1,7 @@
 public abstract class AbsAuthenticator {
 
-    protected String PORTAL_ACCOUNT_ID;
-    protected String appSecret;
     public String errorMessage { get; set; }
+    protected SiteConfig__c siteConfig;
     
 	public class AuthenticatorException extends Exception {
 		
@@ -24,9 +23,18 @@ public abstract class AbsAuthenticator {
 	}
 	
     public AbsAuthenticator() {
+    	siteConfig = getConfig();
 		System.debug('\n\nI say I am in the constructor.');
     }
     
+    private SiteConfig__c getConfig() {
+    	List<SiteConfig__c> configs = [Select Id, Name, FacebookAppSecret__c, APIKey__c, NewPortalUserAccount__c From SiteConfig__c Where Name = :Site.getName() Limit 1];
+    	if (configs.size() == 1) {
+    		return configs.get(0);
+    	} else {
+    		return null;
+    	}
+    }
     
     public String loginRedirect { get; set; }
     

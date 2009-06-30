@@ -21,6 +21,10 @@
         <name>CustomSite</name>
     </types>
     <types>
+        <members>*</members>
+        <name>Profile</name>
+    </types>
+    <types>
         <members>assets</members>
         <name>StaticResource</name>
     </types>

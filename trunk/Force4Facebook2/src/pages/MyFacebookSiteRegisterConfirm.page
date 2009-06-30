@@ -20,7 +20,7 @@
                 </apex:panelGroup>
               </apex:panelGrid> 
              </apex:outputPanel>
-            <c:SiteFooter />
+            <c:MyFacebookSiteFooter />
           </apex:panelGrid> 
        </apex:panelGrid>
       </center>

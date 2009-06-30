@@ -1,7 +1,7 @@
 public virtual class FBCAuthenticator extends AbsAuthenticator {
 
-  	private String portalAccountId = '<PASTE PORTAL ACCOUNT ID HERE>';
-  	private String myAppSecret = '<PASTE YOUR APP SECRET HERE>';
+  	private String portalAccountId = '0018000000TRxIf';
+  	private String myAppSecret = 'eeaa80fa0ac4c20a4d451b9f56fecb3e';
   
 	/* Sample URL query string from Facebook whilst on the Facebook Platform
 	Key: _fb_q = 1
@@ -21,7 +21,7 @@ public virtual class FBCAuthenticator extends AbsAuthenticator {
 	Key: fb_sig_user = 525031753  
 	 */
   
-    
+     
 	public String loginTitle { get; set; }
 	public String loginMessage { get; set; }
 	public String loginFooterMessage { get; set; }
@@ -36,8 +36,6 @@ public virtual class FBCAuthenticator extends AbsAuthenticator {
 	}
 	
     public FBCAuthenticator() {
-    	PORTAL_ACCOUNT_ID = portalAccountId;
-    	appSecret = myAppSecret;
         try {
 	        if (userExists(UserInfo.getUsername())) {
 	            GFCUser__c u = [Select g.Sig__c, g.SessionKey__c, g.Secret__c, g.Name, g.Id, g.APIKey__c From GFCUser__c g Where g.User__c = :UserInfo.getUserId()][0];
@@ -76,12 +74,15 @@ public virtual class FBCAuthenticator extends AbsAuthenticator {
 	    		secret = params.get('fb_sig_ss');
 	    		sessionKey = params.get('fb_sig_session_key');
 	    		sig = params.get('fb_sig');
-	    		uid = params.get('fb_sig_user');
+	    		uid = params.get('fb_sig_user'); 
 			}
+			if (!APIKey.equals(siteConfig.APIKey__c)) {
+				throw new AuthenticatorException('API Key does not match the API Key from Facebook.');
+			} 
 			System.debug('\n\nAttempt at parameter retrieval: sessionKey = [' + Apexpages.currentPage().getParameters().get('fb_sig_session_key') + '] \n\n');
 			System.debug('\n\nAuth values from page:\n' + '\tAPIKey: ' + APIKey + '\n' + '\tSession Secret: ' + secret + '\n' + '\tSession Key: ' + sessionKey + '\n\n');
 			String userName = uid + '@' + uid + '.com';
-			String password = generatePassword(uid, APIKey, appSecret);
+			String password = generatePassword(uid, siteConfig.APIKey__c, siteConfig.FacebookAppSecret__c);
 
 			FacebookSession fbs = new FacebookSession(APIKey, secret, sessionKey);
 			FacebookUserInfo uInfo = fbs.getUserInfo(new List<String>{ uid }, fbs.userInfoFieldList)[0]; //fields) ;
@@ -95,12 +96,12 @@ public virtual class FBCAuthenticator extends AbsAuthenticator {
 				u.APIKey__c = APIKey;
 				update u;
 	                
-				PageReference pr = Site.login(username, generatePassword(uid, u.APIKey__c, appSecret), loginRedirect);
+				PageReference pr = Site.login(username, generatePassword(uid, u.APIKey__c, siteConfig.FacebookAppSecret__c), loginRedirect);
 				pr.setRedirect(true);
 				return pr;
 			} else {
 				String cnn = handleDuplicates((uInfo.first_name == null ? uid : uInfo.last_name) + (uInfo.last_name == null ? uid : uInfo.last_name));
-				String accountId = PORTAL_ACCOUNT_ID;
+				String accountId = siteConfig.NewPortalUserAccount__c;
 	    
 				User u = new User(Username = username, Email = username, CommunityNickname = cnn);
 
@@ -165,11 +166,11 @@ public virtual class FBCAuthenticator extends AbsAuthenticator {
             debugMsg += key + '=' + value + '\n';
 
         }
-        sigString += appSecret;
-        debugMsg += appSecret + '\n';
+        sigString += siteConfig.FacebookAppSecret__c;
+        debugMsg += siteConfig.FacebookAppSecret__c + '\n';
         System.debug(LoggingLevel.INFO, debugMsg);
     	
-    	sigString += appSecret;
+    	sigString += siteConfig.FacebookAppSecret__c;
     	System.debug('\n\nHere is what I am signing: \n' + sigString + '\n\n');
     	Blob mac = Crypto.generateDigest('MD5', Blob.valueOf(sigString));
     	String sig  = EncodingUtil.convertToHex(mac);

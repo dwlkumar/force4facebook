@@ -83,7 +83,7 @@ public virtual class FBCAuthenticator extends AbsAuthenticator {
 			String userName = uid + '@' + uid + '.com';
 			String password = generatePassword(uid, siteConfig.APIKey__c, siteConfig.FacebookAppSecret__c);
 
-			FacebookSession fbs = new FacebookSession(APIKey, secret, sessionKey);
+			FacebookSession fbs = new FacebookSession(APIKey, siteConfig.FacebookAppSecret__c, sessionKey);
 			FacebookUserInfo uInfo = fbs.getUserInfo(new List<String>{ uid }, fbs.userInfoFieldList)[0]; //fields) ;
 			loginRedirect = getRedirectUrl();
 

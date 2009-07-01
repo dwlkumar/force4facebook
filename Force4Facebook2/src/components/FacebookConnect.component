@@ -1,6 +1,6 @@
 <apex:component controller="FBCAuthenticator" allowDML="true" selfClosing="true">
 
-	<script> var apiKey = "{!siteConfig.APIKey__c}"; </script>
+	<script> var apiKey = "{!siteAPIKey}";</script>
 
 	<!-- MyController should always be set to {!this} on the page.  For this to work you need to make your controller
 		be an extension of AbsFacebookController. -->
@@ -20,7 +20,7 @@
 	<apex:attribute name="loginPage" type="String" required="true" description="" />
 	
 	<apex:includescript value="https://www.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php" />
-
+ 
 	<div xmlns:fb="http://www.facebook.com/2008/fbml" >
 	
 		<script>
@@ -54,7 +54,7 @@
 		}
 
 		try {
-			FB.init("{!siteConfig.APIKey__c}", "/xd_receiver", { "ifUserConnected": connected, "ifUserNotConnected": unconnected, "reloadIfSessionStateChanged":false});
+			FB.init(apiKey, "/xd_receiver", { "ifUserConnected": connected, "ifUserNotConnected": unconnected, "reloadIfSessionStateChanged":false});
 		} catch(e) {}
 		 
 		var conn, unconn;

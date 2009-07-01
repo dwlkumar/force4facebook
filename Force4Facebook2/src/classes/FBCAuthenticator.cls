@@ -1,6 +1,6 @@
 public virtual class FBCAuthenticator extends AbsAuthenticator {
 
-  
+ 
 	/* Sample URL query string from Facebook whilst on the Facebook Platform
 	Key: _fb_q = 1
 	Key: fb_sig = fc68437d647ba70c46395300e1af224c
@@ -23,6 +23,20 @@ public virtual class FBCAuthenticator extends AbsAuthenticator {
 	public String loginTitle { get; set; }
 	public String loginMessage { get; set; }
 	public String loginFooterMessage { get; set; }
+    public SiteConfig__c siteConfig; 
+
+    public SiteConfig__c getSiteConfig() {
+    	if (siteConfig == null) {
+    		System.debug('\n\nLooking up site config using ' + Site.getName() + '\n\n');
+	    	List<SiteConfig__c> configs = [Select Id, Name, FacebookAppSecret__c, APIKey__c, NewPortalUserAccount__c From SiteConfig__c Where Name = :Site.getName() Limit 1];
+    		if (configs.size() == 1) {
+    			siteConfig = configs.get(0);
+    		} else {
+    			return null;
+    		}
+    	}
+    	return siteConfig;
+    }
 	
 	public Boolean getIsFacebookUser() {
 		return [Select Id From GFCUser__c Where User__c = :UserInfo.getUserId()].size() > 0;
@@ -34,6 +48,9 @@ public virtual class FBCAuthenticator extends AbsAuthenticator {
 	}
 	
     public FBCAuthenticator() {
+    	getSiteConfig();
+    	System.debug('\n\nI say I am in the constructor (FBCAuthenticator).\nConfig: \n' + siteConfig + '\n\n');
+    	
         try {
 	        if (userExists(UserInfo.getUsername())) {
 	        	
@@ -47,7 +64,6 @@ public virtual class FBCAuthenticator extends AbsAuthenticator {
         } catch (Exception ex) {
         	
         }
-        System.debug('\n\nSite Config: \nAPI Key: ' + siteConfig.APIKey__c + '\n\n');
     }
     
     

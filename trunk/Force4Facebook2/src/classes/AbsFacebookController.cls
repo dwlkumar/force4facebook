@@ -5,8 +5,23 @@ public abstract class AbsFacebookController implements IFacebookController {
 	*/
 	public List<parameter> parameters { get; set; }
 	public String params { get; set; }
+    public SiteConfig__c siteConfig;
+
+    public SiteConfig__c getSiteConfig() {
+    	if (siteConfig == null) {
+    		System.debug('\n\nLooking up site config using ' + Site.getName() + '\n\n');
+	    	List<SiteConfig__c> configs = [Select Id, Name, FacebookAppSecret__c, APIKey__c, NewPortalUserAccount__c From SiteConfig__c Where Name = :Site.getName() Limit 1];
+    		if (configs.size() == 1) {
+    			siteConfig = configs.get(0);
+    		} else {
+    			return null;
+    		}
+    	}
+    	return siteConfig;
+    }
 	
 	public String getParameterString() {
+		siteConfig = getSiteConfig();
 		String url = Apexpages.currentPage().getUrl();
 		if (url.contains('?')) {
 			String p = url.substring(url.indexOf('?'), url.length());
@@ -26,6 +41,8 @@ public abstract class AbsFacebookController implements IFacebookController {
 	}
 
 	public AbsFacebookController() {
+		getSiteConfig();
+		System.debug('\n\nI say I am in the constructor (AbsFacebookController).\nConfig: \n' + siteConfig + '\n\n');
 		try {
 			params = getParameterString();
 			parameters = new List<parameter>();

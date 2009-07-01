@@ -1,7 +1,7 @@
 <apex:page showHeader="false" standardController="GFCUser__c" extensions="MyHomePageExtension" recordsetVar="myusers">
 	<apex:composition template="MyFacebookSiteTemplate">
-		<apex:define name="body">
-			<style>
+		<apex:define name="body"> 
+			<style> 
 			 .fdiv {
 			 	float: left;
 			 	width: 60px;
@@ -16,6 +16,9 @@
 					loginMessage="You can now use Facebook to login to this site!"
 					loginFooterMessage="You can use this area to provide some fine print for you use if you so choose." />
 				<center>
+				<script>
+					alert("Home: apikey: " + apiKey);
+				</script>
 				<apex:panelGrid columns="3">
 					<apex:image value="{!URLFOR($Resource.assets, 'assets/images/bug_blue2_rgb.png')}" width="120px" />
 					<apex:image value="{!URLFOR($Resource.assets, 'assets/images/arrows.jpg')}" />
@@ -24,7 +27,7 @@
 				</center>
 				<hr />
 				<apex:outputPanel style="font-size: 16pt;" >
-					<br/><br/>
+					<br/><div id="joe"><script>document.getElementById("joe").innerHTML = apiKey;</script></div><br/>
 					See how Facebook Connect can be used for Single Sign On with the Force.com platform!
 				</apex:outputPanel> 
 				<br />

@@ -1,4 +1,4 @@
-<apex:component id="headerComponent" controller="MyFacebookSiteHeaderController">
+<apex:component id="headerComponent" >
 	<apex:includescript value="https://www.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php" />
 	<apex:panelGrid cellpadding="0" cellspacing="0" width="98%" border="0" columns="2" style="text-align: left;" id="theHeader">
 		<apex:image url="{!$Site.Prefix}{!$Label.site.img_path}/force_logo.gif"	style="align: left;" alt="Salesforce" width="233" height="55"	title="Salesforce" />
@@ -21,7 +21,7 @@
 				</div>
 			</apex:panelGroup>
 		</apex:panelGrid> 
-	</apex:panelGrid> 
+	</apex:panelGrid>
 	<hr />
 	<apex:outputText value="Force.com Toolkit for Facebook"  style="font-size: 20pt;"/>
 	
@@ -53,7 +53,7 @@
 			}
 			if (FB) {
 				try {
-					FB.init("93d25aa60c11815cb065a900bf9ed80f", "/xd_receiver");
+					FB.init(apiKey, "/xd_receiver");
 				} catch(e){}
 			}
 		} 

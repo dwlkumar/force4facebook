@@ -1,6 +1,22 @@
 public abstract class AbsAuthenticator {
 
     public String errorMessage { get; set; }
+    public String siteAPIKey { get { return siteConfig.APIKey__c; } set; }
+    public SiteConfig__c siteConfig {
+    	get {
+    	if (siteConfig == null) {
+    		System.debug('\n\nLooking up site config using ' + Site.getName() + '\n\n');
+	    	List<SiteConfig__c> configs = [Select Id, Name, FacebookAppSecret__c, APIKey__c, NewPortalUserAccount__c From SiteConfig__c Where Name = :Site.getName() Limit 1];
+    		if (configs.size() == 1) {
+    			siteConfig = configs.get(0);
+    		} else {
+    			return null;
+    		}
+    	}
+    	return siteConfig;
+    	}
+    	set ;
+    } 
     
 	public class AuthenticatorException extends Exception {
 		
@@ -17,11 +33,13 @@ public abstract class AbsAuthenticator {
 		}
 	}
 	
+
 	public Boolean getIsPortalUser() {
 		return UserInfo.getUserType() != 'Guest';
 	}
 	
     public AbsAuthenticator() {
+    	
     }
     
     public String loginRedirect { get; set; }

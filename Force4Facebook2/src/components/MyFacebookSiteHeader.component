@@ -52,7 +52,7 @@
 				}
 			}
 			if (FB) {
-				FB.init("b1d078589d16d4cfffb0d4f282786091", "/xd_receiver");
+				FB.init(apiKey, "/xd_receiver");
 			}
 		} 
 	  	

@@ -1,7 +1,5 @@
 public virtual class FBCAuthenticator extends AbsAuthenticator {
 
-  	private String portalAccountId = '0018000000TRxIf';
-  	private String myAppSecret = 'eeaa80fa0ac4c20a4d451b9f56fecb3e';
   
 	/* Sample URL query string from Facebook whilst on the Facebook Platform
 	Key: _fb_q = 1
@@ -38,6 +36,7 @@ public virtual class FBCAuthenticator extends AbsAuthenticator {
     public FBCAuthenticator() {
         try {
 	        if (userExists(UserInfo.getUsername())) {
+	        	
 	            GFCUser__c u = [Select g.Sig__c, g.SessionKey__c, g.Secret__c, g.Name, g.Id, g.APIKey__c From GFCUser__c g Where g.User__c = :UserInfo.getUserId()][0];
 	            APIKey = u.APIKey__c;
 	            secret = u.Secret__c;
@@ -48,6 +47,7 @@ public virtual class FBCAuthenticator extends AbsAuthenticator {
         } catch (Exception ex) {
         	
         }
+        System.debug('\n\nSite Config: \nAPI Key: ' + siteConfig.APIKey__c + '\n\n');
     }
     
     

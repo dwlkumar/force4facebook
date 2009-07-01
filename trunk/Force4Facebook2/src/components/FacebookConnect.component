@@ -1,6 +1,6 @@
 <apex:component controller="FBCAuthenticator" allowDML="true" selfClosing="true">
-	
-	<script> var apiKey = "{!APIKey}"; </script>
+
+	<script> var apiKey = "{!siteConfig.APIKey__c}"; </script>
 
 	<!-- MyController should always be set to {!this} on the page.  For this to work you need to make your controller
 		be an extension of AbsFacebookController. -->
@@ -25,7 +25,6 @@
 	
 		<script>
 		var connectionState;
-		
 		function myAlert(msg) {
 			if ("{!Debug}" != "off") {
 				alert(msg);
@@ -54,10 +53,14 @@
 			addLoadEvent(checkMyConnection);
 		}
 
-		FB.init(apiKey, "/xd_receiver", { "ifUserConnected": connected, "ifUserNotConnected": unconnected, "reloadIfSessionStateChanged":false}); 
+		try {
+			FB.init("{!siteConfig.APIKey__c}", "/xd_receiver", { "ifUserConnected": connected, "ifUserNotConnected": unconnected, "reloadIfSessionStateChanged":false});
+		} catch(e) {}
+		 
 		var conn, unconn;
 		
 		function checkMyConnection(arg1, arg2) {
+
 			myAlert("Check My Connection");
 			conn =  arg1;
 			unconn = arg2;

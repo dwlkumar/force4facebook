@@ -1,8 +1,11 @@
 public abstract class AbsAuthenticator {
 
     public String errorMessage { get; set; }
-    protected SiteConfig__c siteConfig;
+    public SiteConfig__c siteConfig {get; set; }
     
+    public String getAPIKey() {
+    	return getConfig().APIKey__c;
+    }
 	public class AuthenticatorException extends Exception {
 		
 	}
@@ -24,7 +27,7 @@ public abstract class AbsAuthenticator {
 	
     public AbsAuthenticator() {
     	siteConfig = getConfig();
-		System.debug('\n\nI say I am in the constructor.');
+		System.debug('\n\nI say I am in the constructor (AbsAuthenticator).\nConfig: \n' + siteConfig + '\n\n');
     }
     
     private SiteConfig__c getConfig() {

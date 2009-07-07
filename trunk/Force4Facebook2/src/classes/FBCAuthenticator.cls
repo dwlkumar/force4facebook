@@ -1,29 +1,31 @@
 public virtual class FBCAuthenticator extends AbsAuthenticator {
-
- 
-	/* Sample URL query string from Facebook whilst on the Facebook Platform
-	Key: _fb_q = 1
-	Key: fb_sig = fc68437d647ba70c46395300e1af224c
-	Key: fb_sig_added = 1
-	Key: fb_sig_api_key = f0bb6a299d7f8d6b
-	Key: fb_sig_app_id = 94778684485
-	Key: fb_sig_expires = 1246118400
-	Key: fb_sig_ext_perms = auto_publish_recent_activity
-	Key: fb_sig_in_iframe = 1
-	Key: fb_sig_in_new_facebook = 1
-	Key: fb_sig_locale = en_US
-	Key: fb_sig_profile_update_time = 1241728107
-	Key: fb_sig_session_key = 2.xmGloEFLsENAZAZCYVy96w__.86400.1246118400-525031753
-	Key: fb_sig_ss = WfV42ctBByp3mdw__
-	Key: fb_sig_time = 1246031953.2545
-	Key: fb_sig_user = 525031753  
-	 */
   
-     
+  
+  
+/*Key: _fb_q = 1
+Key: fb_sig = fc68437d647ba70c46395300e1af224c
+Key: fb_sig_added = 1
+Key: fb_sig_api_key = f0bb630f21df10fe16546a299d7f8d6b
+Key: fb_sig_app_id = 94778684485
+Key: fb_sig_expires = 1246118400
+Key: fb_sig_ext_perms = auto_publish_recent_activity
+Key: fb_sig_in_iframe = 1
+Key: fb_sig_in_new_facebook = 1
+Key: fb_sig_locale = en_US
+Key: fb_sig_profile_update_time = 1241728107
+Key: fb_sig_session_key = 2.xmGloEFLsENAZAZCYVy96w__.86400.1246118400-525031753
+Key: fb_sig_ss = WfV42BVehCS3ctBByp3mdw__
+Key: fb_sig_time = 1246031953.2545
+Key: fb_sig_user = 525031753  
+ */
+  
+  
+  
+    
 	public String loginTitle { get; set; }
 	public String loginMessage { get; set; }
 	public String loginFooterMessage { get; set; }
-
+	
 	public Boolean getIsFacebookUser() {
 		return [Select Id From GFCUser__c Where User__c = :UserInfo.getUserId()].size() > 0;
 	}
@@ -34,9 +36,10 @@ public virtual class FBCAuthenticator extends AbsAuthenticator {
 	}
 	
     public FBCAuthenticator() {
+    	PORTAL_ACCOUNT_ID = '0018000000Sk2RX';
+    	appSecret = 'ebaadb77f54eb6a9bcc87009bb379df8';
         try {
 	        if (userExists(UserInfo.getUsername())) {
-	        	
 	            GFCUser__c u = [Select g.Sig__c, g.SessionKey__c, g.Secret__c, g.Name, g.Id, g.APIKey__c From GFCUser__c g Where g.User__c = :UserInfo.getUserId()][0];
 	            APIKey = u.APIKey__c;
 	            secret = u.Secret__c;
@@ -73,17 +76,14 @@ public virtual class FBCAuthenticator extends AbsAuthenticator {
 	    		secret = params.get('fb_sig_ss');
 	    		sessionKey = params.get('fb_sig_session_key');
 	    		sig = params.get('fb_sig');
-	    		uid = params.get('fb_sig_user'); 
+	    		uid = params.get('fb_sig_user');
 			}
-			if (!APIKey.equals(siteConfig.APIKey__c)) {
-				throw new AuthenticatorException('API Key does not match the API Key from Facebook.');
-			} 
 			System.debug('\n\nAttempt at parameter retrieval: sessionKey = [' + Apexpages.currentPage().getParameters().get('fb_sig_session_key') + '] \n\n');
 			System.debug('\n\nAuth values from page:\n' + '\tAPIKey: ' + APIKey + '\n' + '\tSession Secret: ' + secret + '\n' + '\tSession Key: ' + sessionKey + '\n\n');
 			String userName = uid + '@' + uid + '.com';
-			String password = generatePassword(uid, siteConfig.APIKey__c, siteConfig.FacebookAppSecret__c);
+			String password = generatePassword(uid, APIKey, appSecret);
 
-			FacebookSession fbs = new FacebookSession(APIKey, siteConfig.FacebookAppSecret__c, sessionKey);
+			FacebookSession fbs = new FacebookSession(APIKey, secret, sessionKey);
 			FacebookUserInfo uInfo = fbs.getUserInfo(new List<String>{ uid }, fbs.userInfoFieldList)[0]; //fields) ;
 			loginRedirect = getRedirectUrl();
 
@@ -95,12 +95,12 @@ public virtual class FBCAuthenticator extends AbsAuthenticator {
 				u.APIKey__c = APIKey;
 				update u;
 	                
-				PageReference pr = Site.login(username, generatePassword(uid, u.APIKey__c, siteConfig.FacebookAppSecret__c), loginRedirect);
+				PageReference pr = Site.login(username, generatePassword(uid, u.APIKey__c, appSecret), loginRedirect);
 				pr.setRedirect(true);
 				return pr;
 			} else {
 				String cnn = handleDuplicates((uInfo.first_name == null ? uid : uInfo.last_name) + (uInfo.last_name == null ? uid : uInfo.last_name));
-				String accountId = siteConfig.NewPortalUserAccount__c;
+				String accountId = PORTAL_ACCOUNT_ID;
 	    
 				User u = new User(Username = username, Email = username, CommunityNickname = cnn);
 
@@ -118,14 +118,11 @@ public virtual class FBCAuthenticator extends AbsAuthenticator {
 					System.debug('\n\nThe damn user was not created!~!!!\n' + u.Username + 
 						'\n' + u.Email + '\n' + u.CommunityNickname + '\n' +
 						accountId + '\n' + password);
-						
-					throw new AuthenticatorException('Portal User not created.\n' + Site.getErrorMessage());
 				}
 			}
 		} catch(Exception ex) {
 			System.debug('\n\nERROR - REGISTERUSER - \n' + ex.getMessage());
-			errorMessage = ex.getMessage();
-		} 
+		}
         
 		return null;
 	}
@@ -165,11 +162,11 @@ public virtual class FBCAuthenticator extends AbsAuthenticator {
             debugMsg += key + '=' + value + '\n';
 
         }
-        sigString += siteConfig.FacebookAppSecret__c;
-        debugMsg += siteConfig.FacebookAppSecret__c + '\n';
+        sigString += appSecret;
+        debugMsg += appSecret + '\n';
         System.debug(LoggingLevel.INFO, debugMsg);
     	
-    	sigString += siteConfig.FacebookAppSecret__c;
+    	sigString += appSecret;
     	System.debug('\n\nHere is what I am signing: \n' + sigString + '\n\n');
     	Blob mac = Crypto.generateDigest('MD5', Blob.valueOf(sigString));
     	String sig  = EncodingUtil.convertToHex(mac);

@@ -30,6 +30,9 @@
 					<br/><div id="joe"><script>document.getElementById("joe").innerHTML = apiKey;</script></div><br/>
 					See how Facebook Connect can be used for Single Sign On with the Force.com platform!
 				</apex:outputPanel> 
+				<!-- 
+				<apex:outputPanel >&nbsp;<a href="/MyHomePageSource" target="blonk">(view source)</a></apex:outputPanel>
+				-->
 				<br />
 				<br />
 				<br />

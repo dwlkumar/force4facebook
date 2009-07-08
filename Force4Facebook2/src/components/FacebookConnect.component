@@ -17,7 +17,7 @@
 	<apex:attribute name="autoCheckConnection" type="String" required="false" default="no" description="" />
 	<!-- Most pages don't need the UI, this is how you turn it off. -->
 	<apex:attribute name="showUI" type="Boolean" required="false" default="false" description="" />
-	<apex:attribute name="loginPage" type="String" required="true" description="" />
+	<apex:attribute name="loginPage" type="String" required="false" description="" />
 	
 	<apex:includescript value="https://www.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php" />
  
@@ -78,6 +78,12 @@
 				"Session Sig: " + session.sig + "\n" + 
 				"User Id: " + session.uid + "\n" + 
 				"API Key: " + api._apiKey);
+				document.getElementById("{!$Component.expires}").value = session.expires;
+				document.getElementById("{!$Component.secret}").value = session.secret;
+				document.getElementById("{!$Component.sessionKey}").value = session.session_key;
+				document.getElementById("{!$Component.sig}").value =session.sig;
+				document.getElementById("{!$Component.uid}").value = session.uid;
+				document.getElementById("{!$Component.APIKey}").value = api._apiKey;
 				registerUser(api._isLoggedIn, 
 							session.expires, 
 							session.secret, 
@@ -175,18 +181,16 @@
 		}
 		</script>
 	
-		<apex:actionRegion >
+		<apex:actionRegion renderRegionOnly="false">
 			<apex:outputPanel id="areaone">
-				<apex:actionFunction name="registerUser" action="{!registerUser}" rerender="yodude" >
-					<apex:param name="isLoggedIn" assignTo="{!isLoggedIn}" value=""/>
-					<apex:param name="expires" assignTo="{!expires}" value=""/>
-					<apex:param name="secret" assignTo="{!secret}" value=""/>
-					<apex:param name="sessionKey" assignTo="{!sessionKey}" value=""/>
-					<apex:param name="sig" assignTo="{!sig}" value=""/>
-					<apex:param name="uid" assignTo="{!uid}" value=""/>
-					<apex:param name="APIKey" assignTo="{!APIKey}" value="" />
-				</apex:actionFunction>
+				<apex:actionFunction name="registerUser" action="{!registerUser}" />
 			</apex:outputPanel>
+			<apex:inputHidden id="expires" value="{!expires}" />
+			<apex:inputHidden id="secret" value="{!sessionSecret}" />
+			<apex:inputHidden id="sessionKey" value="{!sessionKey}" />
+			<apex:inputHidden id="sig" value="{!sig}" />
+			<apex:inputHidden id="uid" value="{!uid}" />
+			<apex:inputHidden id="APIKey" value="{!APIKey}"  />
 		</apex:actionRegion>
 
 		<div id="fb_conn_pan" style="width: 250px; display: {!IF(showUI, 'block', 'none')}" >

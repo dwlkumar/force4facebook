@@ -2,7 +2,7 @@ public abstract class AbsFacebookController implements IFacebookController {
 	/*
 		This class a bridge between the page controller that extends this class
 		and the authenticator being used for social network authentication
-	*/ 
+	*/
 	public List<parameter> parameters { get; set; }
 	public String params { get; set; }
 	
@@ -37,7 +37,7 @@ public abstract class AbsFacebookController implements IFacebookController {
 		}
 	}
 	// Authenticator for the page controller
-	AbsAuthenticator auth;
+	protected AbsAuthenticator auth;
 	
 	// Provide access to the athenticator
 	public virtual AbsAuthenticator getAuthenticator() {

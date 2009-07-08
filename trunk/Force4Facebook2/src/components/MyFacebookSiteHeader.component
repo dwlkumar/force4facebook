@@ -7,9 +7,9 @@
 				<div id="register_menu" style="display: none;">
 				<apex:outputLink value="{!$Page.MyFacebookSiteLogin}">{!$Label.site.login_button}</apex:outputLink>
 				<apex:outputText value=" | " />
-				<apex:outputLink value="{!$Page.MyFacebookForgotPassword}">{!$Label.site.forgot_your_password_q}</apex:outputLink>
+				<apex:outputLink value="{!$Page.ForgotPassword}">{!$Label.site.forgot_your_password_q}</apex:outputLink>
 				<apex:outputText value=" | " rendered="{!$Site.RegistrationEnabled}" />
-				<apex:outputLink value="{!$Page.MyFacebookSiteRegister}" rendered="{!$Site.RegistrationEnabled}">{!$Label.site.new_user_q}</apex:outputLink>
+				<apex:outputLink value="{!$Page.SiteRegister}" rendered="{!$Site.RegistrationEnabled}">{!$Label.site.new_user_q}</apex:outputLink>
 				</div> 
 			</apex:panelGroup>
 			<apex:panelGroup >

@@ -1,33 +1,35 @@
 public virtual class FBCAuthenticator extends AbsAuthenticator {
+
+ 
+	/* Sample URL query string from Facebook whilst on the Facebook Platform
+	Key: _fb_q = 1
+	Key: fb_sig = fc68437d647ba70c46395300e1af224c
+	Key: fb_sig_added = 1
+	Key: fb_sig_api_key = f0bb6a299d7f8d6b
+	Key: fb_sig_app_id = 94778684485
+	Key: fb_sig_expires = 1246118400
+	Key: fb_sig_ext_perms = auto_publish_recent_activity
+	Key: fb_sig_in_iframe = 1
+	Key: fb_sig_in_new_facebook = 1
+	Key: fb_sig_locale = en_US
+	Key: fb_sig_profile_update_time = 1241728107
+	Key: fb_sig_session_key = 2.xmGloEFLsENAZAZCYVy96w__.86400.1246118400-525031753
+	Key: fb_sig_ss = WfV42ctBByp3mdw__
+	Key: fb_sig_time = 1246031953.2545
+	Key: fb_sig_user = 525031753  
+	 */
   
-  
-  
-/*Key: _fb_q = 1
-Key: fb_sig = fc68437d647ba70c46395300e1af224c
-Key: fb_sig_added = 1
-Key: fb_sig_api_key = f0bb630f21df10fe16546a299d7f8d6b
-Key: fb_sig_app_id = 94778684485
-Key: fb_sig_expires = 1246118400
-Key: fb_sig_ext_perms = auto_publish_recent_activity
-Key: fb_sig_in_iframe = 1
-Key: fb_sig_in_new_facebook = 1
-Key: fb_sig_locale = en_US
-Key: fb_sig_profile_update_time = 1241728107
-Key: fb_sig_session_key = 2.xmGloEFLsENAZAZCYVy96w__.86400.1246118400-525031753
-Key: fb_sig_ss = WfV42BVehCS3ctBByp3mdw__
-Key: fb_sig_time = 1246031953.2545
-Key: fb_sig_user = 525031753  
- */
-  
-  
-  
-    
+     
 	public String loginTitle { get; set; }
 	public String loginMessage { get; set; }
 	public String loginFooterMessage { get; set; }
-	
+
 	public Boolean getIsFacebookUser() {
-		return [Select Id From GFCUser__c Where User__c = :UserInfo.getUserId()].size() > 0;
+		if ([Select Id From GFCUser__c Where User__c = :UserInfo.getUserId()].size() > 0) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	public String getParameterString() {
 		String url = Apexpages.currentPage().getUrl();
@@ -36,10 +38,9 @@ Key: fb_sig_user = 525031753
 	}
 	
     public FBCAuthenticator() {
-    	PORTAL_ACCOUNT_ID = '0018000000Sk2RX';
-    	appSecret = 'ebaadb77f54eb6a9bcc87009bb379df8';
         try {
 	        if (userExists(UserInfo.getUsername())) {
+	        	
 	            GFCUser__c u = [Select g.Sig__c, g.SessionKey__c, g.Secret__c, g.Name, g.Id, g.APIKey__c From GFCUser__c g Where g.User__c = :UserInfo.getUserId()][0];
 	            APIKey = u.APIKey__c;
 	            secret = u.Secret__c;
@@ -57,10 +58,16 @@ Key: fb_sig_user = 525031753
 
     public String APIKey { get; set; }
     public String expires { get; set; }
-    public String secret { get; set; }
+    public String secret { 
+    	get {
+    		return siteConfig.FacebookAppSecret__c;
+    	}
+		set; 
+	}
     public String sessionKey { get; set; }
     public String sig { get; set; }
     public String uid { get; set; }
+    public String sessionSecret { get; set ;}
 	public String params { get; set; }
 	
 	/****************************************************************************/
@@ -68,21 +75,23 @@ Key: fb_sig_user = 525031753
     */
 	/****************************************************************************/
     public virtual override PageReference registerUser() {
-		try { 
+		//try { 
 			if (Apexpages.currentPage().getParameters().containsKey('fb_sig_session_key')) {
 	    		Map<String, String> params = Apexpages.currentPage().getParameters();
 	    		APIKey = params.get('fb_sig_api_key');
 	    		expires = params.get('fb_sig_expires');
-	    		secret = params.get('fb_sig_ss');
 	    		sessionKey = params.get('fb_sig_session_key');
+	    		sessionSecret = params.get('fb_sig_ss');
 	    		sig = params.get('fb_sig');
-	    		uid = params.get('fb_sig_user');
+	    		uid = params.get('fb_sig_user'); 
 			}
+			if (!APIKey.equals(siteConfig.APIKey__c)) {
+				throw new AuthenticatorException('API Key does not match the API Key from Facebook.');
+			} 
 			System.debug('\n\nAttempt at parameter retrieval: sessionKey = [' + Apexpages.currentPage().getParameters().get('fb_sig_session_key') + '] \n\n');
 			System.debug('\n\nAuth values from page:\n' + '\tAPIKey: ' + APIKey + '\n' + '\tSession Secret: ' + secret + '\n' + '\tSession Key: ' + sessionKey + '\n\n');
 			String userName = uid + '@' + uid + '.com';
-			String password = generatePassword(uid, APIKey, appSecret);
-
+ 			
 			FacebookSession fbs = new FacebookSession(APIKey, secret, sessionKey);
 			FacebookUserInfo uInfo = fbs.getUserInfo(new List<String>{ uid }, fbs.userInfoFieldList)[0]; //fields) ;
 			loginRedirect = getRedirectUrl();
@@ -91,38 +100,52 @@ Key: fb_sig_user = 525031753
 				GFCUser__c u = [Select g.UsingNewPassword__c, g.Sig__c, g.SessionKey__c, g.Secret__c, g.Name, g.Id, g.APIKey__c From GFCUser__c g Where g.Name = :uid][0];
 				u.Sig__c = sig;
 				u.SessionKey__c = sessionKey;
-				u.Secret__c = secret;
+				u.Secret__c = sessionSecret;
 				u.APIKey__c = APIKey;
 				update u;
+	            
 	                
-				PageReference pr = Site.login(username, generatePassword(uid, u.APIKey__c, appSecret), loginRedirect);
+				System.debug('\n\nUsing app secret - about to login using \n\tusername: ' + username + '\n\tpassword: ' + generatePassword(uid, u.APIKey__c, siteConfig.FacebookAppSecret__c) + '\n\tredirect: ' + loginRedirect + '\n\n');
+				PageReference pr = Site.login(username, generatePassword(uid, u.APIKey__c, siteConfig.FacebookAppSecret__c), loginRedirect);
+
+				if (pr == null) {
+					System.debug('\n\nOk, that failed, trying session secret - about to login using \n\tusername: ' + username + '\n\tpassword: ' + generatePassword(uid, u.APIKey__c, sessionSecret) + '\n\tredirect: ' + loginRedirect + '\n\n');
+					pr = Site.login(username, generatePassword(uid, u.APIKey__c, sessionSecret), loginRedirect);
+				}
+				if (pr == null) {
+					System.debug('\n\nOk, that failed too, return null?\n\n');
+					return null;
+				}
 				pr.setRedirect(true);
 				return pr;
 			} else {
 				String cnn = handleDuplicates((uInfo.first_name == null ? uid : uInfo.last_name) + (uInfo.last_name == null ? uid : uInfo.last_name));
-				String accountId = PORTAL_ACCOUNT_ID;
+				String accountId = siteConfig.NewPortalUserAccount__c;
 	    
 				User u = new User(Username = username, Email = username, CommunityNickname = cnn);
 
-				String userId = Site.createPortalUser(u, accountId, password);
+				String userId = Site.createPortalUser(u, accountId, generatePassword(uid, APIKey, siteConfig.FacebookAppSecret__c));
 
 				if (userId != null) {
 					System.debug('\n\nThe Portal user was successfully created.');
 					GFCUser__c fc = new GFCUser__c(Name = uid, User__c = userId, DisplayName__c = uInfo.first_name + ' ' + uInfo.last_name, thumbnailUrl__c  = uInfo.pic_small);
 					insert fc;
 					//setStatus('Just signed up for this cool 61 demo!', APIKey, secret, sessionKey);
-					PageReference pr = Site.login(username, password, loginRedirect);
+					PageReference pr = Site.login(username, generatePassword(uid, APIKey, siteConfig.FacebookAppSecret__c), loginRedirect);
 					pr.setRedirect(true);
 					return pr;
 				} else {
 					System.debug('\n\nThe damn user was not created!~!!!\n' + u.Username + 
 						'\n' + u.Email + '\n' + u.CommunityNickname + '\n' +
-						accountId + '\n' + password);
+						accountId + '\n' + generatePassword(uid, APIKey, siteConfig.FacebookAppSecret__c));
+						
+					throw new AuthenticatorException('Portal User not created.\n' + Site.getErrorMessage());
 				}
 			}
-		} catch(Exception ex) {
-			System.debug('\n\nERROR - REGISTERUSER - \n' + ex.getMessage());
-		}
+		//} catch(Exception ex) {
+			//System.debug('\n\nERROR - REGISTERUSER - \n' + ex.getMessage());
+			//errorMessage = ex.getMessage();
+		//} 
         
 		return null;
 	}
@@ -162,11 +185,11 @@ Key: fb_sig_user = 525031753
             debugMsg += key + '=' + value + '\n';
 
         }
-        sigString += appSecret;
-        debugMsg += appSecret + '\n';
+        sigString += siteConfig.FacebookAppSecret__c;
+        debugMsg += siteConfig.FacebookAppSecret__c + '\n';
         System.debug(LoggingLevel.INFO, debugMsg);
     	
-    	sigString += appSecret;
+    	sigString += siteConfig.FacebookAppSecret__c;
     	System.debug('\n\nHere is what I am signing: \n' + sigString + '\n\n');
     	Blob mac = Crypto.generateDigest('MD5', Blob.valueOf(sigString));
     	String sig  = EncodingUtil.convertToHex(mac);

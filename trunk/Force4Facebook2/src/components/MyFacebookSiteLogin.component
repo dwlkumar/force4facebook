@@ -1,6 +1,5 @@
-<apex:component controller="MyFacebookSiteLoginController" id="loginComponent">
+<apex:component controller="SiteLoginController" id="loginComponent">
 	<apex:form id="loginForm" forceSSL="true">
-<apex:pageMessages id="errors"/>
 		<div id="checking">
 			<span id="checking_label"> Checking	Facebook Connection </span><br />
 			<img src="/img/waiting_dots.gif" />
@@ -34,7 +33,6 @@
 							debug="off" 
 							showUI="true"
 							loginMessage="You can now use Facebook to login to this site!" 
-							loginPage="SiteLogin"
 							loginFooterMessage="You can use this area to provide some fine print for you use if you so choose." />
 					</apex:panelGroup>
 				</apex:panelGrid>

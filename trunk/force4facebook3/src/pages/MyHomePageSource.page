@@ -1,0 +1,5 @@
+<apex:page controller="SourceController" >
+	<pre>
+		<apex:outputText value="{!getSource}"  escape="false" />
+	</pre>
+</apex:page>

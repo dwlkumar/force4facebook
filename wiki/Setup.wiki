@@ -79,36 +79,36 @@
 ==TOOLKIT EXPLANATION TODO - need to update this==
 ===Page !SiteLogin===
 ===Class !SiteLoginController===
-  Component !SiteLogin
-  Component !SiteTemplate
-    Facebook API Key
-    Facebook Feature Loader
-    Facebook Ask for Permissions Dialog, 
-      * Establishes the permissions for the app
-      * What can we do? http://wiki.developers.facebook.com/index.php/Extended_permissions
-      * Upon completion Redirects to home page of portal
-  Component !SiteHeader
-  Component !SiteFooter
+   * Component !SiteLogin
+   * Component !SiteTemplate
+     * Facebook API Key
+     * Facebook Feature Loader
+     * Facebook Ask for Permissions Dialog 
+       * Establishes the permissions for the app
+       * What can we do? http://wiki.developers.facebook.com/index.php/Extended_permissions
+       * Upon completion Redirects to home page of portal
+   * Component !SiteHeader
+   * Component !SiteFooter
 
 ===Page Facebook User===
 
-===Class - !FBCUserController===
-  Facebook - API Key
-  Component - !SiteTemplate
-    Facebook - API Key
+===Class !FBCUserController===
+  * Facebook API Key
+  * Component !SiteTemplate
+  * Facebook API Key
     
 ===Facebook Logic===
-  Class - FBCAuthenticator
-  Class - FacebookSession
-  Class - FacebookClient
-  Class - FacebookMethod
+  * Class !FBCAuthenticator
+  * Class !FacebookSession
+  * Class !FacebookClient
+  * Class !FacebookMethod
 
 ===Utility Classes===
-  Class - SiteRegister
-  Class - UrlBuilder
-  Class - XMLDom
-  Class - RestParameters
-  Class - RestPostMethod
-  Class - Server
+  * Class !SiteRegister
+  * Class !UrlBuilder
+  * Class !XMLDom
+  * Class !RestParameters
+  * Class !RestPostMethod
+  * Class Server
 
         

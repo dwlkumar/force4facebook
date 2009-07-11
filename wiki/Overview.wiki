@@ -1,0 +1,16 @@
+#summary What and Why
+
+= What is it and why does it exist =
+
+The purpose of the Force.com Toolkit for Facebook (FTF) is to provide an easy way for developers, be they customer IT devs or Partner devs, to create applications on the Force.com platform that leverage the Facebook social network.  The two platforms are complex and powerful.  Because of this complexity and power it can be easy to make mistakes in integrating the two causing frustration and needless expense.
+
+The FTF needs to be easy to use, easy to extend and easy to understand.  My vision for the toolkit is that once the classes, objects and components have been installed into an org, the process of "Facebook enabling" a page should consist of no more that adding a component and extending a controller class.  The user should never have to worry about the Javascript dependencies or the authentication flow.  In addition to the "bits" the toolkit needs to have documentation describing the classes that are used for communicating with Facebook, the components that enable the pages and the controller interface that provides Facebook functionality to the user.
+
+As much care and effort should be put into insulating the developer from the intricacies and internals of the toolkit as possible. The toolkit should also provide as much information as possible when it fails to work.
+
+The over-arching goal of the toolkit is to illustrate the point that the Force.com platform is the best and fastest platform for developing real applications on for the Facebook Social Network.
+
+
+The View From Above
+
+<need a couple of diagrams that illustrate data flow>

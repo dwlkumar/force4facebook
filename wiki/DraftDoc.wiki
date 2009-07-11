@@ -1,4 +1,6 @@
- Starting point: new Developer Edition
+Using Force.com Toolkit for Facebook
+
+Starting point: new Developer Edition
 
 In this guide we will be accessing several different apects of the Force.com Application Development model.  You should have, but are not required to, be familiar with editing Users, creating Accounts, editing Custom Objects, modifying security settings, using the Force.com IDE, Force.com Site creation and modification and Customer Portal creation and modification.
 
@@ -232,6 +234,4 @@ Edit the Site Header Component
    1. Make sure you are logged out
    2. Refresh the home page
    3.
-
-
 

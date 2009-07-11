@@ -78,22 +78,21 @@
   # ===Navigate to your Site URL - That should be it!===
 
 
-==TOOLKIT EXPLANATION - TODO - need to update this==
-
-===Page - SiteLogin===
-===Class - SiteLoginController===
-  Component - SiteLogin
-  Component - SiteTemplate
-    Facebook - API Key
-    Facebook - Feature Loader
-    Facebook - Ask for Permissions Dialog, 
+==TOOLKIT EXPLANATION  TODO  need to update this==
+===Page SiteLogin===
+===Class SiteLoginController===
+  Component SiteLogin
+  Component SiteTemplate
+    Facebook API Key
+    Facebook Feature Loader
+    Facebook Ask for Permissions Dialog, 
       * Establishes the permissions for the app
-      * What can we do? - http://wiki.developers.facebook.com/index.php/Extended_permissions
-      * Upon completion - Redirects to home page of portal
-  Component - SiteHeader
-  Component - SiteFooter
+      * What can we do? http://wiki.developers.facebook.com/index.php/Extended_permissions
+      * Upon completion Redirects to home page of portal
+  Component SiteHeader
+  Component SiteFooter
 
-===Page - Facebook User===
+===Page Facebook User===
 
 ===Class - FBCUserController===
   Facebook - API Key

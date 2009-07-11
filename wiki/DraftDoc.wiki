@@ -1,4 +1,4 @@
-Using Force.com Toolkit for Facebook
+#summary Using Force.com Toolkit for Facebook
 
 Starting point: new Developer Edition
 
@@ -234,4 +234,3 @@ Edit the Site Header Component
    1. Make sure you are logged out
    2. Refresh the home page
    3.
-

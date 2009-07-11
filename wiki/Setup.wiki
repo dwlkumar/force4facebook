@@ -1,89 +1,77 @@
 =Facebook Toolkit Update=
 
 ==SETUP==
-
-===* Prerequisites===
-    - Sites enabled org 
-      - dev edition, turn on here at developer.force.com/iwantsites
-    - Customer Portal Licenses 
-      - not available on force.com free edition
-    - Force.com IDE
-      - Eclipse - http://www.eclipse.org/downloads/packages/eclipse-ide-java-developers/ganymedesr2
-      - Force.com Plugin - http://wiki.developerforce.com/index.php/Force.com_IDE_Installation_for_Eclipse_3.4.x
-      - SVN Plugin - http://subclipse.tigris.org/install.html
-
-===1) Customer Portal - Setup ===
-    - Clone the Customer Portal Manager Profile
-        - Ex Facebook Users Profile
-    - Setup Customer Portal 
-        - Enable Self Registration
-        - Assign default new user license, role (suggest user), and profile (created above)
-        - Add / Set Facebook Users Profile as an Assigned Profile for portal
-        - Create account for customer portal users 
-            - Ex. Facebook Users
-            - Ensure account owner has a role in the role hirearchy
-
-===2) Sites - Setup===
-    - Create force.com URL
-    - Set site to active
-    - Enable login settings for Customer Portal created in Step 1
-    - Add two endpoints to the Remote Site Settings
-
-          * Facebook - http://api.new.facebook.com
-          * FacebookSSL - https://api.new.facebook.com
-
-
-===3) Download Toolkit===
-    - Using Force.com Perspective
-        - Create new project connecting to your org
-        - Select none for existing metadata
-        - make note of your project name
-    - Using SVN Perspective
-        - Add new repository 
-        - http://force4facebook.googlecode.com/svn/trunk/Force4Facebook2
-        - Right Click on new repository, checkout code to new project
-    - Using Force.com Perspective
-        - Right click and update project from menu (RightClick/Force.com/Save To Server)
-    - If get you errors - check that you have created a site
-
-===4) Modify Site with Toolkit===
-        - Set Homepage - MyHomePage
-        - Set Site Template - MyFacebookSiteTemplate
-        - Add xdreciever to site 
-        - Set Change Password Page (Login Settings) - MyFacebookForgotPassword
-        - Assign Error Pages - Unauthorized - MyFacebookUnauthoized
-    
-===5) Update Facebook Portal User Profile===
-   - Enable Social User (GFC User) Object for Customer Portal
-   - Enable Site Config Object for Customer Portal
-   - Enable full CRUD on Social User (GFC User) Object
-   - Enable Read on Site Config
-   - Add MyProtectedPage to Profile
-   - Add MyOtherProtectedPage to Profile
-
-===6) Create Custom Object Tabs===
-    - Create Tabs for 
-        - Social Users 
-            - used to store facebook user profile information related to user record
-            - Add all fields to page layout
-            - Set Field Level Security to admin or similar profile on App Secret
-        - Site Configs 
-            - used to store facebook application information
-            - Add all fields to page layout
-            - Set Field Level Security to admin or similar profile on App Secret
-
-===7) Create Facebook Application===
-    - Login to facebook
-    - Add the facebook developer application - http://www.facebook.com/developers/
-    - Create new application 
-        - Make note of the location of the API Key and Secret, you will need them in a minute
-        - Set your application information, images, and contacts as appropriate
-        - Click on the sidebar connect link
-            - set the connect URL to the appropriate secure link, if you have a custom domain this will be https://{your domain here}
-            
-                https://na6.salesforce.com/help/doc/user_ed.jsp?section=help&target=sites_considerations.htm&loc=help&hash=topic-title
-            
-            - Set your base domain as force.com, or {your domain here} if you have a custom domain
+  # ===Prerequisites===
+    * Sites enabled org 
+      * dev edition, turn on here at developer.force.com/iwantsites
+    * Customer Portal Licenses 
+      * not available on force.com free edition
+    * Force.com IDE
+      * [http://www.eclipse.org/downloads/packages/eclipse-ide-java-developers/ganymedesr2 Eclipse Ganymede]<br/>
+      * [http://wiki.developerforce.com/index.php/Force.com_IDE_Installation_for_Eclipse_3.4.x Force.com Plugin]<br/>
+      * [http://subclipse.tigris.org/install.html SVN Plugin]
+  # ===Customer Portal - Setup===
+    * Clone the Customer Portal Manager Profile
+      * Ex Facebook Users Profile
+    * Setup Customer Portal 
+      * Enable Self Registration
+      * Assign default new user license, role (suggest user), and profile (created above)
+      * Add / Set Facebook Users Profile as an Assigned Profile for portal
+      * Create account for customer portal users 
+        * Ex. Facebook Users
+        * Ensure account owner has a role in the role hirearchy
+  # ===Sites - Setup===
+    * Create force.com URL
+    * Set site to active
+    * Enable login settings for Customer Portal created in Step 1
+    * Add two endpoints to the Remote Site Settings
+      * Facebook - http://api.new.facebook.com
+      * FacebookSSL - https://api.new.facebook.com
+  # ===Download Toolkit===
+    * Using Force.com Perspective
+      * Create new project connecting to your org
+      * Select none for existing metadata
+      * make note of your project name
+    * Using SVN Perspective
+      * Add new repository 
+      * http://force4facebook.googlecode.com/svn/trunk/Force4Facebook2
+      * Right Click on new repository, checkout code to new project
+    * Using Force.com Perspective
+      * Right click and update project from menu (RightClick/Force.com/Save To Server)
+    * If get you errors - check that you have created a site
+  # ===Modify Site with Toolkit===
+    * Set Homepage - MyHomePage
+    * Set Site Template - MyFacebookSiteTemplate
+    * Add xdreciever to site 
+    * Set Change Password Page (Login Settings) - MyFacebookForgotPassword
+    * Assign Error Pages - Unauthorized - MyFacebookUnauthoized
+  # ===Update Facebook Portal User Profile===
+    * Enable Social User (GFC User) Object for Customer Portal
+    * Enable Site Config Object for Customer Portal
+    * Enable full CRUD on Social User (GFC User) Object
+    * Enable Read on Site Config
+    * Add MyProtectedPage to Profile
+    * Add MyOtherProtectedPage to Profile
+  # ===Create Custom Object Tabs===
+    * Create Tabs for 
+      * Social Users 
+        * used to store facebook user profile information related to user record
+        * Add all fields to page layout
+        * Set Field Level Security to admin or similar profile on App Secret
+      * Site Configs 
+        * used to store facebook application information
+        * Add all fields to page layout
+        * Set Field Level Security to admin or similar profile on App Secret
+  # ===Create Facebook Application===
+    * Login to facebook
+    * Add the facebook developer application - http://www.facebook.com/developers/
+    * Create new application 
+      * Make note of the location of the API Key and Secret, you will need them in a minute
+      * Set your application information, images, and contacts as appropriate
+      * Click on the sidebar connect link
+        * set the connect URL to the appropriate secure link, if you have a custom domain this will be https://{your domain here}
+                [https://na6.salesforce.com/help/doc/user_ed.jsp?section=help&target=sites_considerations.htm&loc=help&hash=topic-title]
+        * Set your base domain as force.com, or {your domain here} if you have a custom domain
 
 ===8)  Create Site Config for Facebook===
     - Use API Key, App Secret and Assign Default Facebook Users Account
@@ -128,4 +116,3 @@ Class - RestPostMethod
 Class - Server
 
         
-

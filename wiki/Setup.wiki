@@ -70,7 +70,7 @@
       * Set your application information, images, and contacts as appropriate
       * Click on the sidebar connect link
         * set the connect URL to the appropriate secure link, if you have a custom domain this will be https://{your domain here}
-                [https://na6.salesforce.com/help/doc/user_ed.jsp?section=help&target=sites_considerations.htm&loc=help&hash=topic-title]
+                [http://docs.google.com/File?id=dhtg27z4_112fbk5fsdn_b]
         * Set your base domain as force.com, or {your domain here} if you have a custom domain
 
 ===8)  Create Site Config for Facebook===

@@ -70,49 +70,48 @@
       * Set your application information, images, and contacts as appropriate
       * Click on the sidebar connect link
         * set the connect URL to the appropriate secure link, if you have a custom domain this will be https://{your domain here}
-                [http://docs.google.com/File?id=dhtg27z4_112fbk5fsdn_b]
+     [http://docs.google.com/File?id=dhtg27z4_112fbk5fsdn_b&blah=some.png]
         * Set your base domain as force.com, or {your domain here} if you have a custom domain
-
-===8)  Create Site Config for Facebook===
-    - Use API Key, App Secret and Assign Default Facebook Users Account
-        *Might be the place to assign Person Account ability?
-
-===9) Navigate to your Site URL - That should be it!===
+  # ===Create Site Config for Facebook===
+    * Use API Key, App Secret and Assign Default Facebook Users Account
+      _Might be the place to assign Person Account ability?_
+  # ===Navigate to your Site URL - That should be it!===
 
 
 ==TOOLKIT EXPLANATION - TODO - need to update this==
 
 ===Page - SiteLogin===
 ===Class - SiteLoginController===
-    Component - SiteLogin
-    Component - SiteTemplate
-        Facebook - API Key
-        Facebook - Feature Loader
-        Facebook - Ask for Permissions Dialog, 
-            - Establishes the permissions for the app
-            - What can we do? - http://wiki.developers.facebook.com/index.php/Extended_permissions
-            - Upon completion - Redirects to home page of portal
-    Component - SiteHeader
-    Component - SiteFooter
+  Component - SiteLogin
+  Component - SiteTemplate
+    Facebook - API Key
+    Facebook - Feature Loader
+    Facebook - Ask for Permissions Dialog, 
+      * Establishes the permissions for the app
+      * What can we do? - http://wiki.developers.facebook.com/index.php/Extended_permissions
+      * Upon completion - Redirects to home page of portal
+  Component - SiteHeader
+  Component - SiteFooter
 
 ===Page - Facebook User===
+
 ===Class - FBCUserController===
+  Facebook - API Key
+  Component - SiteTemplate
     Facebook - API Key
-    Component - SiteTemplate
-        Facebook - API Key
     
 ===Facebook Logic===
-Class - FBCAuthenticator
-Class - FacebookSession
-Class - FacebookClient
-Class - FacebookMethod
+  Class - FBCAuthenticator
+  Class - FacebookSession
+  Class - FacebookClient
+  Class - FacebookMethod
 
 ===Utility Classes===
-Class - SiteRegister
-Class - UrlBuilder
-Class - XMLDom
-Class - RestParameters
-Class - RestPostMethod
-Class - Server
+  Class - SiteRegister
+  Class - UrlBuilder
+  Class - XMLDom
+  Class - RestParameters
+  Class - RestPostMethod
+  Class - Server
 
         

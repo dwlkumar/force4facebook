@@ -154,9 +154,8 @@
 					document.location.href = "{!$Site.Prefix}/secur/logout.jsp";
 				} else {
 					if ("{!isPortalUser}" == "true") {
-						FB.XFBML.Host.parseDomTree();
+						//FB.XFBML.Host.parseDomTree();
 						return;
-						document.location.href = "{!$Site.Prefix}/{!loginPage}";
 					}
 				}
 			}
@@ -173,9 +172,6 @@
 				document.getElementById("fbconnect").style.display = "block";
 			}
 			
-			if (FB) {
-				FB.XFBML.Host.parseDomTree();
-			}
 			if (unconn) { unconn(); } 
 		}
 		

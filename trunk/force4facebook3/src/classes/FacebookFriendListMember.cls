@@ -2,8 +2,8 @@ public class FacebookFriendListMember implements IFacebookQueryResult {
 	
 	protected Map<String, String> data = new Map<String, String>();
 	
-	public String flid { get { return data.get('flid'); } set; }
-	public String uid { get { return data.get('uid'); } set; }
+	public String flid { get { return data.get('flid'); } set { data.put('flid', value); } }
+	public String uid { get { return data.get('uid'); } set { data.put('uid', value); } }
 		
 	public FacebookFriendListMember(XMLDom.Element xmlInfo) {
 		parseSource(xmlInfo);

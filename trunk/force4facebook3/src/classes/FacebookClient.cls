@@ -1,21 +1,21 @@
-public class FacebookClient {
-    private String USER_AGENT  = 'fb4j 0.1';
+public virtual class FacebookClient extends RestPostMethod {
+    public String USER_AGENT  = 'fb4j 0.1';
 
-    private HTTP                httpClient;
-    private String              apiKey;
-    private String              secretKey;
+    public HTTP                httpClient;
+    public String              apiKey;
+    public String              secretKey;
     public String               sessionKey { get; set; }
     public String               authToken { get; set; }
     
     public static final String INFO_TEXT_ONLY = '1';
     public static final String INFO_THUMBNAIL = '5';
     
-    private FacebookClient( String apiKey, String secretKey )
+    /*private FacebookClient( String apiKey, String secretKey )
     {
         this.httpClient = new HTTP();
         this.apiKey = apiKey;
         this.secretKey = secretKey;
-    }
+    }*/
  
     /*public FacebookClient( String apiKey, String secretKey, String authToken )
     { 
@@ -25,11 +25,11 @@ public class FacebookClient {
         System.debug(LoggingLevel.INFO, 'Session key is: ' + sessionKey);
     }*/
     
-    public FacebookClient( String apiKey, String secretKey, String sessionKey )
+    /*public FacebookClient( String apiKey, String secretKey, String sessionKey )
     {
         this(apiKey, secretKey); 
         this.sessionKey = sessionKey;
-    }
+    }*/
      
     public String openLoginPage() 
     {
@@ -81,22 +81,25 @@ public class FacebookClient {
     }
 
     
-    public String callMethod( FacebookMethod method, Map<String, String> params ) 
+    public virtual String callMethod( FacebookMethod method, Map<String, String> params ) 
     {
-        try
+        try 
         {
-            RestPostMethod post = new RestPostMethod(Server.REST_URL, USER_AGENT);// FacebookClient.Server.REST_URL, USER_AGENT );
-
+            ///RestPostMethod post = new RestPostMethod(Server.REST_URL, USER_AGENT);// FacebookClient.Server.REST_URL, USER_AGENT );
+			request = new HttpRequest();
+    		request.setEndpoint( Server.REST_URL );
+    		request.setHeader( 'User-Agent', USER_AGENT );
+            
             Map<String, String> preparedParams = prepareParams( method, params );
 
             signParameters( preparedParams );
 
             System.debug(LoggingLevel.INFO, '\n\n<=========== Adding params to httpRequest ===============>');
 
-            post.addParameters( preparedParams );
+            addParameters( preparedParams );
 
             System.debug(LoggingLevel.INFO, '\n\n<=========== Ready to call the web service ===============>\n');
-            String response = post.execute( httpClient );
+            String response = execute( httpClient );
             System.debug(LoggingLevel.INFO, '\n\n<=========== Returned from the web service ===============>\n');
 			System.debug(LoggingLevel.INFO, '\n\nResponse: \n' + response + '\n\n');
             return method.parseResponse( response );
@@ -126,19 +129,22 @@ public class FacebookClient {
         return callMethod( method, paramsMap );
     }
 
-    public String callSecureMethod( FacebookMethod method, Map<String, String> params ) 
+    public virtual String callSecureMethod( FacebookMethod method, Map<String, String> params ) 
     {
         try
         {
-            RestPostMethod post = new RestPostMethod( Server.REST_URL, USER_AGENT );
+            //RestPostMethod post = new RestPostMethod( Server.REST_URL, USER_AGENT );
+			request = new HttpRequest();
+    		request.setEndpoint( Server.REST_URL );
+    		request.setHeader( 'User-Agent', USER_AGENT );
 
             Map<String, String> preparedParams = prepareParams( method, params );
 
             signParameters( preparedParams );
 
-            post.addParameters( preparedParams );
+            addParameters( preparedParams );
 
-            String response = post.execute( httpClient );
+            String response = execute( httpClient );
             System.debug(LoggingLevel.INFO, '\n\nResponse:\n' + response);
             return response;
         }

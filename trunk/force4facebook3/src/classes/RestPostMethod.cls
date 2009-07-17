@@ -1,14 +1,13 @@
-public class RestPostMethod {
-    private HttpRequest request;
+public virtual class RestPostMethod {
+    public HttpRequest request;
     private String body = '';
     
-    public RestPostMethod( String url, String userAgent )
-    {
-        request = new HttpRequest();
-        request.setEndpoint( url );
-        request.setHeader( 'User-Agent', userAgent );
-        //setFollowRedirects( false );
-    }
+    //public RestPostMethod( String url, String userAgent )
+    //{
+    //    request = new HttpRequest();
+    //    request.setEndpoint( url );
+    //    request.setHeader( 'User-Agent', userAgent );
+    //}
   
     // utility to join up a list of strings
     public string joinstr(list<string> s,string sep) { 
@@ -31,39 +30,8 @@ public class RestPostMethod {
     {
         System.debug('\n\n<============  Adding parameters to Post =============>');
         body = joinstr(mapToList(params), '&');
-        /*String cSymbol = '?';
-        for ( String name : params.keySet() )
-        {
-            String value = params.get( name );
-            System.debug('\tparam name: ' + name + ' - ' + value);
-            addParameter(cSymbol, name, value );
-            cSymbol = '&';
-        }*/
-        //System.debug('\n\tREST Url: ' + request.getEndpoint());
     }
     
-    private void addParameter(String concatSymbol, String name, String value) {
-        request.setEndpoint(request.getEndpoint() + concatSymbol + name + '=' + value);
-    }  
-
-/*    public void addParameters( List<String> params ) 
-    {
-        if ( Math.mod(params.size(), 2) != 0 )
-        {  
-            //throw new IllegalArgumentException( 'Invalid number of parameters; each name must have a corresponding value!' );
-        }
-        for ( Integer i = 0; i < params.size(); )
-        {
-            String name = params[i++];
-            String value = params[i++];
-            if (i == 0) {
-                addParameter('?', name, value);
-            } else {
-                addParameter('&', name, value );
-            }
-        }
-    }*/
-
     public void setMultipart( Map<String, String> params) //, FilePart[] files )
     {
         /*Part[] parts = new Part[ params.size() + files.length ];
@@ -81,6 +49,25 @@ public class RestPostMethod {
         setRequestEntity( new MultipartRequestEntity( parts, getParams() ) );*/
     }
 
+	public virtual HTTPResponse doExecute(HTTP httpClient) {
+		return httpClient.send(request);
+	}
+	public virtual String getResponseBody(HTTPResponse response) {
+		return response.getBody();
+	}
+	public virtual String getResponseStatus(HTTPResponse response) {
+		return response.getStatus();
+	}
+	public virtual Integer getResponseCode(HTTPResponse response) {
+		return response.getStatusCode();
+	}
+	public virtual String getResponseHeader(HTTPResponse response, String header) {
+		return response.getHeader(header);
+	}
+	public virtual List<String> getResponseHeaderKeys(HTTPResponse response) {
+		return response.getHeaderKeys();
+	}
+	
     public String execute( HTTP httpClient ) 
     {
         try
@@ -92,9 +79,9 @@ public class RestPostMethod {
             integer len = body.length();
             request.setHeader('Content-Length',string.valueof(len));
             request.setBody(body);
-            HTTPResponse resp = httpClient.send(request);
-            String buffer = resp.getBody();
-            //System.debug(LoggingLevel.INFO, '\n\nRESPONSE:\n\n' + buffer);
+            HTTPResponse resp = doExecute(httpClient);
+            String buffer = getResponseBody(resp);
+            System.debug(LoggingLevel.INFO, '\n\nRESPONSE:\n\n' + buffer + '\n\n\n');
             
             return ( buffer );
         } catch (Exception e) {

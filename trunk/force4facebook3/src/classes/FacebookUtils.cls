@@ -37,10 +37,10 @@ public class FacebookUtils {
 		}
 	}
     
-    public static String listToString(List<Long> longList)
+    public static String listToString(List<String> longList)
     {
     	String ids = '';
-        for (Long id : longList) {
+        for (String id : longList) {
             ids += id + ',';
         }
         return ids.substring(0, ids.length() - 1);

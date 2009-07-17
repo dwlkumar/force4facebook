@@ -2,11 +2,11 @@ public class FacebookInfoItem {
 	
 	private Map<String, String> itemFields = new Map<String, String>();
 	
-	public String label { get; set { setItemField('label', value); } }
-	public String link { get; set { setItemField('link', value); } }
-	public String image { get; set { setItemField('image', value); } }
-	public String description { get; set { setItemField('description', value); } }
-	public String sublabel { get; set {setItemField('sublabel', value); } }
+	public String label { get { return itemFields.get('label'); } set { setItemField('label', value); } }
+	public String link { get { return itemFields.get('link'); } set { setItemField('link', value); } }
+	public String image { get { return itemFields.get('image'); } set { setItemField('image', value); } }
+	public String description { get { return itemFields.get('description'); } set { setItemField('description', value); } }
+	public String sublabel { get { return itemFields.get('sublabel'); } set {setItemField('sublabel', value); } }
 	
 	private void setItemField(String name, String value) {
 		itemFields.put(name, value);

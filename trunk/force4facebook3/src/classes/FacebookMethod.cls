@@ -118,5 +118,6 @@ public class FacebookMethod {
     
     public static String Status_SET = 'facebook.status.set';
     
+    public static String Error_BAD_METHOD = 'facebook.bad.method';
     
 }

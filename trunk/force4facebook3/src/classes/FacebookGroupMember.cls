@@ -3,8 +3,9 @@ public class FacebookGroupMember implements IFacebookQueryResult {
 	private static long serialVersionUID = 1L;
 	private Map<String, String> data = new Map<String, String>();
 	
-	public String gid { get { return data.get('gid'); }  set; }
-	public String uid {get { return data.get('uid'); } set;}
+	public String gid { get { return data.get('gid'); }  set { data.put('gid', value); } }
+	public String uid {get { return data.get('uid'); } set { data.put('uid', value); } }
+	
 	public List<Position> positions {get; set;}
  
 	public FacebookGroupMember(XMLDom source) {

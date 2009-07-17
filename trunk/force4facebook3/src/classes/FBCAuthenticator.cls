@@ -5,6 +5,7 @@
 */
 public virtual class FBCAuthenticator extends AbsAuthenticator {
 
+	public Boolean testing = false;
  
 	/* Sample URL query string from Facebook whilst on the Facebook Platform
 	Key: _fb_q = 1
@@ -143,7 +144,7 @@ public virtual class FBCAuthenticator extends AbsAuthenticator {
 	    		sig = params.get('fb_sig');
 	    		uid = params.get('fb_sig_user'); 
 			}
-			
+			 
 			// Verify that the APIKeys match
 			if (!APIKey.equals(siteConfig.APIKey__c)) {
 				throw new AuthenticatorException('API Key does not match the API Key from Facebook.');
@@ -156,8 +157,14 @@ public virtual class FBCAuthenticator extends AbsAuthenticator {
 			String userName = uid + '@' + uid + '.com';
  			
  			// Try to get some facebook user info for the identified uid
-			FacebookSession fbs = new FacebookSession(APIKey, secret, sessionKey);
-			FacebookUserInfo uInfo = fbs.getUserInfo(new List<String>{ uid }, fbs.userInfoFieldList)[0]; //fields) ;
+ 			FacebookUserInfo uInfo;
+ 			if (!testing) {
+				FacebookSession fbs = new FacebookSession(APIKey, secret, sessionKey);
+				uInfo = fbs.getUserInfo(new List<String>{ uid }, fbs.userInfoFieldList)[0]; //fields) ;
+ 			} else {
+				FacebookSessionTester fbs = new FacebookSessionTester(APIKey, secret, sessionKey);
+				uInfo = fbs.getUserInfo(new List<String>{ uid }, fbs.userInfoFieldList)[0]; //fields) ;
+ 			}
 			
 			loginRedirect = getRedirectUrl();
 

@@ -2,36 +2,36 @@ public class FacebookUserInfo implements IFacebookQueryResult {
     
     private Map<String, String> data = new Map<String, String>();
     
-    public String aboutMe { get { return data.get('about_me'); } set; }
-    public String pic { get { return data.get('pic'); } set; }
-    public String uid { get { return data.get('uid'); } set; }
-    public String activities { get { return data.get('activities'); } set; }
+    public String aboutMe { get { return data.get('about_me'); } set {data.put('about_me', value); } }
+    public String pic { get { return data.get('pic'); } set { data.put('pic', value); } }
+    public String uid { get { return data.get('uid'); } set { data.put('uid', value); } }
+    public String activities { get { return data.get('activities'); } set { data.put('activities', value); } }
 
-    public String birthday { get { return data.get('birthday'); } set; }
-    public String books { get { return data.get('books'); } set; }
-    public String first_name { get { return data.get('first_name'); } set; }
-    public String is_app_user { get { return data.get('is_app_user'); } set; }
-    public String has_added_app { get { return data.get('has_added_app'); } set; }
-    public String interests { get { return data.get('interests'); } set; }
-    public String last_name { get { return data.get('last_name'); } set; }
-    public String locale { get { return data.get('locale'); } set; }
-    public String movies { get { return data.get('movies'); } set; }
-    public String music { get { return data.get('music'); } set; }
-    public String name { get { return data.get('name'); } set; }
-    public String notes_count { get { return data.get('notes_count'); } set; }
-    public String pic_big { get { return data.get('pic_big'); } set; }
-    public String pic_small { get { return data.get('pic_small'); } set; }
-    public String pic_square { get { return data.get('pic_square'); } set; }
-    public String political { get { return data.get('political'); } set; }
-    public String profile_update_time { get { return data.get('profile_update_time'); } set; }
-    public String quotes { get { return data.get('quotes'); } set; }
-    public String relationship_status { get { return data.get('relationship_status'); } set; }
-    public String religion { get { return data.get('religion'); } set; }
-    public String sex { get { return data.get('sex'); } set; }
-    public String significant_other_id { get { return data.get('significant_other_id'); } set; }
-    public String timezone { get { return data.get('timezone'); } set; }
-    public String tv { get { return data.get('tv'); } set; }
-    public String wall_count { get { return data.get('wall_count'); } set; }
+    public String birthday { get { return data.get('birthday'); } set { data.put('birthday', value); } }
+    public String books { get { return data.get('books'); } set { data.put('books', value); } }
+    public String first_name { get { return data.get('first_name'); } set { data.put('first_name', value); } }
+    public String is_app_user { get { return data.get('is_app_user'); } set { data.put('is_app_user', value); } }
+    public String has_added_app { get { return data.get('has_added_app'); } set { data.put('has_added_app', value); } }
+    public String interests { get { return data.get('interests'); } set { data.put('interests', value); } }
+    public String last_name { get { return data.get('last_name'); } set { data.put('last_name', value); } }
+    public String locale { get { return data.get('locale'); } set { data.put('locale', value); } }
+    public String movies { get { return data.get('movies'); } set { data.put('movies', value); } }
+    public String music { get { return data.get('music'); } set { data.put('music', value); } }
+    public String name { get { return data.get('name'); } set { data.put('name', value); } }
+    public String notes_count { get { return data.get('notes_count'); } set { data.put('notes_count', value); } }
+    public String pic_big { get { return data.get('pic_big'); } set { data.put('pic_big', value); } }
+    public String pic_small { get { return data.get('pic_small'); } set { data.put('pic_small', value); } }
+    public String pic_square { get { return data.get('pic_square'); } set { data.put('pic_square', value); } }
+    public String political { get { return data.get('political'); } set { data.put('political', value); } }
+    public String profile_update_time { get { return data.get('profile_update_time'); } set { data.put('profile_update_time', value); } }
+    public String quotes { get { return data.get('quotes'); } set { data.put('quotes', value); } }
+    public String relationship_status { get { return data.get('relationship_status'); } set { data.put('relationship_status', value); } }
+    public String religion { get { return data.get('religion'); } set { data.put('religion', value); } }
+    public String sex { get { return data.get('sex'); } set { data.put('sex', value); } }
+    public String significant_other_id { get { return data.get('significant_other_id'); } set { data.put('significant_other_id', value); } }
+    public String timezone { get { return data.get('timezone'); } set { data.put('timezone', value); } }
+    public String tv { get { return data.get('tv'); } set { data.put('tv', value); } }
+    public String wall_count { get { return data.get('wall_count'); } set { data.put('wall_count', value); } }
 
     public List<Affiliation> affiliations { get; set; }
     public UserLocation current_location { get; set; }
@@ -110,11 +110,11 @@ public class FacebookUserInfo implements IFacebookQueryResult {
         private Map<String, String> data = new Map<String, String>();
         
         public UserLocation location { get; set; }
-        public String company_name { get { return data.get('company_name'); } set; }
-        public String position { get { return data.get('position'); } set; }
-        public String description { get { return data.get('description'); } set; }
-        public String start_date { get { return data.get('start_date'); } set; }
-        public String end_date { get { return data.get('end_date'); } set; }
+        public String company_name { get { return data.get('company_name'); } set { data.put('company_name', value); } }
+        public String position { get { return data.get('position'); } set { data.put('position', value); } }
+        public String description { get { return data.get('description'); } set { data.put('description', value); } }
+        public String start_date { get { return data.get('start_date'); } set { data.put('start_date', value); } }
+        public String end_date { get { return data.get('end_date'); } set { data.put('end_date', value); } }
         
         public WorkInfo(XMLDom.Element xmlInfo) {
             parseSource(xmlInfo);
@@ -133,8 +133,8 @@ public class FacebookUserInfo implements IFacebookQueryResult {
     public class UserStatus {
         private Map<String, String> data = new Map<String, String>();
         
-        public String message { get { return data.get('message'); } set; }
-        public String f_time { get { return data.get('time'); } set; }
+        public String message { get { return data.get('message'); } set { data.put('message', value); } }
+        public String f_time { get { return data.get('time'); } set { data.put('time', value); } }
         
         public UserStatus(XMLDom.Element xmlInfo) {
             parseSource(xmlInfo);
@@ -160,11 +160,11 @@ public class FacebookUserInfo implements IFacebookQueryResult {
 
         private Map<String, String> data = new Map<String, String>();
         
-        public String hs1_name { get { return data.get('hs1_name'); } set; }
-        public String hs2_name { get { return data.get('hs2_name'); } set; }
-        public String grad_year { get { return data.get('grad_year'); } set; }
-        public String hs1_id { get { return data.get('hs1_id'); } set; }
-        public String hs2_id { get { return data.get('hs2_id'); } set; }
+        public String hs1_name { get { return data.get('hs1_name'); } set { data.put('hs1_name', value); } }
+        public String hs2_name { get { return data.get('hs2_name'); } set { data.put('hs2_name', value); } }
+        public String grad_year { get { return data.get('grad_year'); } set { data.put('grad_year', value); } }
+        public String hs1_id { get { return data.get('hs1_id'); } set { data.put('hs1_id', value); } }
+        public String hs2_id { get { return data.get('hs2_id'); } set { data.put('hs2_id', value); } }
         
         public HighSchoolInfo(XMLDom.Element xmlInfo) {
             parseSource(xmlInfo);
@@ -179,8 +179,8 @@ public class FacebookUserInfo implements IFacebookQueryResult {
     public class EducationInfo {
         private Map<String, String> data = new Map<String, String>();
         
-        public String name { get { return data.get('name'); } set; }
-        public String year { get { return data.get('year'); } set; }
+        public String name { get { return data.get('name'); } set { data.put('name', value); } }
+        public String year { get { return data.get('year'); } set { data.put('year', value); } }
         public List<String> concentrations { get; set; }
         
         public EducationInfo(XMLDom.Element xmlInfo) {
@@ -204,10 +204,10 @@ public class FacebookUserInfo implements IFacebookQueryResult {
     public class UserLocation {
         private Map<String, String> data = new Map<String, String>();
         
-        public String city { get { return data.get('city'); } set; }
-        public String state { get { return data.get('state'); } set; }
-        public String country { get { return data.get('country'); } set; }
-        public String zip { get { return data.get('zip'); } set; }
+        public String city { get { return data.get('city'); } set { data.put('city', value); } }
+        public String state { get { return data.get('state'); } set { data.put('state', value); } }
+        public String country { get { return data.get('country'); } set { data.put('country', value); } }
+        public String zip { get { return data.get('zip'); } set { data.put('zip', value); } }
         
         public UserLocation(XMLDom.Element xmlInfo) {
             parseSource(xmlInfo);
@@ -222,11 +222,11 @@ public class FacebookUserInfo implements IFacebookQueryResult {
         
         private Map<String, String> data = new Map<String, String>();
 
-        public String nid { get { return data.get('nid'); } set; }
-        public String name { get { return data.get('name'); } set; }
-        public String a_type { get { return data.get('type'); } set; }
-        public String status { get { return data.get('status'); } set; }
-        public String year { get { return data.get('year'); } set; }
+        public String nid { get { return data.get('nid'); } set { data.put('nid', value); } }
+        public String name { get { return data.get('name'); } set { data.put('name', value); } }
+        public String a_type { get { return data.get('type'); } set { data.put('type', value); } }
+        public String status { get { return data.get('status'); } set { data.put('status', value); } }
+        public String year { get { return data.get('year'); } set { data.put('year', value); } }
 
         public Affiliation(XMLDom.Element xmlInfo) {
             parseSource(xmlInfo);

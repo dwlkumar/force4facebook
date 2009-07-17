@@ -11,12 +11,12 @@ public class FacebookEventLocation {
         parseSource(source);
     }
     
-    public String street {get { return data.get('STREET'); } set { data.put('STREET', value); } }
-    public Double latitude {get { return Double.valueOf(data.get('LATITUDE')); } set { data.put('LATITUDE', String.valueOf(value)); } }
-    public Double longitude {get { return Double.valueOf(data.get('LONGITUDE')); } set { data.put('LONGITUDE', String.valueOf(value)); } }
-    public String city {get { return data.get('CITY'); } set { data.put('CITY', value); } }
-    public String state {get { return data.get('STATE'); } set { data.put('STATE', value); } }
-    public String country {get { return data.get('COUNTRY'); } set { data.put('COUNTRY', value); } }
+    public String street {get { return data.get('street'); } set { data.put('street', value); } }
+    public Double latitude {get { return Double.valueOf(data.get('latitude')); } set { data.put('latitude', String.valueOf(value)); } }
+    public Double longitude {get { return Double.valueOf(data.get('longitude')); } set { data.put('longitude', String.valueOf(value)); } }
+    public String city {get { return data.get('city'); } set { data.put('city', value); } }
+    public String state {get { return data.get('state'); } set { data.put('state', value); } }
+    public String country {get { return data.get('counrty'); } set { data.put('counrty', value); } }
 
     private void parseSource(XMLDom.Element source) {
         for (XMLDom.Element e : source.childNodes) {

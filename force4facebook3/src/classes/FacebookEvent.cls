@@ -92,16 +92,20 @@ public class FacebookEvent implements IFacebookQueryResult {
 		
 		if ( flatten )
 		{
-			FBJSONObject venueJsonObject = venue.toJSON();
-			Map<String,FBJSONObject> venueJsonValues = venueJsonObject.mapValue;
-			for ( String key: venueJsonValues.keySet() )
-			{
-				jsonValue.put(key, venueJsonValues.get(key));
+			if (venue != null) {
+				FBJSONObject venueJsonObject = venue.toJSON();
+				Map<String,FBJSONObject> venueJsonValues = venueJsonObject.mapValue;
+				for ( String key: venueJsonValues.keySet() )
+				{
+					jsonValue.put(key, venueJsonValues.get(key));
+				}
 			}
 		}
 		else
 		{
-			jsonValue.put('location', venue.toJSON());
+			if (venue != null) {
+				jsonValue.put('location', venue.toJSON());
+			}
 		}
 		
 		FBJSONObject jsonObjectValue = new FBJSONObject();

@@ -2,8 +2,8 @@ public class FacebookFriendRequest implements IFacebookQueryResult {
 	
 	protected Map<String, String> data = new Map<String, String>();
 	
-	public String uid_from { get { return data.get('uid_from'); } set; }
-	public String uid_to { get { return data.get('uid_to'); } set; }
+	public String uid_from { get { return data.get('uid_from'); } set { data.put('uid_from', value); } }
+	public String uid_to { get { return data.get('uid_to'); } set { data.put('uid_to', value); } }
 		
 	public FacebookFriendRequest(XMLDom.Element xmlInfo) {
 		parseSource(xmlInfo);

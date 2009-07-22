@@ -34,7 +34,7 @@
       * make note of your project name
     * Using SVN Perspective
       * Add new repository 
-      * http://force4facebook.googlecode.com/svn/trunk/Force4Facebook2
+      * http://force4facebook.googlecode.com/svn/trunk/force4facebook3
       * Right Click on new repository, checkout code to new project
     * Using Force.com Perspective
       * Right click and update project from menu (RightClick/Force.com/Save To Server)

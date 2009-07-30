@@ -27,10 +27,6 @@ private class AbsAuthenticatorTest {
         }
     }
 	
-	static testmethod void testSiteSetup() {
-		IdeaTestUtil.setupTest();
-	}
-	
 	static testmethod void testAbsAthenticator() {
 		TestAuthenticator auth = new TestAuthenticator();
 		System.assertEquals(auth.isValidSig(), false, '');

@@ -1,73 +1,82 @@
 <apex:component id="headerComponent" >
-	<apex:includescript value="https://www.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php" />
-	<apex:panelGrid cellpadding="0" cellspacing="0" width="98%" border="0" columns="2" style="text-align: left;" id="theHeader">
-		<apex:image url="{!$Site.Prefix}{!$Label.site.img_path}/force_logo.gif"	style="align: left;" alt="Salesforce" width="233" height="55"	title="Salesforce" />
-		<apex:panelGrid cellpadding="0" cellspacing="0" width="100%" border="0" columns="1" style="text-align: right;" id="Links">
-			<apex:panelGroup rendered="{!AND(ISPICKVAL($User.UserType,'Guest'), $Site.LoginEnabled)}" >
-				<div id="register_menu" style="display: none;">
-				<apex:outputLink value="{!$Page.MyFacebookSiteLogin}">{!$Label.site.login_button}</apex:outputLink>
-				<apex:outputText value=" | " />
-				<apex:outputLink value="{!$Page.ForgotPassword}">{!$Label.site.forgot_your_password_q}</apex:outputLink>
-				<apex:outputText value=" | " rendered="{!$Site.RegistrationEnabled}" />
-				<apex:outputLink value="{!$Page.SiteRegister}" rendered="{!$Site.RegistrationEnabled}">{!$Label.site.new_user_q}</apex:outputLink>
-				</div> 
-			</apex:panelGroup>
-			<apex:panelGroup >
-				<div id="logout_link" style="display: none;">
-				<apex:outputPanel rendered="{!NOT(ISPICKVAL($User.UserType,'Guest'))}">
-					<a href="" onclick="loadnred();" style="cursor: pointer;">
-					{!$Label.site.logout} </a>
-				</apex:outputPanel>
-				</div>
-			</apex:panelGroup>
-		</apex:panelGrid> 
-	</apex:panelGrid>
-	<hr />
-	<apex:outputText value="Force.com Toolkit for Facebook"  style="font-size: 20pt;"/>
-	
-	<script>
-	
-		function addLoadEvent(func) {
-			var oldonload = window.onload;
-			if (typeof window.onload != 'function') {
-				window.onload = func;
-			} else {
-				window.onload = function() {
-					if (oldonload) {
-						oldonload();
+
+	<div id="header">
+		<div id="headerimg">
+
+			<!-- Start Facebook Site Code -->
+			<apex:includescript value="https://www.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php" />
+			
+			<apex:panelGrid cellpadding="0" cellspacing="0" width="100%" border="0" columns="2" style="text-align: left;" id="theHeader">
+				<!-- <apex:image url="{!$Site.Prefix}{!$Label.site.img_path}/force_logo.gif"	style="align: left;" alt="Salesforce" width="233" height="55"	title="Salesforce" />  -->
+				<apex:panelGrid cellpadding="0" cellspacing="0" width="100%" border="0" columns="1" style="text-align: right;" id="Links">
+					<apex:panelGroup rendered="{!AND(ISPICKVAL($User.UserType,'Guest'), $Site.LoginEnabled)}" >
+						<div id="register_menu" style="display: none;">
+						<apex:outputLink value="{!$Page.MyFacebookSiteLogin}">{!$Label.site.login_button}</apex:outputLink>
+						<apex:outputText value=" | " />
+						<apex:outputLink value="{!$Page.ForgotPassword}">{!$Label.site.forgot_your_password_q}</apex:outputLink>
+						<apex:outputText value=" | " rendered="{!$Site.RegistrationEnabled}" />
+						<apex:outputLink value="{!$Page.SiteRegister}" rendered="{!$Site.RegistrationEnabled}">{!$Label.site.new_user_q}</apex:outputLink>
+						</div> 
+					</apex:panelGroup>
+					<apex:panelGroup >
+						<div id="logout_link" style="display: none;">
+						<apex:outputPanel rendered="{!NOT(ISPICKVAL($User.UserType,'Guest'))}">
+							<a href="" onclick="loadnred();" style="cursor: pointer;">
+							{!$Label.site.logout} </a>
+						</apex:outputPanel>
+						</div>
+					</apex:panelGroup>
+				</apex:panelGrid> 
+			</apex:panelGrid>
+
+			<apex:outputText value="Force.com Toolkit for Facebook"  style="font-size: 20pt; text-align: center;"/>
+			
+			<script>
+			
+				function addLoadEvent(func) {
+					var oldonload = window.onload;
+					if (typeof window.onload != 'function') {
+						window.onload = func;
+					} else {
+						window.onload = function() {
+							if (oldonload) {
+								oldonload();
+							}
+							func();
+						}
 					}
-					func();
+				} 	
+				function initFacebook() {
+					if (document.location.href.indexOf('fb_sig_in_new_facebook') == -1) {
+						var ll = document.getElementById("logout_link");
+						if (ll) {
+							ll.style.display = "block";
+						}
+						var rm = document.getElementById("register_menu");
+						if (rm) {
+							rm.style.display = "block";
+						}
+					}
+					if (FB) {
+						try {
+							FB.init(apiKey, "/xd_receiver");
+						} catch(e){}
+					}
+				} 
+			  	
+			  	function loadnred() {
+			  		if (FB) {
+				  		FB.Connect.logoutAndRedirect("{!SUBSTITUTE($Site.CurrentSiteUrl, 'http:', 'https:')}" + 
+				  				"secur/logout.jsp");
+					} else {
+						document.location.href = "{!$Site.Prefix}/secur/logout.jsp";
+					}
+					return true;
 				}
-			}
-		} 	
-		function initFacebook() {
-			if (document.location.href.indexOf('fb_sig_in_new_facebook') == -1) {
-				var ll = document.getElementById("logout_link");
-				if (ll) {
-					ll.style.display = "block";
-				}
-				var rm = document.getElementById("register_menu");
-				if (rm) {
-					rm.style.display = "block";
-				}
-			}
-			if (FB) {
-				try {
-					FB.init(apiKey, "/xd_receiver");
-				} catch(e){}
-			}
-		} 
-	  	
-	  	function loadnred() {
-	  		if (FB) {
-		  		FB.Connect.logoutAndRedirect("{!SUBSTITUTE($Site.CurrentSiteUrl, 'http:', 'https:')}" + 
-		  				"secur/logout.jsp");
-			} else {
-				document.location.href = "{!$Site.Prefix}/secur/logout.jsp";
-			}
-			return true;
-		}
-		addLoadEvent(initFacebook);
-	</script>
+				addLoadEvent(initFacebook);
+			</script>
+			
+		</div>
+	</div>	
 	
 </apex:component>

@@ -5,7 +5,7 @@ public class MyFacebookSiteRegisterController extends AbsSocialController {
     
     public MyFacebookSiteRegisterController () {
     }
-
+ 
     public String username {get; set;}
     public String email {get; set;}
     public String password {get; set {password = value == null ? value : value.trim(); } }

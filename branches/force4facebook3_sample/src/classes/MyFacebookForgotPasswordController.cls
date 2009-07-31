@@ -7,7 +7,7 @@ public class MyFacebookForgotPasswordController {
   		boolean success = Site.forgotPassword(username);
   		PageReference pr = Page.MyFacebookForgotPasswordConfirm;
   		pr.setRedirect(true);
-  		
+  		 
   		if (success) {  			
   			return pr;
   		}

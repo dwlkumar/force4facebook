@@ -5,7 +5,7 @@ public with sharing class MyFacebookChangePasswordController {
     
     public PageReference changePassword() {
         return Site.changePassword(newPassword, verifyNewPassword, oldpassword);    
-    }     
+    }    
     
    	public MyFacebookChangePasswordController() {}
     

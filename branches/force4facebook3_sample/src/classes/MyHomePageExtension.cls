@@ -8,7 +8,7 @@ public with sharing class MyHomePageExtension extends AbsSocialController {
 			super.setAuthenticator(auth);
 			myauth = (FBCAuthenticator)auth;
 			System.debug('\n\nThe authenticator was just set.\n\n');
-		}
+		} 
 	}
 	
 	public MyHomePageExtension(Apexpages.StandardSetController controller) {

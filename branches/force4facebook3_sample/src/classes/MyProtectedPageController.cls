@@ -10,6 +10,6 @@ public with sharing class MyProtectedPageController extends AbsSocialController 
 		if (auth != null) {
 			System.debug('\n\nThe authenticator was just set.\n\n');
 			facebookUserId = myauth.uid;
-		}
+		} 
 	}
 }

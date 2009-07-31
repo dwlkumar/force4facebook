@@ -1,5 +1,5 @@
 <apex:page showHeader="false" title="{!$Label.site.authorization_required}" id="Unauthorized">
-  <apex:composition template="{!$Site.Template}">
+  <!-- <apex:composition template="{!$Site.Template}"> -->
     <apex:define name="body">  
       <center>
         <apex:panelGrid bgcolor="white" columns="1" style="align: center;"> 
@@ -23,7 +23,7 @@
                 </apex:panelGroup>
                 <apex:outputText value=""/>
                 <apex:outputText value=""/>
-                <c:MyFacebookSiteLogin rendered="{!$Site.LoginEnabled}" id="siteLogin"/>
+                <c:MyFacebookSiteLogin rendered="{!$Site.LoginEnabled}" id="fbsiteLogin"/>
                 <br/> 
               </apex:panelGrid> 
             </apex:outputPanel>
@@ -32,5 +32,5 @@
       </center>
       <br/>
     </apex:define>
-  </apex:composition>
+<!-- </apex:composition> -->
 </apex:page>

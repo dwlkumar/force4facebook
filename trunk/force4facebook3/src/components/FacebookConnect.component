@@ -6,9 +6,9 @@
 		be an extension of AbsSocialController. -->
 	<apex:attribute name="myController" type="AbsSocialController" assignTo="{!clientController}" required="false" description="" />
 	<!-- Title shown on the Facebook Connect dialog created at the bottom of this page -->
-	<apex:attribute name="LoginTitle" assignTo="{!loginTitle}" default="Login using Facebook!" type="String" required="false" description="The title for the dialog to login using Facebook." />
+	<apex:attribute name="LoginTitle" assignTo="{!loginTitle}" default="Login using Facebook" type="String" required="false" description="The title for the dialog to login using Facebook." />
 	<!--  This is an additional message displayed to the user on the login dialog. -->
-	<apex:attribute name="LoginMessage" assignTo="{!loginMessage}" default="You can use Facebook now to register on this site." type="String" required="false" description="Simple message shown on the dialog to explain to users." />
+	<apex:attribute name="LoginMessage" assignTo="{!loginMessage}" default="You can use Facebook to register on this site." type="String" required="false" description="Simple message shown on the dialog to explain to users." />
 	<!-- The footer message for the login dialog. -->
 	<apex:attribute name="LoginFooterMessage" assignTo="{!loginFooterMessage}" type="String" required="false" description="Might be a terms of use (short) or other fine print." />
 	<!-- Setting this to on will spam you with alerts. -->
@@ -24,7 +24,7 @@
 	
 	<apex:includescript value="https://www.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php" />
  
-	<div xmlns:fb="http://www.facebook.com/2008/fbml" >
+	<div xmls="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml" >
 	
 		<script>
 		var connectionState;
@@ -206,9 +206,9 @@
 
 		<div id="fb_conn_pan" style="width: 250px; display: {!IF(showUI, 'block', 'none')}" >
 			<apex:outputPanel rendered="{!NOT(AND(isFacebookUser, isPortalUser))}">
-				<div class="hd">
-		    		<apex:outputText value="{!loginTitle}" />
-		  		</div>
+				<h2>1) <apex:outputText value="{!loginTitle}" /></h2>
+		  		<br/>
+		    	<apex:outputText value="{!loginMessage}" style="font-family: verdana; font-size: bigger;" />
 		  	</apex:outputPanel> 
 			<div class="bd">
 				    	<apex:panelGrid columns="1" >
@@ -216,8 +216,7 @@
 				      		<center>
 			      				<apex:outputPanel id="login">
 			      					<apex:outputPanel rendered="{!NOT(isPortalUser)}" >
-					      				<apex:outputText value="{!loginMessage}" style="font-family: verdana; font-size: bigger;" />
-										<br /><fb:login-button onlogin='askPerms' ></fb:login-button>
+										<fb:login-button onlogin='askPerms' ></fb:login-button>
 									</apex:outputPanel>
 								</apex:outputPanel>
 							</center>

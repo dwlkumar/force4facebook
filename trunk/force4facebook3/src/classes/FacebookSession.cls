@@ -6,31 +6,16 @@ public virtual class FacebookSession extends FacebookClient {
     //public FacebookClient  fbClient;
     private long            loggedInUserId  = 0;
     public List<String> userInfoFieldList = new List<String> { 'about_me', 'pic', 'uid', 'activities', 'birthday', 'books', 'first_name', 'is_app_user', 'has_added_app', 'interests', 'last_name', 'locale', 'movies', 'music', 'name', 'notes_count', 'pic_big', 'pic_small', 'pic_square', 'political', 'profile_update_time', 'quotes', 'relationship_status', 'religion', 'sex', 'significant_other_id', 'timezone', 'tv', 'wall_count', 'affiliations', 'current_location', 'education_history', 'hometown_location', 'hs_info', 'meeting_for', 'meeting_sex', 'status', 'work_history' };
- 
+ 	public List<String> pageInfoFieldList = new List<String> { 'name', 'has_added_app','type' };
+ 	
  	public FacebookSession() {}
  	
+ 	// Used for connect apps
 	public FacebookSession(FBCAuthenticator fba) {
 		this(fba.APIKey, fba.secret, fba.sessionKey);
 	} 
-	
-    // First time constructor
-    /*public FacebookSession(String apiKey, String secretKey) {
-        fbClient = new FacebookClient(apiKey, secretKey);
-    }*/ 
     
-    // Second time to get the session
-    /*public FacebookSession( String apiKey, String secretKey, String authToken ){
-        fbClient = new FacebookClient( apiKey, secretKey, authToken );
-    } */
-    
-    // Third time now that we have a session
-    public FacebookSession(String apiKey, String secretKey, String sessionKey) {
-    	this.httpClient = new HTTP(); 
-        this.apiKey = apiKey;
-        this.secretKey = secretKey;
-    	this.sessionKey = sessionKey;
-        //fbClient = new FacebookClient( apiKey, secretKey, sessionKey );
-    }
+    // Used for cavas apps
     public FacebookSession( String apiKey, String secretKey )
     {
         this.httpClient = new HTTP();
@@ -38,11 +23,15 @@ public virtual class FacebookSession extends FacebookClient {
         this.secretKey = secretKey;
     }
     
-    /*public FacebookSession( String apiKey, String secretKey, String sessionKey, long loggedInUserId )
-    {
-        this( apiKey, secretKey, sessionKey );
-        this.loggedInUserId = loggedInUserId;
-    }*/
+    // Used to get session if we have a sessionkey
+    public FacebookSession(String apiKey, String secretKey, String sessionKey) {
+    	this.httpClient = new HTTP(); 
+        this.apiKey = apiKey;
+        this.secretKey = secretKey;
+    	this.sessionKey = sessionKey;
+        //fbClient = new FacebookClient( apiKey, secretKey, sessionKey );
+    }
+ 
     public String getSessionKey() {
         return sessionKey;
     }
@@ -393,6 +382,51 @@ public virtual class FacebookSession extends FacebookClient {
         	}
         }
         
+        return result;
+    }
+    
+    /* Pages Methods */
+    
+    public String pagesIsAdmin (String pageId){
+    	List<String> params = new List<String> {'page_id', pageId};
+    	String resp = callMethod( new FacebookMethod(FacebookMethod.Pages_IS_ADMIN, 'XML'), params);
+    	XMLDom r = new XMLDom(resp);
+		return r.root.getValue('pages_isAdmin_response');
+    }
+   
+    public String pagesIsAppAdded (String pageId){
+    	List<String> params = new List<String> {'page_id', pageId};
+    	String resp = callMethod( new FacebookMethod(FacebookMethod.Pages_IS_APP_ADDED, 'XML'), params);
+    	XMLDom r = new XMLDom(resp);
+		return r.root.getValue('pages_isAppAdded_response');
+    }
+    
+    public List<FacebookPageInfo> getPageInfo(List<String> pids, List<String> fieldNames) {
+        List<String> params = new List<String>();
+        params.add('page_ids');
+        String spids = '';
+        for (String pid : pids) {
+            spids += pid + ',';
+        }
+        params.add(spids.substring(0, spids.length() - 1));
+        params.add('fields');
+        String sfields = '';
+        for (String fieldName : fieldNames) {
+            sfields += fieldName + ',';
+        }
+        params.add(sfields.substring(0, sfields.length() - 1));
+        
+        String resp = callMethod( new FacebookMethod(FacebookMethod.Pages_GET_INFO, 'XML'), params );
+        System.debug(LoggingLevel.INFO, '\n\nGet Page Info:\n' + resp);
+        List<FacebookPageInfo> result = new List<FacebookPageInfo>();
+        XMLDom r = new XMLDom(resp);
+        checkResponse(r.root);
+        
+        List<XMLDom.Element> infos = r.getElementsByTagName('page');
+        for (XMLDom.Element info : infos) {
+            System.debug(LoggingLevel.INFO, 'Getting info...');
+            result.add(new FacebookPageInfo(info));
+        }
         return result;
     }
 

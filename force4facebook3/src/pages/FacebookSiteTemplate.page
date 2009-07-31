@@ -1,4 +1,4 @@
-<apex:page showHeader="false" id="FacebookSiteTemplate">
+<apex:page showHeader="false" id="FacebookSiteTemplate"> 
 	<apex:outputPanel layout="block" style="width: 700px; margin-left: auto; margin-right: auto;">
 		<apex:insert name="header">
 			<c:MyFacebookSiteHeader />

@@ -11,7 +11,7 @@
 				<apex:outputText value=" | " rendered="{!$Site.RegistrationEnabled}" />
 				<apex:outputLink value="{!$Page.MyFacebookSiteRegister}" rendered="{!$Site.RegistrationEnabled}">{!$Label.site.new_user_q}</apex:outputLink>
 				</div> 
-			</apex:panelGroup>
+			</apex:panelGroup> 
 			<apex:panelGroup >
 				<div id="logout_link" style="display: none;	">
 				<apex:outputPanel rendered="{!NOT(ISPICKVAL($User.UserType,'Guest'))}">

@@ -1,5 +1,5 @@
 <apex:page id="Registration" showHeader="false" controller="MyFacebookSiteRegisterController" title="{!$Label.site.register}">
-  <!-- <apex:composition template="{!$Site.Template}"> -->
+  <apex:composition template="MyFacebookSiteTemplate"> 
     <apex:define name="body">  
       <center>
         <apex:panelGrid bgcolor="white" columns="1" style="align: center;"> 
@@ -41,5 +41,5 @@
       </center>
       <br/>
     </apex:define>
-<!--  </apex:composition> -->
+  </apex:composition>
 </apex:page>

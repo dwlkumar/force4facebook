@@ -52,6 +52,11 @@ public class FacebookMethod {
     public static String  Friends_GET_REQUESTS    = 'facebook.friends.getRequests';
     public static String  Friends_ARE_FRIENDS     = 'facebook.friends.areFriends';
 
+    public static String Pages_GET_INFO     = 'facebook.pages.getInfo';
+    public static String Pages_IS_APP_ADDED = 'facebook.pages.isAppAdded';
+    public static String Pages_IS_ADMIN     = 'facebook.pages.isAdmin';
+    public static String Pages_IS_FAN       = 'facebook.pages.isFan';
+
     public class Photos
     {
         public String  GET             = 'facebook.photos.get';

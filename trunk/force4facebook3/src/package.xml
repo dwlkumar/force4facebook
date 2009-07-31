@@ -14,6 +14,10 @@
     </types>
     <types>
         <members>*</members>
+        <name>ApexTrigger</name>
+    </types>
+    <types>
+        <members>*</members>
         <name>CustomObject</name>
     </types>
     <types>
@@ -23,6 +27,10 @@
     <types>
         <members>*</members>
         <name>Layout</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>Scontrol</name>
     </types>
     <types>
         <members>*</members>

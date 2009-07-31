@@ -1,35 +1,29 @@
 public virtual class FacebookClient extends RestPostMethod {
     public String USER_AGENT  = 'fb4j 0.1';
 
-    public HTTP                httpClient;
+    public HTTP      		   httpClient;
     public String              apiKey;
     public String              secretKey;
-    public String               sessionKey { get; set; }
-    public String               authToken { get; set; }
+    public String              sessionKey { get; set; }
+    public String              authToken { get; set; }
     
     public static final String INFO_TEXT_ONLY = '1';
     public static final String INFO_THUMBNAIL = '5';
     
-    /*private FacebookClient( String apiKey, String secretKey )
+    public FacebookClient() {}
+    
+    public FacebookClient( String apiKey, String secretKey )
     {
         this.httpClient = new HTTP();
         this.apiKey = apiKey;
         this.secretKey = secretKey;
-    }*/
- 
-    /*public FacebookClient( String apiKey, String secretKey, String authToken )
-    { 
-        this( apiKey, secretKey );
-        this.authToken = authToken;
-        sessionKey = getSession();
-        System.debug(LoggingLevel.INFO, 'Session key is: ' + sessionKey);
-    }*/
+    }
     
-    /*public FacebookClient( String apiKey, String secretKey, String sessionKey )
+    public FacebookClient( String apiKey, String secretKey, String sessionKey )
     {
         this(apiKey, secretKey); 
         this.sessionKey = sessionKey;
-    }*/
+    }
      
     public String openLoginPage() 
     {

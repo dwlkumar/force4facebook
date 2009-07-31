@@ -5,7 +5,7 @@ public class MyFacebookSiteLoginController extends AbsSocialController {
     public PageReference login() {
         String startUrl = System.currentPageReference().getParameters().get('startURL');
         return Site.login(username, password, startUrl);
-    }
+    } 
     
    	public MyFacebookSiteLoginController () {}
      

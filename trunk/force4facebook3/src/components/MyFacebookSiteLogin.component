@@ -1,12 +1,33 @@
 <apex:component controller="SiteLoginController" id="loginComponent">
 	<apex:form id="loginForm" forceSSL="true">
+		
 		<div id="checking">
 			<span id="checking_label"> Checking	Facebook Connection </span><br />
-			<img src="/img/waiting_dots.gif" />
+			<!-- <img src="/img/waiting_dots.gif" /> -->
+			<apex:image value="{!$Resource.blue_loader}"/>
 		</div>
+		
 		<div id="fbconnect" style="display: none;">
 			<apex:outputPanel layout="block">
 				<apex:pageMessages id="error" />
+				
+				<!-- Facebook Connect Button / Component -->
+				<apex:panelGrid columns="1">
+					<apex:panelGroup >
+						<!-- 
+							This is what provides the UI for the FBC. You can control various aspects with the attributes.
+							To see what is being passed around set debug="on".
+						 -->
+						<c:FacebookConnect autoCheckConnection="yes" 
+							debug="off" 
+							showUI="true" />
+					</apex:panelGroup>
+				</apex:panelGrid>
+				
+				<br/><br/>
+				
+				<h2>2)Login using your site credentials</h2>
+				<!-- Standard Login Components -->
 				<apex:panelGrid columns="2" style="margin-top:1em;">
 					<apex:outputLabel value="{!$Label.site.username}" for="username" />
 					<apex:inputText id="username" value="{!username}" />
@@ -23,19 +44,7 @@
 						<apex:outputLink value="{!$Page.SiteRegister}" rendered="{!$Site.RegistrationEnabled}">{!$Label.site.new_user_q}</apex:outputLink>
 					</apex:panelGroup>
 				</apex:panelGrid>
-				<apex:panelGrid columns="1">
-					<apex:panelGroup >
-						<!-- 
-							This is what provides the UI for the FBC. You can control various aspects with the attributes.
-							To see what is being passed around set debug="on".
-						 -->
-						<c:FacebookConnect autoCheckConnection="yes" 
-							debug="off" 
-							showUI="true"
-							loginMessage="You can now use Facebook to login to this site!" 
-							loginFooterMessage="You can use this area to provide some fine print for you use if you so choose." />
-					</apex:panelGroup>
-				</apex:panelGrid>
+				
 			</apex:outputPanel>
 		</div>
 	</apex:form>

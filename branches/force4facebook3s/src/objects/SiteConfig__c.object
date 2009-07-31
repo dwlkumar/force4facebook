@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <fields>
+        <fullName>APIKey__c</fullName>
+        <label>API Key</label>
+        <length>255</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>FacebookAppSecret__c</fullName>
+        <label>Facebook App Secret</label>
+        <length>255</length>
+        <type>Text</type>
+    </fields>
+    <fields>
+        <fullName>NewPortalUserAccount__c</fullName>
+        <label>New Portal User Account</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Site Configs</relationshipLabel>
+        <relationshipName>Site_Configs</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <label>Site Config</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>Site Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Site Configs</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

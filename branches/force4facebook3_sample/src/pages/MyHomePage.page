@@ -10,11 +10,6 @@
 			}
 			.clearboth { clear: both; }
 			</style>
-			<script>
-				//var apiKey = "f0bb630f21df10fe16546a299d7f8d6b";
-				//FB.init(apiKey, "/xd_receiver"); 
-				
-			</script> 
 			<apex:form forceSSL="true">
 				<c:FacebookConnect autoCheckConnection="no"
 					myController="{!this}"
@@ -49,7 +44,7 @@
 				<apex:outputPanel >
 				<br /><br class="clearboth"/>
 				<hr />
-				<div style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; text-align: left; width: 100%; background-color: #E5E6E6;">
+				<div style="padding-top: 5px; padding-bottom: 5px; padding-left: 0px; text-align: left; width: 100%; background-color: #E5E6E6;">
 				<span style="font-size: 12pt;">There are already <strong>{!userCount}</strong> people using this site!</span>
 				</div>
 				<hr />

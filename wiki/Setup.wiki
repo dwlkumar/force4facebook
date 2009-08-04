@@ -34,7 +34,8 @@
       * make note of your project name
     * Using SVN Perspective
       * Add new repository 
-      * http://force4facebook.googlecode.com/svn/trunk/force4facebook3
+      * http://force4facebook.googlecode.com/svn/trunk/force4facebook2
+      * UPDATE - use trunks now, first get the toolkit, then the example
       * Right Click on new repository, checkout code to new project
     * Using Force.com Perspective
       * Right click and update project from menu (RightClick/Force.com/Save To Server)
@@ -76,6 +77,8 @@
     * Use API Key, App Secret and Assign Default Facebook Users Account
       _Might be the place to assign Person Account ability?_
   # ===Navigate to your Site URL - That should be it! ===
+
+
 ==TOOLKIT EXPLANATION TODO - need to update this==
 ===Page !SiteLogin===
 ===Class !SiteLoginController===

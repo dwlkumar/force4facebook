@@ -11,6 +11,10 @@ public class FacebookAlbum implements IFacebookQueryResult {
 	public String description { get { return data.get('description'); } set { data.put('description', value); } }
 	public String location { get { return data.get('location'); } set { data.put('location', value); } }
 		
+	public FacebookAlbum()
+	{	
+	}	
+	
 	public FacebookAlbum(XMLDom.Element xmlInfo) {
 		parseSource(xmlInfo);
 	} 
@@ -24,5 +28,33 @@ public class FacebookAlbum implements IFacebookQueryResult {
 			data.put(c.nodeName, c.nodeValue);
 		}
 	}		
+	
+	
+	/* Test Methods */
+	public static testMethod void testAlbumGetterSetter()
+	{
+		FacebookAlbum fbAlbum = new FacebookAlbum();
+		fbAlbum.aid = '000001';
+		fbAlbum.cover_pid = '000002';
+		fbAlbum.owner = 'Salesforce';
+		fbAlbum.name = 'Test Album Name';
+		fbAlbum.modified = 'Today';
+		fbAlbum.description = 'A Test Album';
+		fbAlbum.location = 'San Francisco, CA';
+		
+		String test = '';
+		test = fbAlbum.aid;
+		test = fbAlbum.cover_pid;
+		test = fbAlbum.owner;
+		test = fbAlbum.name;
+		test = fbAlbum.modified;
+		test = fbAlbum.description;
+		test = fbAlbum.location;
+		
+		test = fbAlbum.getResultType();
+		
+		XMLDom.Element test2 = new XMLDom.Element();
+		FacebookAlbum fbAlbum2 = new FacebookAlbum(test2);
+	}
 
 }

@@ -11,7 +11,7 @@ Force.com for Facebook gives you direct access to the Facebook APIs from within 
 
 {{{[Insert video here]}}}
 ----
-=[Using the Force.com Toolkit for Facebook]=
+=[Using_the_Toolkit Using the Force.com Toolkit for Facebook]=
 =Using Force.com for Facebook=
 
 == Abstract ==

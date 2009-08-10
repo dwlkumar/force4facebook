@@ -6,6 +6,39 @@ Force.com for Facebook is a free set of tools and services that enables develope
 
 Force.com for Facebook gives you direct access to the Facebook APIs from within Apex Code, letting you create new social graph applications and user experiences that connect directly to Force.com’s Sites, database, integration, logic, and Visualforce user interface capabilities. Now, you can tap into the power of the social graph from the enterprise cloud.
 
+<hr/>
+= Installing Force.com for Facebook =
+== Abstract ==
+
+This document will assist you in setting up Force.com Sites, the Salesforce Customer Portal and the Force.com for Facebook toolkit.
+==Prerequisites==
+
+The following installation process will install the Force.com for Facebook toolkit and relies on the following items:
+
+    * Eclipse Force.com IDE
+    * Installation of Subclipse, a subversion plugin for Eclipse
+    * Force.com Sites
+    * Salesforce Customer Portal
+    * Facebook Developer Application
+
+==Installing Subclipse==
+
+Follow the instructions here: [http://subclipse.tigris.org/install.html]
+
+    * Be sure to uncheck Integrations containing Buckminster and Subclipse integration for Mylyn during the plugin installation.
+    * If this is the first time you've used SVN, please read the supporting documentation that comes with the Subclipse plugin.
+
+==Export the Facebook Toolkit from CodeShare==
+
+Steps to checkout
+
+   # Create a new project in Eclipse and accept all the defaults.
+   # Go to Window > Open Perspective > Other and select SVN Repository Exploring
+   # Add a new repository: http://force4facebook.googlecode.com/svn/trunk/
+   # Navigate to force4facebook3/src and right-click the folder.
+         # Go to export and enter the name of your new project when prompted for a project name.
+         # You will be asked to delete and overwrite the existing project. Accept this.
+   # Return to the Force.com IDE perspective and refresh your project to see the Force.com for Facebook items added to the project.
 
 = Details =
 

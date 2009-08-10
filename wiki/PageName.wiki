@@ -126,6 +126,30 @@ In order to adhere to the Salesforce terms of service, we must use the Salesforc
          # Leave *Disable Protocol Security* unchecked
          # *Save* the record
 
+== Setup Proper Permissions For Our Portal Users ==
+
+   # Go to *Setup > Create > Objects*
+         # Click *Edit* on 'GFC User'
+         # Under _Optional Features_, select the *Available for Customer Portal* checkbox
+         # Repeat for the 'Site Config' object
+   # Go to *Setup > Manage Users > Profiles*
+   # Click on the *Customer Portal Manager* profile so we can grant access to our two new objects
+         # Click the *Clone* on the profile
+         # Enter a new *Profile Name*, such as 'Facebook Portal User'
+         # Click *Edit* on the new 'Facebook Portal User' profile
+         # Scroll down until you see the _Custom Object Permissions_
+               # Set GFC Users to *Read, Create, Edit*
+               # Set Site Configs to *Read*
+         # Return to the 'Facebook Portal User' profile
+               # Click *Edit* on the 'Enabled Visualforce Page Access' related list
+               # Move the following pages over to the *Enabled Visualforce Pages* section: _MyFacebookSiteLogin, MyFacebookSiteTemplate, MyFacebookUnauthorized, MyHomePage, MyOtherProtectedPage, MyProtectedPage, xd_receiver_
+               # Click *Save*
+         # Now because we cloned the profile, we must go back to the Customer Portal Setup to update the default user profile
+               # Go to *Setup > Customize > Customer Portal*
+               # Click *Edit* on your Customer Portal
+                     # Under the _Self-Registration Settings_, change the *Default User Profile* to 'Facebook Portal User'
+                     # In the 'Assigned Profiles' related list, click *Edit Profile* and check 'Facebook Portal User'. You can uncheck the old profile
+
 = Details =
 
 Add your content here.  Format your content with:

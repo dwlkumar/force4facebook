@@ -150,9 +150,26 @@ In order to adhere to the Salesforce terms of service, we must use the Salesforc
                      # Under the _Self-Registration Settings_, change the *Default User Profile* to 'Facebook Portal User'
                      # In the 'Assigned Profiles' related list, click *Edit Profile* and check 'Facebook Portal User'. You can uncheck the old profile
 
-= Details =
+== Setup Login Settings for your Force.com Site ==
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+   # Go to *Setup > Develop > Sites*
+   # Click into your Site and click on *Login Settings*
+         # Click *Edit* and change Login to 'Enabled for Customer Portal'
+         # Leave the other settings to their defaults and click *Save-.
+   # Click on the *Public Access Settings* button on your Site to view the Guest License Profile ('FB Event Manager Profile' in this example)
+         # Click Edit and find the _Custom Object Permissions_ section
+               # Check all the boxes for GFC User
+               # Check 'View All' and 'Read' for Site Configs
+         # Edit the Enabled Visualforce Pages
+         # Move the following pages over to *Enabled Visualforce Pages*: _MyFacebookSiteLogin, MyFacebookSiteTemplate, MyFacebookUnauthorized, MyHomePage, MyOtherProtectedPage, MyProtectedPage, xd_receiver_
+
+== Setup New Facebook Home Page ==
+
+   # Go to *Setup > Develop > Sites* and click into your Site
+         # Change *Active Site Home Page* to 'MyHomePage'
+         # Change *Site Template* to 'MyFacebookSiteTemplate'
+
+== Whew! That's it! ==
+
+   # Navigate to your Force.com Site URL and you should see the included example (MyHomePage) load as the home page
+   # Try it out by logging in with Facebook Connect

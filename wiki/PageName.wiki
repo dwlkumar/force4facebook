@@ -28,7 +28,7 @@ Follow the instructions here: [http://subclipse.tigris.org/install.html]
     * Be sure to uncheck Integrations containing Buckminster and Subclipse integration for Mylyn during the plugin installation.
     * If this is the first time you've used SVN, please read the supporting documentation that comes with the Subclipse plugin.
 
-== Export the Facebook Toolkit from CodeShare ==
+== Export the Facebook Toolkit from {{{CodeShare}}} ==
 
 Steps to checkout
 

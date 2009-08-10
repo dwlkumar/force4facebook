@@ -6,7 +6,7 @@ Force.com for Facebook is a free set of tools and services that enables develope
 
 Force.com for Facebook gives you direct access to the Facebook APIs from within Apex Code, letting you create new social graph applications and user experiences that connect directly to Force.com’s Sites, database, integration, logic, and Visualforce user interface capabilities. Now, you can tap into the power of the social graph from the enterprise cloud.
 
-<hr/>
+---
 = Installing Force.com for Facebook =
 == Abstract ==
 
@@ -21,14 +21,14 @@ The following installation process will install the Force.com for Facebook toolk
     * Salesforce Customer Portal
     * Facebook Developer Application
 
-==Installing Subclipse==
+== Installing Subclipse ==
 
 Follow the instructions here: [http://subclipse.tigris.org/install.html]
 
     * Be sure to uncheck Integrations containing Buckminster and Subclipse integration for Mylyn during the plugin installation.
     * If this is the first time you've used SVN, please read the supporting documentation that comes with the Subclipse plugin.
 
-==Export the Facebook Toolkit from CodeShare==
+== Export the Facebook Toolkit from CodeShare ==
 
 Steps to checkout
 

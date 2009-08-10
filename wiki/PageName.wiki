@@ -176,7 +176,7 @@ In order to adhere to the Salesforce terms of service, we must use the Salesforc
 ----
 =Video: Installing Force.com for Facebook=
 
-[Insert video here]
+{{{[Insert video here]}}}
 ----
 =Using Force.com for Facebook=
 

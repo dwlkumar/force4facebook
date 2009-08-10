@@ -5,7 +5,7 @@ Force.com for Facebook is a free set of tools and services that enables develope
 Force.com for Facebook gives you direct access to the Facebook APIs from within Apex Code, letting you create new social graph applications and user experiences that connect directly to Force.com’s Sites, database, integration, logic, and Visualforce user interface capabilities. Now, you can tap into the power of the social graph from the enterprise cloud.
 
 ----
-[Installing_the_Toolkit Instaling the Toolkit]
+=[Installing_the_Toolkit Instaling the Toolkit]==
 ----
 =Video: Installing Force.com for Facebook=
 

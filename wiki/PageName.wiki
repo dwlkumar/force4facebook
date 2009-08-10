@@ -87,6 +87,45 @@ In order to adhere to the Salesforce terms of service, we must use the Salesforc
    # Click on the *Connect* item in the sidebar and set your *Connect URL* to the domain of your Force.com Site (http://sitename-developer-edition.na7.force.com)
    # Click on the *Advanced* menu item and ensure that the *Application Type* is set to 'Web'
    # Click *Save Changes*
+
+== Setup a Portal User ==
+
+   # Go to the Accounts tab
+   # Create a new account with the name of 'Facebook Portal' and any basic information you desire
+   # Now we must setup role for the owner of the Portal User Account
+         # Click on the Account Owner
+         # Give the User a role. It can be any role.
+   # Return to the Account and retrieve the Salesforce ID for the record from the end of the URL
+   # Now we can add the Portal User Account Salesforce ID to the Force.com Site
+         # Return to the Force.com IDE
+         # Find the *SiteRegisterController* class
+         # Change the following line to include your Account ID
+               # private static Id PORTAL_ACCOUNT_ID = 'xxxxxxxxxxxxxxx';
+         # Save the class
+
+== Setup the Site Configuration ==
+
+   # Go to the *Site Config* tab you created earlier
+   # Create a *New* record for 'Site Config'
+         # Enter the *Site Name* as it is found in your Force.com Sites configuration, in this case: 'FB_Event_Manager'
+         # Enter the *API Key* from your Facebook developer application
+         # Enter your *Facebook Application Secret*
+         # Lookup the *Portal User Account* that you created earlier
+         # *Save* the record
+
+== Setup Remote Site Settings ==
+
+   # Go to *Setup > Security Controls > Remote Site Settings*
+   # Click *New Remote Site* and enter the following for each field
+         # *Remote Site Name*: FacebookAPI
+         # *Remove Site URL*: http://api.new.facebook.com
+         # Check *Disable Protocol Security*
+         # Click *Save & New*
+         # *Remote Site Name*: FacebookAPISSL
+         # *Remote Site URL*: https://api.new.facebook.com
+         # Leave *Disable Protocol Security* unchecked
+         # *Save* the record
+
 = Details =
 
 Add your content here.  Format your content with:

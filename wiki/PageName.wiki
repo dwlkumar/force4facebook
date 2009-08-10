@@ -46,7 +46,7 @@ Steps to checkout
    # Create and register a Force.com Domain
    # Click *New* to create a new site for this domain
          # Enter a *Site Label*, such as 'FB Event Manager'
-         # *Site Name* will be autopopulated as '!FB_Event_Manager'
+         # *Site Name* will be autopopulated as <font size="8px">{{{'FB_Event_Manager'}}}</font>
          # Select your user account as a *Site Contact*
          # Check the *Active* checkbox
          # Keep the rest of the options on their default settings

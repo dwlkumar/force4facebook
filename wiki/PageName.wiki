@@ -173,3 +173,66 @@ In order to adhere to the Salesforce terms of service, we must use the Salesforc
 
    # Navigate to your Force.com Site URL and you should see the included example (!MyHomePage) load as the home page
    # Try it out by logging in with Facebook Connect
+----
+=Video: Installing Force.com for Facebook=
+
+[Insert video here]
+----
+=Using Force.com for Facebook=
+
+== Abstract ==
+
+This section will show you how to take advantage of Facebook markup language within Apex code.
+
+== Facebook Namespace ==
+
+In order to use the Facebook namespace <fb:componentName />, you need to define it in the same tag by adding the XML namespace (xmlns) parameter.
+
+<fb:componentName xmlns:fb="http://www.facebook.com/2008/fbml" />
+== Login a User ==
+
+Lorem ipsum
+== Up and Running with XFBML ==
+
+Lorem
+== Testing ==
+
+So you've built a marvelous application using the Force.com for Facebook toolkit. Now what? You need to make sure that you have written test cases for your new application. Just like any other application developed on Force.com, you must achieve 75% or higher average test coverage across your application.
+
+There are a few things you need to know in order to accomplish adequate test coverage when using the Force.com for Facebook toolkit because it uses Web Services. The difficulty in testing these types of applications comes from us not wanting to actually exercise the web service in our test methods.
+
+Dave Carroll has a writeup on how to accomplish this using Virtual Callout Testing.
+----
+= Extending Force.com for Facebook =
+
+== Abstract ==
+
+When you install and start using the Force.com for Facebook toolkit, you will notice that you do not immediately have access to all of the different types of data within Facebook. For example, this version of the toolkit has built out the following items:
+
+    * Events
+    * Friends
+    * Notifications
+    * List others here
+
+In order to access other areas of Facebook, such as classified listings, etc, you will need to add those methods to the toolkit. The basic framework exists for all the methods, but they are currently inactive and are awaiting enterprising developers to build them out and utilize them in their applications.
+
+== Implementing A Facebook Method ==
+
+Some Facebook methods are not fully implemented
+== Testing ==
+
+When you implement a method for Facebook you must also write test methods to provide adequate test coverage for deploying the toolkit to a live Salesforce org. Read about Testing under Using Force.com for Facebook to learn more on the pitfalls that exist in testing an application that uses web services.
+----
+= Code Examples =
+== Hello Facebook ==
+
+Component Example
+== Using Custom FBML & FBQL ==
+
+Lorem ipsum
+== Updating a Facebook User's Status ==
+
+Lorem ipsum
+== Advanced Tutorial ==
+
+Lorem ipsum

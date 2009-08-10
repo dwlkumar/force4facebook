@@ -13,19 +13,4 @@ Force.com for Facebook gives you direct access to the Facebook APIs from within 
 ----
 =[Using_the_Toolkit Using the Force.com Toolkit for Facebook]=
 =[Extending_the_Toolkit Extending the Toolkit]=
-----
-
-----
-= Code Examples =
-== Hello Facebook ==
-
-Component Example
-== Using Custom FBML & FBQL ==
-
-Lorem ipsum
-== Updating a Facebook User's Status ==
-
-Lorem ipsum
-== Advanced Tutorial ==
-
-Lorem ipsum
+=[Code_Examples Coding Samples]=

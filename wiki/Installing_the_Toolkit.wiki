@@ -133,7 +133,7 @@ In order to adhere to the Salesforce terms of service, we must use the Salesforc
                # Set Site Configs to *Read*
          # Return to the 'Facebook Portal User' profile
                # Click *Edit* on the 'Enabled Visualforce Page Access' related list
-               # Move the following pages over to the *Enabled Visualforce Pages* section: _!MyFacebookSiteLogin, !MyFacebookSiteTemplate, !MyFacebookUnauthorized, !MyHomePage, !MyOtherProtectedPage, !MyProtectedPage, !MyFacebookCss, !xd_receiver_ 
+               # Move the following pages over to the *Enabled Visualforce Pages* section: _!MyFacebookSiteLogin, !MyFacebookSiteTemplate, !MyFacebookUnauthorized, !MyHomePage, !MyOtherProtectedPage, !MyProtectedPage, !MyFacebookCss, xd_receiver_ 
                # Click *Save*
          # Now because we cloned the profile, we must go back to the Customer Portal Setup to update the default user profile
                # Go to *Setup > Customize > Customer Portal*
@@ -152,7 +152,7 @@ In order to adhere to the Salesforce terms of service, we must use the Salesforc
                # Check all the boxes for GFC User
                # Check 'View All' and 'Read' for Site Configs
          # Edit the Enabled Visualforce Pages
-         # Move the following pages over to *Enabled Visualforce Pages*: _!MyFacebookSiteLogin, !MyFacebookSiteTemplate, !MyFacebookUnauthorized, !MyHomePage, !MyFacebookCss, !xd_receiver_
+         # Move the following pages over to *Enabled Visualforce Pages*: _!MyFacebookSiteLogin, !MyFacebookSiteTemplate, !MyFacebookUnauthorized, !MyHomePage, !MyFacebookCss, xd_receiver_
 
 == Setup New Facebook Home Page ==
 

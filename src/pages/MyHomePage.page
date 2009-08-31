@@ -12,7 +12,7 @@
 			</style>
 			<apex:form forceSSL="true">
 				<c:FacebookConnect autoCheckConnection="no"
-					myController="{!this}"
+					myController="{!pageController}"
 					loginMessage="You can now use Facebook to login to this site!"
 					loginFooterMessage="You can use this area to provide some fine print for you use if you so choose." />
 				<center>

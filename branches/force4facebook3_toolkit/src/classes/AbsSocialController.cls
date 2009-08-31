@@ -49,7 +49,7 @@ public abstract class AbsSocialController implements ISocialController {
 	}
 	
 	// Define a get this method to return this instance
-	public AbsSocialController getThis() {
+	public AbsSocialController getPageController() {
 		return this;
 	}
 	

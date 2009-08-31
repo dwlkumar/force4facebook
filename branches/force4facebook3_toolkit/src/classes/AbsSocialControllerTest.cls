@@ -25,7 +25,7 @@ private class AbsSocialControllerTest {
         scontroller = (TestSocialController)auth.ClientController;
         
         System.assertNotEquals(scontroller.getAuthenticator(), null, '');
-        System.assertNotEquals(scontroller.getThis(), null, '');
+        System.assertNotEquals(scontroller.getPageController(), null, '');
         System.assertEquals(scontroller.getIsPortalUser(), true, '');
         
         Test.setCurrentPage(new PageReference('/MyHome.page?refURL=something'));

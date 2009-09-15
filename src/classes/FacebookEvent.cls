@@ -112,4 +112,67 @@ public class FacebookEvent implements IFacebookQueryResult {
 		jsonObjectValue.setValue(jsonValue);
 		return jsonObjectValue;
 	}
+	
+	static testMethod void doTest() {
+		FacebookEvent fe = new FacebookEvent();
+ 		fe.eid = 12345;
+	    fe.name = 'name';
+	    fe.tagLine = 'tagline';
+	    fe.nid = 1;
+	    fe.pic = 'pic';
+	    fe.pic_big = 'pic_big';
+	    fe.pic_small = 'pic_small';
+	    fe.host = 'host';
+	    fe.description = 'description';
+	    fe.event_type = 'event_type';
+	    fe.event_subtype = 'event_subtype';
+	    fe.start_time = dateTime.now();
+	    fe.end_time = dateTime.now();
+	    fe.creator = 5566441;
+	    fe.update_time = dateTime.now();
+	    fe.getDateTime('update_time');
+	    fe.getDateTime('missing_field');
+	    fe.location = 'location';
+	    fe.category = 'category';
+	    fe.subcategory = 'subcategory';
+	    fe.privacy_type = 'privacy_type';
+
+ 		System.assertEquals(fe.eid, 12345);
+	    System.assertEquals(fe.name, 'name');
+	    System.assertEquals(fe.tagLine, 'tagline');
+	    System.assertEquals(fe.nid, 1);
+	    System.assertEquals(fe.pic, 'pic');
+	    System.assertEquals(fe.pic_big, 'pic_big');
+	    System.assertEquals(fe.pic_small, 'pic_small');
+	    System.assertEquals(fe.host, 'host');
+	    System.assertEquals(fe.description, 'description');
+	    System.assertEquals(fe.event_type, 'event_type');
+	    System.assertEquals(fe.event_subtype, 'event_subtype');
+	    System.assertEquals(fe.start_time, dateTime.now());
+	    System.assertEquals(fe.end_time, dateTime.now());
+	    System.assertEquals(fe.creator, 5566441);
+	    System.assertEquals(fe.update_time, dateTime.now());
+	    System.assertEquals(fe.location, 'location');
+	    System.assertEquals(fe.category, 'category');
+	    System.assertEquals(fe.subcategory, 'subcategory');
+	    System.assertEquals(fe.privacy_type, 'privacy_type');
+     	
+     	XMLDom eDom = new XMLDom(FacebookXMLResponses.EVENT_RESPONSE);
+     	
+     	System.assertEquals(fe.getResultType(), 'event');
+     	fe.venue = new FacebookEventLocation();
+     	fe.venue.city = 'city';
+     	fe.venue.country = 'country';
+     	fe.venue.latitude = 3.2;
+     	fe.venue.longitude = 5.5;
+     	fe.venue.state = 'state';
+     	fe.venue.street = 'street';
+     	fe.venue.fieldForName('state');
+     	fe.toJSON(true);
+     	fe.toJSON(false);
+     	
+     	fe = new FacebookEvent(eDom);
+     	
+	}
+	
 }

@@ -20,6 +20,8 @@ public class FacebookGroup implements IFacebookQueryResult {
 	
 	public FacebookEventLocation venue {get; set;}
  
+ 	public FacebookGroup() {}
+ 	
 	public FacebookGroup(XMLDom source) {
 		this(source.root);
 	}
@@ -41,5 +43,54 @@ public class FacebookGroup implements IFacebookQueryResult {
 				data.put(nodeName, c.nodeValue);
 			}
 		}
-	}		
+	}
+	
+	static testMethod void doTest() {
+		
+		FacebookGroup fg = new FacebookGroup();
+		
+		fg.gid = 'gid';
+		fg.name = 'name';
+		fg.nid = 'nid';
+		fg.pic  = 'pic';
+		fg.picBig = 'pic_big';
+		fg.picSmall = 'pib_small';
+		fg.description = 'description';
+		fg.group_type = 'group_type';
+		fg.group_subtype = 'group_subtype';
+		fg.recent_news = 'recent_news';
+		fg.creator = 'creator';
+		fg.updateTime = 'update_time';
+		fg.office = 'office';
+		fg.website = 'website';
+		
+		System.assertEquals(fg.gid, 'gid');
+		System.assertEquals(fg.name, 'name');
+		System.assertEquals(fg.nid, 'nid');
+		System.assertEquals(fg.pic , 'pic');
+		System.assertEquals(fg.picBig, 'pic_big');
+		System.assertEquals(fg.picSmall, 'pib_small');
+		System.assertEquals(fg.description, 'description');
+		System.assertEquals(fg.group_type, 'group_type');
+		System.assertEquals(fg.group_subtype, 'group_subtype');
+		System.assertEquals(fg.recent_news, 'recent_news');
+		System.assertEquals(fg.creator, 'creator');
+		System.assertEquals(fg.updateTime, 'update_time');
+		System.assertEquals(fg.office, 'office');
+		System.assertEquals(fg.website, 'website');
+		
+		System.assertEquals(fg.getResultType(), 'group');
+		XMLDom fgDom = new XMLDom('<group>' +
+			    '<name>Test Group</name>' +
+			    '<venue>' +
+			    	'<street/>' +
+		      		'<city/>' +
+		      		'<state/>' +
+		      		'<country/>' +
+				'</venue>' +
+				'</group>');
+			  
+		fg = new FacebookGroup(fgDom.root.firstChild());
+		fg = new FacebookGroup(fgDom);
+	}
 }

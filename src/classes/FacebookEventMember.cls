@@ -23,4 +23,15 @@ public class FacebookEventMember implements IFacebookQueryResult {
 		}
 	}		
 
+	testmethod static void queryEventMemberTest() {
+		FacebookEventMember evm = new FacebookEventMember();
+		evm.eid = 'eid';
+		evm.rsvp_status = 'status';
+		evm.uid = 'uid';
+		System.assertEquals(evm.eid, 'eid');
+		System.assertEquals(evm.uid, 'uid');
+		System.assertEquals(evm.rsvp_status, 'status');
+		System.assertEquals(evm.getResultType(), 'event_member');
+	}
+
 }

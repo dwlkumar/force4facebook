@@ -5,6 +5,9 @@ public class FacebookFriend implements IFacebookQueryResult {
 	public String uid1 { get { return data.get('uid1'); } set { data.put('uid1', value); } }
 	public String uid2 { get { return data.get('uid2'); } set { data.put('uid2', value); } }
 		
+	public FacebookFriend() {
+		
+	}
 	public FacebookFriend(XMLDom.Element xmlInfo) {
 		parseSource(xmlInfo);
 	}
@@ -19,4 +22,13 @@ public class FacebookFriend implements IFacebookQueryResult {
 			data.put(c.nodeName, c.nodeValue);
 		}
 	}		
+	
+	static testMethod void testFacebookFriend() {
+		FacebookFriend ff = new FacebookFriend();
+		ff.uid1 = 'uid1';
+		ff.uid2 = 'uid2';
+		System.assertEquals(ff.getResultType(), 'friend_info');
+		System.assertEquals(ff.uid1, 'uid1');
+		System.assertEquals(ff.uid2, 'uid2');
+	}
 }

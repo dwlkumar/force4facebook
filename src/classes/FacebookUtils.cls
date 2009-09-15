@@ -53,4 +53,30 @@ public class FacebookUtils {
     	}
     	return out;
     }
+    
+    static testMethod void doTests() {
+    	Datetime dt = Datetime.now();
+    	
+    	Long epoch = FacebookUtils.dateTimeToEpoch(dt);
+    	FacebookUtils.epochToDatetime(epoch);
+    	String dateString = FacebookUtils.epochToString(epoch);
+    	FacebookUtils.stringToEpoch(dateString.replaceAll('T', ' '));
+    	FacebookUtils.stringToDatetime(dateString.replaceAll('T', ' '));
+    	FacebookUtils.stringifyDate(dt);
+    	FacebookUtils.stringifyDate(dt.addDays(1));
+    	FacebookUtils.stringifyDate(dt.addDays(-1));
+    	FacebookUtils.stringifyDate(dt.addDays(-3));
+    	
+    	List<String> stringList = new List<String>();
+    	stringList.add('one');
+    	stringList.add('two');
+    	FacebookUtils.listToString(stringList);
+    	
+    	Map<String, String> stringMap = new Map<String,String>();
+    	stringMap.put('one_key', 'one_value');
+    	stringMap.put('two_key', 'two_value');
+    	FacebookUtils.mapOut(stringMap);
+    	
+    	System.assertEquals(FacebookUtils.triggerFirstRun, true);
+    }
 }

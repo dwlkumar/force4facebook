@@ -52,4 +52,31 @@ public class FacebookEventLocation {
 		jsonObjectValue.setValue(jsonValue);
 		return jsonObjectValue;
 	}
+	
+	testMethod static void doTest() {
+		FacebookEventLocation fel = new FacebookEventLocation();
+		fel.street = 'street';
+		fel.latitude = 52.2;
+		fel.longitude = 66.3;
+		fel.city = 'city';
+		fel.state = 'state';
+		fel.country = 'country';
+		
+		
+		System.assertEquals(fel.street, 'street');
+		System.assertEquals(fel.latitude, 52.2);
+		System.assertEquals(fel.longitude, 66.3);
+		System.assertEquals(fel.city, 'city');
+		System.assertEquals(fel.state, 'state');
+		System.assertEquals(fel.country, 'country');
+
+		fel.fieldForName('state');
+		fel.toJSON();		
+		XMLDom xDom = new XMLDom('<street/>' +
+		      '<city/>' +
+		      '<state/>' +
+		      '<country/>' );
+		fel = new FacebookEventLocation(xDom.root);
+	}
+	
 }

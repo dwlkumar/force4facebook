@@ -191,6 +191,13 @@ public with sharing class FacebookXMLResponses {
 			  '<uid>100000092280731</uid>' +
 			'</friends_get_response>';
   
+  	public static final String FRIEND_REQUEST_RESPONSE = 
+		'<?xml version="1.0" encoding="UTF-8"?>' +
+			'<friend_request>'  +
+				'<uid_from>20288</uid_from>' +
+				'<uid_to>209495</uid_to>' +
+			'</friend_request>';
+			 
   	public static final String APP_GET_PUBLIC_INFO = 
   		'<?xml version="1.0" encoding="UTF-8"?>' +
 			'<application_getPublicInfo_response xmlns="http://api.facebook.com/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://api.facebook.com/1.0/ http://api.facebook.com/1.0/facebook.xsd">' +
@@ -200,7 +207,9 @@ public with sharing class FacebookXMLResponses {
 			  '<display_name>My Test App 3</display_name>' +
 			  '<icon_url>http://photos-b.ak.fbcdn.net/photos-ak-sf2p/v43/161/104052781385/app_2_104052781385_6041.gif</icon_url>' +
 			  '<logo_url>http://photos-b.ak.fbcdn.net/photos-ak-sf2p/v43/161/104052781385/app_1_104052781385_7970.gif</logo_url>' +
-			  '<developers list="true"/>' +
+			  '<developers list="true">' +
+			  	'<developer>John</developer>' +
+			  '</developers>' +
 			  '<company_name>salesforce.com</company_name>' +
 			  '<description/>' +
 			  '<daily_active_users>1</daily_active_users>' +
@@ -392,6 +401,34 @@ public with sharing class FacebookXMLResponses {
 			  '</request_args>' +
 			'</error_response>';
 
+	public static String PAGES_IS_ADMIN_RESPONSE = 
+			'<?xml version="1.0" encoding="UTF-8"?>' +
+				'<pages_isAdmin_response xmlns="http://api.facebook.com/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://api.facebook.com/1.0/ http://api.facebook.com/1.0/facebook.xsd">' +
+				'0' +
+				'</pages_isAdmin_response>';
+				
+	public static String PAGES_IS_APP_ADDED_RESPONSE =
+			'<?xml version="1.0" encoding="UTF-8"?><pages_isAppAdded_response xmlns="http://api.facebook.com/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"xsi:schemaLocation="http://api.facebook.com/1.0/ http://api.facebook.com/1.0/facebook.xsd">1</pages_isAppAdded_response>';
+
+	public static String PAGES_GET_INFO_RESPONSE = 
+			'<?xml version="1.0" encoding="UTF-8"?>' +
+				'<pages_getInfo_response xmlns="http://api.facebook.com/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://api.facebook.com/1.0/ http://api.facebook.com/1.0/facebook.xsd" list="true">' +
+					'<page>' +
+					'<page_id>4846711747</page_id>' + 
+					'<name>Kronos Quartet</name>' +
+					'<pic_small>http://profile.ak.facebook.com/object2/283/56/t4846711747_9511.jpg</pic_small>' + 
+					'<pic_big>http://profile.ak.facebook.com/object2/283/56/n4846711747_9511.jpg</pic_big>' +
+					'<pic_square>http://profile.ak.facebook.com/object2/283/56/q4846711747_9511.jpg</pic_square>' +
+					'<pic_large>http://profile.ak.facebook.com/object2/283/56/4846711747_9511.jpg</pic_large>' +
+					'<type>MUSICIANS</type>' +
+					'<type>page</type> <website>http://www.kronosquartet.org </website> <location/> <hours/> <band_members>David Harrington. Violin John Sherba . Violin Frank Dutt . Viola Jeffrey Zeigler . Cello </band_members> <bio>For more than 30 years, the Kronos Quartet has pursued a singular artistic vision with a spirit of fearless exploration. <hometown>San Francisco, CA</hometown> <genre> <dance>0</dance> <party>0</party> <relax>0</relax> <talk>0</talk> <think>1</think> <workout>0</workout> <sing>0</sing> <intimate>0</intimate> <raunchy>0</raunchy> <headphones>0</headphones> </genre> <record_label>Nonesuch</record_label> <influences>Composers: John Adams, Alban Berg, John Cage Collaborators: Asha Bhosle, David Bowie, Cafe Tacuba </influences> <has_added_app>0<has_added_app> <founded/> <company_overview/> <mission/> <products/> <release_date/> <starring/> <written_by/> <directed_by/> <produced_by/> <studio/> <awards/> <plot_outline/> <network/> <season/> <schedule/> </page> </pages_getInfo_response>';
+					
+	public static String AUTH_CREATE_TOKEN = 
+			'<?xml version="1.0" encoding="UTF-8"?> <auth_createToken_response xmlns="http://api.facebook.com/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://api.facebook.com/1.0/http://api.facebook.com/1.0/facebook.xsd">  3e4a22bb2f5ed75114b0fc9995ea85f1 </auth_createToken_response>';
+
+	public static String AUTH_GET_SESSION = 
+			'<?xml version="1.0" encoding="UTF-8"?> <auth_getSession_response xmlns="http://api.facebook.com/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://api.facebook.com/1.0/ http://api.facebook.com/1.0/facebook.xsd">  <session_key>5f34e11bfb97c762e439e6a5-8055</session_key>  <uid>8055</uid>  <expires>1173309298</expires> </auth_getSession_response>';
+			
 	public static Map<String, String> responses = new Map<String, String> {
 		FacebookMethod.Events_GET => FacebookXMLResponses.EVENT_RESPONSE,
 		FacebookMethod.Users_GET_INFO => FacebookXMLResponses.USER_INFO_RESPONSE,
@@ -411,8 +448,14 @@ public with sharing class FacebookXMLResponses {
 		FacebookMethod.Users_GET_LOGGED_IN_USER => FacebookXMLResponses.USERS_GET_LOGGED_IN_USER_RESPONSE,
 		FacebookMethod.Auth_REVOKE_AUTHORIZATION => FacebookXMLResponses.AUTH_REVOKE_AUTHORIZATION_RESPONSE,
 		FacebookMethod.Events_GET_MEMBERS => FacebookXMLResponses.EVENT_GET_MEMBERS_RESPONSE,
-		FacebookMethod.Error_BAD_METHOD => FacebookXMLResponses.ERROR_BAD_METHOD_RESPONSE
+		FacebookMethod.Error_BAD_METHOD => FacebookXMLResponses.ERROR_BAD_METHOD_RESPONSE,
+		FacebookMethod.Pages_IS_ADMIN => FacebookXMLResponses.PAGES_IS_ADMIN_RESPONSE,
+		FacebookMethod.Pages_IS_APP_ADDED => FacebookXMLResponses.PAGES_IS_APP_ADDED_RESPONSE,
+		FacebookMethod.Pages_GET_INFO => FacebookXMLResponses.PAGES_GET_INFO_RESPONSE,
+		FacebookMethod.Auth_CREATE_TOKEN => FacebookXMLResponses.AUTH_CREATE_TOKEN,
+		FacebookMethod.Auth_GET_SESSION => FacebookXMLResponses.AUTH_GET_SESSION
 	};
+	
 	
 	public static Map<String, String> queryResponses = new Map<String, String> {
 		'album' => FacebookXMLResponses.FQL_QUERY_ALBUM_RESPONSE,

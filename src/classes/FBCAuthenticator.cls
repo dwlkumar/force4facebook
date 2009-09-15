@@ -33,6 +33,7 @@ public virtual class FBCAuthenticator extends AbsAuthenticator {
 	public String grantedPerms { get; set; }
 
     public String siteAPIKey { get { return siteConfig.APIKey__c; } set; }
+    
 	private String getSiteName() {
 		String siteName = Site.getName();
 		if (siteName == null) {

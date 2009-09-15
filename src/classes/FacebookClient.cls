@@ -33,7 +33,7 @@ public virtual class FacebookClient extends RestPostMethod {
         return loginUrl;
     }
 
-    private String getSession() {
+    public String getSession() {
         List<String> params = new List<String>();
         params.add('auth_token');
         params.add(authToken);
@@ -259,6 +259,7 @@ public virtual class FacebookClient extends RestPostMethod {
         return ek;
 
     }
+    
     public class LoginParameters
     {
         public String   API_KEY         { get { return 'api_key';} }

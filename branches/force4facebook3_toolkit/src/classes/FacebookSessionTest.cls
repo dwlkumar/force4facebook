@@ -9,9 +9,26 @@ private class FacebookSessionTest {
 	}*/
 	static testMethod void constructorOne() {
 		
+		GFCUser__c user = new GFCUser__c(Sig__c = 'sig', SessionKey__c = 'sess', Secret__c = 'secret', Name = 'somename', APIKey__c = 'apikey', user__c = Userinfo.getUserId());
+		insert user;
+		
 		FBCAuthenticator fbc = new FBCAuthenticator();
+		delete user;
+		PageReference pr = new PageReference('/?fb_sig_session_key=1&fb_sig_user=sam');
+		
+		System.Test.setCurrentPage(pr);
+		Id pId = [Select Id From Profile Where Name = 'System Administrator'][0].Id;
+		User puser = new User(email = 'sam@sam.com', timezonesidkey = 'America/Los_Angeles', alias = 'samam', localesidkey = 'en_US', emailencodingkey = 'ISO-8859-1', profileid = pid, languagelocalekey = 'en_US', username = 'sam@sam.com', lastname='Smith', firstname='Sam', communitynickname='ss');
+		insert puser;
+		user = new GFCUser__c(Sig__c = 'sig', SessionKey__c = 'sess', Secret__c = 'secret', Name = 'sam', APIKey__c = 'apikey', user__c = puser.Id);
+		insert user;
+		
+		fbc = new FBCAuthenticator();
+		
 		fbc.testing = true;
-		FacebookSessionTester fbs = new FacebookSessionTester(fbc);
+		FacebookSessionTester fbs = new FacebookSessionTester();
+		fbs = new FacebookSessionTester('secret', 'sauce');
+		fbs = new FacebookSessionTester(fbc);
 
 		Test.setCurrentPage(new PageReference('/MyHome.page?refURL=something'));
 		
@@ -20,8 +37,17 @@ private class FacebookSessionTest {
 		
 
 		fbc.registerUser();
-		Test.setCurrentPage(new PageReference('/MyHome.page?fb_sig_session_key=something&fb_sig_api_key=d5ad3c34b635e2a2f1206900e837b310'));
+		Test.setCurrentPage(new PageReference('/MyHome.page?fb_sig_session_key=something&fb_sig_user=sam&fb_sig_api_key=d5ad3c34b635e2a2f1206900e837b310'));
 		fbc.registerUser();
+		puser.username = 'crap@crap.com';
+		update puser;
+		delete user;
+
+		fbc = new FBCAuthenticator();
+		fbc.testing = true;
+		fbc.registerUser();
+		
+		Boolean vSig = fbc.isValidSig();
 		
 		System.assertEquals(fbs.getSessionKey(), null, ''); 
 		System.assertEquals(fbs.getAuthToken(), null, '');
@@ -60,6 +86,31 @@ private class FacebookSessionTest {
 		fbs.revokeAuthorization();
 		fbs.getEventMembers('eventId');
 		fbs.callMethod(new FacebookMethod(FacebookMethod.Error_BAD_METHOD, 'XML'));
+		fbs.callSecureMethod(new FacebookMethod(FacebookMethod.Error_BAD_METHOD, 'XML'), new Map<String, String>());
+		fbs.getLoginUrl('mytoken');
+		fbs.pagesIsAdmin('111');
+		fbs.pagesIsAppAdded('1111');
+		fbs.getPageInfo(new String[]{ 'one', 'two'}, new String[]{'one', 'two'});
+		XMLDom eDom = new XMLDom(FacebookXMLResponses.ERROR_BAD_METHOD_RESPONSE);
+		FacebookSession.checkResponse(eDom.root.firstChild());
+		String apiKey = fbc.siteAPIKey;
+		fbs.getSessionKey();
+		fbs.createToken();
+		fbs.getSession();
+		fbs.callMethod(new FacebookMethod(FacebookMethod.Events_CREATE, 'XML'), 'dave', new List<String> { 'vaone', 'kone'});
+		
+		
+		FacebookClient.LoginParameters lp = new FacebookClient.LoginParameters();
+		String v = lp.API_KEY;
+		v = lp.API_VERSION;
+		v = lp.AUTH_TOKEN;
+		v = lp.CANVAS;
+		v = lp.HIDE_CHECKBOX;
+		v = lp.NEXT_URL;
+		v = lp.POPUP;
+		v = lp.SKIP_COOKIE;
+		
+		FacebookClient fc = new FacebookClient('api', 'secret', 'session');
 	}
 	
 	public static FacebookEvent getEventData() {

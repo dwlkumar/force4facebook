@@ -126,4 +126,28 @@ public class FBJSONObject {
 		}
 		return result;
 	}
+	
+	static testMethod void doTest() {
+		FBJSONObject jobj = new FBJSONObject();
+		Double dval = Double.valueOf('21.21');
+		Integer ival = Integer.valueOf('1');
+		Long lval = Long.valueOf('12345678');
+		jobj.setValue((Double)dval);
+		jobj.setValue((Integer)ival);
+		jobj.setValue((Long)lval);
+		jobj.setValue(true);
+		List<FBJSONObject> jlist = new List<FBJSONObject>();
+		FBJSONObject x = new FBJSONObject();
+		x.setValue(9);
+		jlist.add(x);
+		jobj.setValue(jlist);
+		jobj.dump();
+		
+		FBJSONObject.createAtomicValue(ival);
+		FBJSONObject.createAtomicValue(lval);
+		FBJSONObject.createAtomicValue('test');
+		FBJSONObject.createAtomicValue(true);
+		FBJSONObject.createAtomicValue(dval);
+		
+	}
 }

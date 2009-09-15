@@ -16,6 +16,8 @@ public class FacebookPublicApplicationInfo {
 
 	public List<String> developers {get; set; }
 	
+	public FacebookPublicApplicationInfo() { }
+	
 	public FacebookPublicApplicationInfo(XMLDom.Element xml) {
 		parseSource(xml);	
 	}
@@ -33,5 +35,37 @@ public class FacebookPublicApplicationInfo {
 				data.put(c.nodeName, c.nodeValue);
 			}
 		}
+	}
+	
+	static testMethod void doTest() {
+		FacebookPublicApplicationInfo fpai = new FacebookPublicApplicationInfo();
+		
+		fpai.app_id = 'app_id';
+		fpai.api_key = 'api_key';
+		fpai.canvas_name = 'canvas_name';
+		fpai.display_name = 'display_name';
+		fpai.icon_url = 'icon_url';
+		fpai.logo_url = 'logo_url';
+		fpai.company_name = 'company_name';
+		fpai.description = 'description';
+		fpai.daily_active_users = 1;
+		fpai.weekly_active_users = 1;
+		fpai.monthly_active_users = 1;
+		
+		System.assertEquals(fpai.app_id, 'app_id');
+		System.assertEquals(fpai.api_key, 'api_key');
+		System.assertEquals(fpai.canvas_name, 'canvas_name');
+		System.assertEquals(fpai.display_name, 'display_name');
+		System.assertEquals(fpai.icon_url, 'icon_url');
+		System.assertEquals(fpai.logo_url, 'logo_url');
+		System.assertEquals(fpai.company_name, 'company_name');
+		System.assertEquals(fpai.description, 'description');
+		System.assertEquals(fpai.daily_active_users, 1);
+		System.assertEquals(fpai.weekly_active_users, 1);
+		System.assertEquals(fpai.monthly_active_users, 1);
+		
+		XMLDom fpaiDom = new XMLDom(FacebookXMLResponses.APP_GET_PUBLIC_INFO);
+		fpai = new FacebookPublicApplicationInfo(fpaiDom.root.firstChild());
+			
 	}		
 }

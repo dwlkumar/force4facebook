@@ -27,15 +27,9 @@ public class UrlBuilder
             sb += '&';
         }
 
-        try
-        {
-            sb += EncodingUtil.urlEncode( key, 'UTF-8' );
-            sb += '=';
-            sb += EncodingUtil.urlEncode( value, 'UTF-8' );
-        }
-        catch ( Exception e )
-        {
-        }
+        sb += EncodingUtil.urlEncode( key, 'UTF-8' );
+        sb += '=';
+        sb += EncodingUtil.urlEncode( value, 'UTF-8' );
 
         return this;
     }
@@ -60,6 +54,16 @@ public class UrlBuilder
         {
             append( key, value );
         }
-        
+    }
+    
+    static testMethod void doTest() {
+    	UrlBuilder ub = new UrlBuilder('some', true);
+    	ub.append('test', 'one');
+    	ub.toMyString();
+    	List<String> more = new List<String>();
+    	more.add('two');
+    	more.add('three');
+    	ub.appendAll('multi', more);
+    	ub.append('four', null);
     }
 }

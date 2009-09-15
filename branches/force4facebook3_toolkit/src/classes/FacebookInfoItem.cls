@@ -47,4 +47,23 @@ public class FacebookInfoItem {
 		output += dataOut + '}';
 		return output;
 	}
+
+	testMethod static void doTest() {
+		FacebookInfoItem fii = new FacebookInfoItem('label', 'link');
+		fii = new FacebookInfoItem('label', 'link', 'image', 'description', 'sublabel');
+		fii.label = 'label';
+		fii.link = 'link';
+		fii.image = 'image';
+		fii.description = 'description';
+		fii.sublabel = 'sublabel';
+		
+		System.assertEquals(fii.label, 'label');
+		System.assertEquals(fii.link, 'link');
+		System.assertEquals(fii.image, 'image');
+		System.assertEquals(fii.sublabel, 'sublabel');
+		System.assertEquals(fii.description, 'description');
+		fii.toJSON();
+		
+	}
+
 }

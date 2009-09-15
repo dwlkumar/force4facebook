@@ -43,6 +43,8 @@ public class FacebookUserInfo implements IFacebookQueryResult {
     public UserStatus status { get; set; }
     public List<WorkInfo> work_history { get; set; }
      
+    public FacebookUserInfo() { }
+    
     public FacebookUserInfo(XMLDom.Element xmlInfo) {
         parseSource(xmlInfo);
     }
@@ -51,13 +53,13 @@ public class FacebookUserInfo implements IFacebookQueryResult {
         return 'user';
     }
 
-    private Datetime getDateTime(String fieldName) {
+/*    private Datetime getDateTime(String fieldName) {
         if (data.get(fieldName) != null) {
             return FacebookUtils.epochToDatetime(Long.valueOf(data.get(fieldName)));
         } else {
             return null;
         }
-    }
+    }*/
      
     public void parseSource(XMLDom.Element source) {
         for (XMLDom.Element c: source.childNodes) { 
@@ -232,9 +234,188 @@ public class FacebookUserInfo implements IFacebookQueryResult {
             parseSource(xmlInfo);
         }
         public void parseSource(XMLDom.Element xmlInfo) {
+        	System.debug('\n\nparse affiliation: \n child nodes: ' + xmlInfo.childNodes.size());
             for (XMLDom.Element c: xmlInfo.childNodes) {
                 data.put(c.nodeName, c.nodeValue);
             }
         }
-    }       
+    }
+    
+    static testMethod void doTest() {
+    	FacebookUserInfo fui = new FacebookUserInfo();
+
+	    fui.aboutMe = 'about_me';
+	    fui.pic = 'pic'; 
+	    fui.uid = 'uid';
+	    fui.activities = 'activities';
+	    fui.birthday = 'birthday';
+	    fui.books = 'books';
+	    fui.first_name = 'first_name';
+	    fui.is_app_user = 'is_app_user';
+	    fui.has_added_app = 'has_added_app';
+	    fui.interests = 'interests';
+	    fui.last_name = 'last_name';
+	    fui.locale = 'locale';
+	    fui.movies = 'movies';
+	    fui.music = 'music';
+	    fui.name = 'name';
+	    fui.notes_count = 'notes_count';
+	    fui.pic_big = 'pic_big';
+	    fui.pic_small = 'pic_small';
+	    fui.pic_square = 'pic_square';
+	    fui.political = 'political';
+	    fui.profile_update_time = 'profile_update_time';
+	    fui.quotes = 'quotes';
+	    fui.relationship_status = 'relationship_status';
+	    fui.religion = 'religion';
+	    fui.sex = 'sex';
+	    fui.significant_other_id = 'significant_other_id';
+	    fui.timezone = 'timezone';
+	    fui.tv = 'tv';
+	    fui.wall_count = 'wall_count';
+    	
+	    System.assertEquals(fui.aboutMe, 'about_me');
+	    System.assertEquals(fui.pic, 'pic'); 
+	    System.assertEquals(fui.uid, 'uid');
+	    System.assertEquals(fui.activities, 'activities');
+	    System.assertEquals(fui.birthday, 'birthday');
+	    System.assertEquals(fui.books, 'books');
+	    System.assertEquals(fui.first_name, 'first_name');
+	    System.assertEquals(fui.is_app_user, 'is_app_user');
+	    System.assertEquals(fui.has_added_app, 'has_added_app');
+	    System.assertEquals(fui.interests, 'interests');
+	    System.assertEquals(fui.last_name, 'last_name');
+	    System.assertEquals(fui.locale, 'locale');
+	    System.assertEquals(fui.movies, 'movies');
+	    System.assertEquals(fui.music, 'music');
+	    System.assertEquals(fui.name, 'name');
+	    System.assertEquals(fui.notes_count, 'notes_count');
+	    System.assertEquals(fui.pic_big, 'pic_big');
+	    System.assertEquals(fui.pic_small, 'pic_small');
+	    System.assertEquals(fui.pic_square, 'pic_square');
+	    System.assertEquals(fui.political, 'political');
+	    System.assertEquals(fui.profile_update_time, 'profile_update_time');
+	    System.assertEquals(fui.quotes, 'quotes');
+	    System.assertEquals(fui.relationship_status, 'relationship_status');
+	    System.assertEquals(fui.religion, 'religion');
+	    System.assertEquals(fui.sex, 'sex');
+	    System.assertEquals(fui.significant_other_id, 'significant_other_id');
+	    System.assertEquals(fui.timezone, 'timezone');
+	    System.assertEquals(fui.tv, 'tv');
+	    System.assertEquals(fui.wall_count, 'wall_count');
+ 
+		fui.affiliations = new List<Affiliation>();
+		System.assertEquals(fui.affiliations.size(), 0);
+		XMLDom afDom = new XMLDom('<affiliation>' +
+			        '<nid>67108896</nid>' +
+			        '<name>Silicon Valley, CA</name>' +
+			        '<type>region</type>' +
+			        '<status>status</status>' +
+			        '<year>0</year>' +
+			      '</affiliation>');
+		fui.affiliations.add(new Affiliation(afDom.root.firstChild()));
+		System.debug('\n\nAffiliation: \n\t' + fui.affiliations.get(0) + '\n\nXMLDom: \n\t' + afDom.root);
+		fui.affiliations.get(0).nid = '67108896';
+		fui.affiliations.get(0).a_type = 'region';
+		fui.affiliations.get(0).name = 'Silicon Valley, CA';
+		fui.affiliations.get(0).status = 'status';
+		fui.affiliations.get(0).year = '0';
+
+		System.assertEquals(fui.affiliations.get(0).nid, '67108896');
+		System.assertEquals(fui.affiliations.get(0).a_type, 'region');
+		System.assertEquals(fui.affiliations.get(0).name, 'Silicon Valley, CA');
+		System.assertEquals(fui.affiliations.get(0).status, 'status');
+		System.assertEquals(fui.affiliations.get(0).year, '0');
+		
+		XMLDom ulDom = new XMLDom('<current_location><city>city</city><state>state</state><country>country</country><zip>zip</zip></current_location>');
+	    fui.current_location = new UserLocation(ulDom.root.firstChild());
+		fui.current_location.city = 'city';
+		fui.current_location.state = 'state';
+		fui.current_location.country = 'country';
+		fui.current_location.zip = 'zip';
+
+		System.assertEquals(fui.current_location.city, 'city');
+		System.assertEquals(fui.current_location.state, 'state');
+		System.assertEquals(fui.current_location.country, 'country');
+		System.assertEquals(fui.current_location.zip, 'zip');
+		
+	    
+	    XMLDom edDom = new XMLDom('<education_info><name>name</name><year>90</year><concentrations>one</concentrations><concentrations>two</concentractions></education_info>');
+	    fui.education_history = new List<EducationInfo>();
+	    System.assertEquals(fui.education_history.size(), 0);
+	    fui.education_history.add(new EducationInfo(edDom.root.firstChild()));
+	    fui.education_history.get(0).name = 'name';
+	    fui.education_history.get(0).year = '90';
+
+	    System.assertEquals(fui.education_history.get(0).name, 'name');
+	    System.assertEquals(fui.education_history.get(0).year, '90');
+	    System.assertEquals(fui.education_history.get(0).concentrations.size(), 0);
+	    
+	    fui.hometown_location = new UserLocation(ulDom.root);
+	    System.assertNotEquals(fui.hometown_location	, null);
+	    
+	    XMLDom hsDom = new XMLDom('<high_school_info>' +
+	    							'<hs1_name>hs1_name</hs1_name>' +
+	    							'<hs2_name>hs2_name</hs2_name>' +
+	    							'<grad_year>90</grad_year>' +
+	    							'<hs1_id>hs1_id</hs1_id>' +
+	    							'<hs2_id>hs2_id</hs2_id>' +
+	    						'</high_school_info>');
+	    fui.hs_info = new HighSchoolInfo(hsDom.root.firstChild());
+	    fui.hs_info.hs1_name = 'hs1_name';
+	    fui.hs_info.hs2_name = 'hs2_name';
+	    fui.hs_info.grad_year = '90';
+	    fui.hs_info.hs1_id = 'hs1_id';
+	    fui.hs_info.hs2_id = 'hs2_id';
+
+	    System.assertEquals(fui.hs_info.hs1_name, 'hs1_name');
+	    System.assertEquals(fui.hs_info.hs2_name, 'hs2_name');
+	    System.assertEquals(fui.hs_info.grad_year, '90');
+	    System.assertEquals(fui.hs_info.hs1_id, 'hs1_id');
+	    System.assertEquals(fui.hs_info.hs2_id, 'hs2_id');
+	    
+	    fui.meeting_for = new List<MeetingFor>();
+	    System.assertEquals(fui.meeting_for.size(), 0);
+	    fui.meeting_for.add(new MeetingFor('seeking'));
+	    fui.meeting_for.get(0).seeking = 'seeking';
+	    
+	    System.assertEquals(fui.meeting_for.get(0).seeking, 'seeking');
+	    
+	    fui.meeting_sex = new List<MeetingSex>();
+	    System.assertEquals(fui.meeting_sex.size(), 0);
+	    fui.meeting_sex.add(new MeetingSex('sex'));
+	    fui.meeting_sex.get(0).sex = 'sex';
+	    
+	    System.assertEquals(fui.meeting_sex.get(0).sex, 'sex');
+	    
+	    XMLDom usDom = new XMLDom('<user_status><message>message</message><time>f_time</time></user_status>');
+	    fui.status = new UserStatus(usDom.root.firstChild());
+	    fui.status.message = 'message';
+	    fui.status.f_time = 'f_time';
+
+	    System.assertEquals(fui.status.message, 'message');
+	    System.assertEquals(fui.status.f_time, 'f_time');
+	    
+	    XMLDom wiDom = new XMLDom('<work_info><company_name>company_name</company_name><position>position</position><description>description</description><start_date>2000</start_date><end_date>2001</end_date></work_info>');
+	    fui.work_history = new List<WorkInfo>();
+	    System.assertEquals(fui.work_history.size(), 0);
+	    fui.work_history.add(new WorkInfo(wiDom.root.firstChild()));
+	    fui.work_history.get(0).company_name = 'company_name';
+	    fui.work_history.get(0).position = 'position';
+	    fui.work_history.get(0).description = 'description';
+	    fui.work_history.get(0).start_date = '2000';
+	    fui.work_history.get(0).end_date = '2001';
+
+	    System.assertEquals(fui.work_history.get(0).company_name, 'company_name');
+	    System.assertEquals(fui.work_history.get(0).position, 'position');
+	    System.assertEquals(fui.work_history.get(0).description, 'description');
+	    System.assertEquals(fui.work_history.get(0).start_date, '2000');
+	    System.assertEquals(fui.work_history.get(0).end_date, '2001');
+	    
+	    fui.work_history.get(0).location = new UserLocation(ulDom.root.firstChild());
+	    System.assertEquals(fui.work_history.get(0).location.city, 'city');
+    	
+    	System.assertEquals(fui.getResultType(), 'user');
+    	
+    }
 }

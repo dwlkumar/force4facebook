@@ -91,4 +91,17 @@ public virtual class RestPostMethod {
         }
     }
 
+	static testMethod void dotests() {
+		RestPostMethod rpm = new RestPostMethod();
+		rpm.setMultipart(new Map<String, String>());
+		rpm.getResponseBody(new HTTPResponse());
+		rpm.getResponseStatus(new HTTPResponse());
+		rpm.getResponseCode(new HTTPResponse());
+		rpm.getResponseHeader(new HTTPResponse(), 'oops');
+		rpm.getResponseHeaderKeys(new HTTPResponse());
+		rpm.execute(null);
+		try {
+			rpm.doExecute(null);
+		} catch(Exception ex) {}
+	}
 }

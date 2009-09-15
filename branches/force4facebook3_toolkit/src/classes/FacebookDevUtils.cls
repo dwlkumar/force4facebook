@@ -1,4 +1,5 @@
-public with sharing class FacebookDevUtils {
+@isTest
+private with sharing class FacebookDevUtils {
 
 	private static String apikey = 'd5ad3c34b635e2a2f1206900e837b310';
 	private static String appSecret = '78d1a040bd144dce60dfb1c0906eda9d';
@@ -9,8 +10,8 @@ public with sharing class FacebookDevUtils {
 	public static void eventTest() {
 		FacebookSession fbs = new FacebookSession(apiKey, appSecret, sessionKey);
 		Long startTime = FacebookUtils.dateTimeToEpoch(Datetime.now().addDays(-1));
-		fbs.getEvents(uid, null, startTime, null, null);
-		//fbs.getEvent(eid);
+		List<FacebookEvent> events = fbs.getEvents(uid, null, startTime, null, null);
+		
 	}
 	
 	public static void userInfoTest() {
@@ -81,6 +82,14 @@ public with sharing class FacebookDevUtils {
 	public static void queryEventMemberTest() {
 		FacebookSession fbs = new FacebookSession(apiKey, appSecret, sessionKey);
 	   	fbs.query('Select uid From event_member Where eid = 104407574239');
+		FacebookEventMember evm = new FacebookEventMember();
+		evm.eid = 'eid';
+		evm.rsvp_status = 'status';
+		evm.uid = 'uid';
+		System.assertEquals(evm.eid, 'eid');
+		System.assertEquals(evm.uid, 'uid');
+		System.assertEquals(evm.rsvp_status, 'status');
+		System.assertEquals(evm.getResultType(), 'event_member');
 	}
 	
 	public static void queryStandardFriendInfoTest() {
@@ -235,4 +244,32 @@ public with sharing class FacebookDevUtils {
         return tInfo;
     }
 	
+	static testMethod void doTest() {
+		try { FacebookDevUtils.createEventTest(); } catch (Exception ex) {}
+			try { FacebookDevUtils.editEventText(); } catch (Exception ex) {}
+			try { FacebookDevUtils.errorResponseTest(); } catch (Exception ex) {}
+			try { FacebookDevUtils.eventTest(); } catch (Exception ex) {}
+			try { FacebookDevUtils.getAppPublicInfoTest(); } catch (Exception ex) {}
+			try { FacebookDevUtils.getAppUsersTest(); } catch (Exception ex) {}
+			try { FacebookDevUtils.getEventMembersTest(); } catch (Exception ex) {}
+			try { FacebookDevUtils.getFriendsTest(); } catch (Exception ex) {}
+			try { FacebookDevUtils.getLoggedInUserTest(); } catch (Exception ex) {}
+			try { FacebookDevUtils.getNotificationsTest(); } catch (Exception ex) {}
+			try { FacebookDevUtils.publishUserActionTest(); } catch (Exception ex) {}
+			try { FacebookDevUtils.queryAlbumTest(); } catch (Exception ex) {}
+			try { FacebookDevUtils.queryCookieTest(); } catch (Exception ex) {}
+			try { FacebookDevUtils.queryEventMemberTest(); } catch (Exception ex) {}
+			try { FacebookDevUtils.queryEventTest(); } catch (Exception ex) {}
+			try { FacebookDevUtils.queryFriendListMemberTest(); } catch (Exception ex) {}
+			try { FacebookDevUtils.queryGroupMemberTest(); } catch (Exception ex) {}
+			try { FacebookDevUtils.queryGroupTest(); } catch (Exception ex) {}
+			try { FacebookDevUtils.queryStandardFriendInfoTest(); } catch (Exception ex) {}
+			try { FacebookDevUtils.queryUserTest(); } catch (Exception ex) {}
+			try { FacebookDevUtils.registerTemplateBundleTest(); } catch (Exception ex) {}
+			try { FacebookDevUtils.revokeAuthorizationTest(); } catch (Exception ex) {}
+			try { FacebookDevUtils.setInfoTest(); } catch (Exception ex) {}
+			try { FacebookDevUtils.setStatusTest(); } catch (Exception ex) {}
+			try { FacebookDevUtils.setupCalendar(); } catch (Exception ex) {}
+			try { FacebookDevUtils.userInfoTest(); } catch (Exception ex) {}
+	}
 }

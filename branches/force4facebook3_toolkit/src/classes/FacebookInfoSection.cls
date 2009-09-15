@@ -21,4 +21,14 @@ public class FacebookInfoSection {
 	public void save() {
 		// TODO - figure out this implementation	
 	}
+	
+	static testmethod void testFacebookInfoSection() {
+		List<FacebookInfoItem> fii = new List<FacebookInfoItem>();
+		fii.add(new FacebookInfoItem('label', 'link'));
+		FacebookInfoSection fis = new FacebookInfoSection();
+		fis.items = fii;
+		fis.toJSON();
+		fis.save();
+		
+	}
 }

@@ -57,63 +57,40 @@ public class FacebookMethod {
     public static String Pages_IS_ADMIN     = 'facebook.pages.isAdmin';
     public static String Pages_IS_FAN       = 'facebook.pages.isFan';
 
-    public class Photos
-    {
-        public String  GET             = 'facebook.photos.get';
-        public String  GET_ALBUMS      = 'facebook.photos.getAlbums';
-        public String  GET_TAGS        = 'facebook.photos.getTags';
-        public String  CREATE_ALBUM    = 'facebook.photos.createAlbum';
-        public String  ADD_TAG         = 'facebook.photos.addTag';
-        public String  UPLOAD          = 'facebook.photos.upload';
-    }
+    public static String  Photos_GET             = 'facebook.photos.get';
+    public static String  Photos_GET_ALBUMS      = 'facebook.photos.getAlbums';
+    public static String  Photos_GET_TAGS        = 'facebook.photos.getTags';
+    public static String  Photos_CREATE_ALBUM    = 'facebook.photos.createAlbum';
+    public static String  Photos_ADD_TAG         = 'facebook.photos.addTag';
+    public static String  Photos_UPLOAD          = 'facebook.photos.upload';
 
     public static String  Notifications_GET             = 'facebook.notifications.get';
     public static String  Notifications_SEND            = 'facebook.notifications.send';
     public static String  Notifications_SEND_EMAIL      = 'facebook.notifications.sendEmail';
 
-    public class Groups
-    {
-        public String  GET         = 'facebook.groups.get';
-        public String  GET_MEMBERS = 'facebook.groups.getMembers';
-    }
+    public static String  Groups_GET         = 'facebook.groups.get';
+    public static String  Groups_GET_MEMBERS = 'facebook.groups.getMembers';
 
     public static String  Profile_SET_FBML    = 'facebook.profile.setFBML';
     public static String  Profile_GET_FBML    = 'facebook.profile.getFBML';
 
-    public class Fbml
-    {
-        public String  REFRESH_REF_URL = 'facebook.fbml.refreshRefUrl';
-        public String  REFRESH_IMG_SRC = 'facebook.fbml.refreshImgSrc';
-        public String  SET_REF_HANDLE  = 'facebook.fbml.setRefHandle';
-    }
+    public static String  Fbml_REFRESH_REF_URL = 'facebook.fbml.refreshRefUrl';
+    public static String  Fbml_REFRESH_IMG_SRC = 'facebook.fbml.refreshImgSrc';
+    public static String  Fbml_SET_REF_HANDLE  = 'facebook.fbml.setRefHandle';
     
     public static String Feed_REGISTER_TEMPLATE_BUNDLE = 'facebook.feed.registerTemplateBundle';
     public static String Feed_PUBLISH_USER_ACTION = 'facebook.feed.publishUserAction';
 
-    public class Feed
-    {
-        public String  PUBLISH_ACTION_OF_USER      = 'facebook.feed.publishActionOfUser';
-        public String  PUBLISH_STORY_TO_USER       = 'facebook.feed.publishStoryToUser';
-        public String  PUBLISH_TEMPLATIZED_ACTION  = 'facebook.feed.publishTemplatizedAction';
-    }
+    public static String  Feed_PUBLISH_ACTION_OF_USER      = 'facebook.feed.publishActionOfUser';
+    public static String  Feed_PUBLISH_STORY_TO_USER       = 'facebook.feed.publishStoryToUser';
+    public static String  Feed_PUBLISH_TEMPLATIZED_ACTION  = 'facebook.feed.publishTemplatizedAction';
 
-    public class Marketplace
-    {
-        public String  CREATE_LISTING      = 'facebook.marketplace.createListing';
-        public String  GET_CATEGORIES      = 'facebook.marketplace.getCategories';
-        public String  GET_SUBCATEGORIES   = 'facebook.marketplace.getSubcategories';
-        public String  GET_LISTINGS        = 'facebook.marketplace.getListings';
-        public String  SEARCH              = 'facebook.marketplace.search';
-        public String  REMOVE_LISTING      = 'facebook.marketplace.removeListing';
-    }
-    
-    public class Pages
-    {
-        public String GET_INFO     = 'facebook.pages.getInfo';
-        public String IS_APP_ADDED = 'facebook.pages.isAppAdded';
-        public String IS_ADMIN     = 'facebook.pages.isAdmin';
-        public String IS_FAN       = 'facebook.pages.isFan';
-    }
+    public static String  Marketplace_CREATE_LISTING      = 'facebook.marketplace.createListing';
+    public static String  Marketplace_GET_CATEGORIES      = 'facebook.marketplace.getCategories';
+    public static String  Marketplace_GET_SUBCATEGORIES   = 'facebook.marketplace.getSubcategories';
+    public static String  Marketplace_GET_LISTINGS        = 'facebook.marketplace.getListings';
+    public static String  Marketplace_SEARCH              = 'facebook.marketplace.search';
+    public static String  Marketplace_REMOVE_LISTING      = 'facebook.marketplace.removeListing';
     
     public static String Profile_SET_INFO = 'profile.setInfo';
     public static String Profile_SET_INFO_OPTIONS = 'profile.setInfoOptions';
@@ -125,4 +102,11 @@ public class FacebookMethod {
     
     public static String Error_BAD_METHOD = 'facebook.bad.method';
     
+    static testMethod void doTest() {
+    	FacebookMethod fm = new FacebookMethod(FacebookMethod.Status_SET, 'test');
+    	fm.getFormat();
+    	fm.getMethodName();
+    	fm.toStringx();
+    	fm.parseResponse('my response');
+    }
 }

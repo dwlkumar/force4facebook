@@ -22,7 +22,7 @@
 	<apex:attribute name="permsNeeded" type="String" required="false" default="none" description="" />
 	
 	
-	<apex:includescript value="https://www.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php" />
+	<apex:includescript value="http://www.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php" />
  
 	<div xmls="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml" >
 	

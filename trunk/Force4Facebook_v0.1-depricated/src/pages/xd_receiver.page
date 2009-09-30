@@ -1,3 +1,0 @@
-<apex:page >
-	<apex:includescript value="https://www.connect.facebook.com/js/api_lib/v0.4/XdCommReceiver.js" /> 
-</apex:page>

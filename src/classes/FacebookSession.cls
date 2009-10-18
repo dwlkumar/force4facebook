@@ -169,6 +169,24 @@ public virtual class FacebookSession extends FacebookClient {
         }
         return result;
     }
+    
+    public List<String> getMutualFriends(String cid) {
+    	List<String> params = new List<String>();
+		params.add('target_uid');
+		params.add(cid);
+    	
+        String resp = callMethod( new FacebookMethod(FacebookMethod.Friends_GET_MUTUAL_FRIENDS, 'XML'), params );
+        System.debug(LoggingLevel.INFO, '\n\nGetMutualFriends:\n' + resp);
+        List<String> result = new List<String>();
+        XMLDom r = new XMLDom(resp);
+        checkResponse(r.root);
+        List<XMLDom.Element> friends = r.getElementsByTagName('uid');
+        for (XMLDom.Element friend : friends) {
+            System.debug(LoggingLevel.INFO, 'Adding an friend...');
+            result.add(friend.nodeValue);
+        }
+        return result;
+    }
 
     public FacebookPublicApplicationInfo getAppPublicInfo(String appKey) {
         List<String> params = new List<String>();
@@ -342,8 +360,12 @@ public virtual class FacebookSession extends FacebookClient {
         params.add(sfields.substring(0, sfields.length() - 1));
         
         String resp = callMethod( new FacebookMethod(FacebookMethod.Users_GET_INFO, 'XML'), params );
-        System.debug(LoggingLevel.INFO, '\n\nGet User Info:\n' + resp);
+        System.debug(LoggingLevel.ERROR,'\n\nGet User Info:\n' + resp);
         List<FacebookUserInfo> result = new List<FacebookUserInfo>();
+        
+        if( resp == null )
+        	return null;
+        	
         XMLDom r = new XMLDom(resp);
         checkResponse(r.root);
         

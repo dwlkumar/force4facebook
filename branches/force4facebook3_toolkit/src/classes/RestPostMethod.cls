@@ -1,5 +1,5 @@
 public virtual class RestPostMethod {
-    public HttpRequest request;
+    public transient HttpRequest request;
     private String body = '';
     
     //public RestPostMethod( String url, String userAgent )

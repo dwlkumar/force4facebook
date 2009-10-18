@@ -48,6 +48,7 @@ public class FacebookMethod {
     public static String Events_CANCEL = 'facebook.events.cancel';
     
     public static String  Friends_GET             = 'facebook.friends.get';
+    public static String  Friends_GET_MUTUAL_FRIENDS = 'facebook.friends.getMutualFriends';
     public static String  Friends_GET_APP_USERS   = 'facebook.friends.getAppUsers';
     public static String  Friends_GET_REQUESTS    = 'facebook.friends.getRequests';
     public static String  Friends_ARE_FRIENDS     = 'facebook.friends.areFriends';

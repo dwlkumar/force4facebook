@@ -33,6 +33,10 @@ public abstract class AbsAuthenticator {
 		return UserInfo.getUserType() != 'Guest';
 	}
 	
+	public Boolean getIsStandardUser() {
+		return UserInfo.getUserType() != 'Standard';
+	}
+	
     public AbsAuthenticator() {
     	
     }

@@ -58,4 +58,9 @@ public abstract class AbsSocialController implements ISocialController {
 		return auth.getIsPortalUser();
 	}
 	
+	// Bubble up the getIsStandardUser from the authenticator	
+	public Boolean getIsStandardUser() {
+		return auth.getIsStandardUser();
+	}
+	
 }

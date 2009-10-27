@@ -33,7 +33,6 @@ public virtual class FBCAuthenticator extends AbsAuthenticator {
 	public String grantedPerms { get; set; }
 
     public String siteAPIKey { get { return siteConfig.APIKey__c; } set; }
-    
 	private String getSiteName() {
 		String siteName = Site.getName();
 		if (siteName == null) {
@@ -53,7 +52,7 @@ public virtual class FBCAuthenticator extends AbsAuthenticator {
    		if (configs.size() == 1) {
    			return configs.get(0);
     	} else {
-    		return null;
+    		return null; 
     	}
 	}
 	
@@ -96,7 +95,7 @@ public virtual class FBCAuthenticator extends AbsAuthenticator {
 	            sig = u.Sig__c;
 	            uid = u.Name;
 	        }
-    	} catch(Exception ex) {
+    	} catch(Exception ex) { 
     		
     	}
     }
@@ -167,9 +166,11 @@ public virtual class FBCAuthenticator extends AbsAuthenticator {
 				uInfo = fbs.getUserInfo(new List<String>{ uid }, fbs.userInfoFieldList)[0]; //fields) ;
  			}
 			
-			loginRedirect = getRedirectUrl();
-
-			if (userExists(username)) {
+			if (getRedirectUrl() != null) {
+				loginRedirect = getRedirectUrl();
+			}
+			
+			if (userExists(username) || Userinfo.getUserType() != 'Guest') {
 				// In this case, the use exists in the User table.  By implication, this means that
 				// we have created the user in a previous registration.
 				
@@ -206,7 +207,11 @@ public virtual class FBCAuthenticator extends AbsAuthenticator {
 					return null;
 				}
 				pr.setRedirect(true);
-				return pr;
+				if (loginRedirect != 'no-redirect') {
+					return pr;
+				} else {
+					return null;
+				}
 			} else {
 				// We get here when we have a Facebook user that has no portal user created
 				

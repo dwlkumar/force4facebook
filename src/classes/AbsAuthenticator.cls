@@ -48,17 +48,15 @@ public abstract class AbsAuthenticator {
     // For Customer Portal Redirect - Set to default to the portal home
     
     public virtual String getRedirectUrl() {
-    	String u;
+    	String u = null;
     	if (Apexpages.currentPage().getParameters().containsKey('startURL')) {
   			u = Apexpages.currentPage().getParameters().get('startURL');
-    	} 
-    	//else if (Apexpages.currentPage().getParameters().containsKey('refURL')) {
+    	} else if (Apexpages.currentPage().getParameters().containsKey('refURL')) {
     		//u = '/home/home.jsp';
-    		// u = Apexpages.currentPage().getParameters().get('refURL');
-    	//} 
-    	else { 
+    		u = Apexpages.currentPage().getParameters().get('refURL');
+    	} /*else { 
     		u = '/home/home.jsp';
-    	}
+    	}*/
     	return u;
     }
 

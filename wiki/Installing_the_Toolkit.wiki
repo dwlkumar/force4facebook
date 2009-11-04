@@ -25,7 +25,7 @@ Steps to checkout
 
    # Create a new project in Eclipse and accept all the defaults.
    # Go to Window > Open Perspective > Other and select *SVN Repository Exploring*
-   # Add a new repository: http://force4facebook.googlecode.com/svn/trunk/
+   # Add a new repository: http://force4facebook.googlecode.com/svn/branches/force4facebook3_toolkit/
    # Navigate to force4facebook3/src and right-click the folder.
          # Go to export and enter the name of your new project when prompted for a project name.
          # You will be asked to delete and overwrite the existing project. Accept this.

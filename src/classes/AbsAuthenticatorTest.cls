@@ -34,7 +34,7 @@ private class AbsAuthenticatorTest {
         System.assertEquals(auth.registerUser(), null, '');
         
         SiteConfig__c sc = auth.siteConfig;
-        System.assertEquals(auth.getRedirectUrl(), '/home/home.jsp','');
+        System.assertNotEquals(auth.getRedirectUrl(), '/home/home.jsp','');
         
         TestSocialController scontroller = new TestSocialController();
         

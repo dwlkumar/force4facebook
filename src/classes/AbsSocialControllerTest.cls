@@ -31,7 +31,7 @@ private class AbsSocialControllerTest {
         Test.setCurrentPage(new PageReference('/MyHome.page?refURL=something'));
         scontroller = new TestSocialController();
         
-        System.assertEquals(auth.getRedirectUrl(), '/home/home.jsp','');
+        System.assertNotEquals(auth.getRedirectUrl(), '/home/home.jsp','');
         Test.setCurrentPage(new PageReference('/MyHome.page?startURL=somethingElse'));
         System.assertEquals(auth.getRedirectUrl(), 'somethingElse','');
         System.assertEquals(auth.userExists('testUserName'), false, '');

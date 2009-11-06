@@ -91,6 +91,22 @@
         <type>Text</type>
     </nameField>
     <pluralLabel>GFC Users</pluralLabel>
+    <recordTypes>
+        <fullName>Facebook</fullName>
+        <active>true</active>
+        <label>Facebook</label>
+        <picklistValues>
+            <picklist>UserType__c</picklist>
+            <values>
+                <fullName>Facebook</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Google</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
     <searchLayouts/>
     <sharingModel>ReadWrite</sharingModel>
 </CustomObject>

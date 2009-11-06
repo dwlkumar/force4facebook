@@ -39,8 +39,8 @@ private class FacebookSessionTest {
 		fbc.registerUser();
 		Test.setCurrentPage(new PageReference('/MyHome.page?fb_sig_session_key=something&fb_sig_user=sam&fb_sig_api_key=d5ad3c34b635e2a2f1206900e837b310'));
 		fbc.registerUser();
-		puser.username = 'crap@crap.com';
-		update puser;
+		//puser.username = 'crap@crap.com';
+		//update puser;
 		delete user;
 
 		fbc = new FBCAuthenticator();

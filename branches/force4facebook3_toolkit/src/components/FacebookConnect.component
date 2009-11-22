@@ -1,6 +1,10 @@
 <apex:component controller="FBCAuthenticator" allowDML="true" selfClosing="true">
 
-	<script> var apiKey = "{!siteAPIKey}";</script>
+	<script> 
+		var apiKey = "{!siteAPIKey}";
+		var api_key = apiKey;
+		var channel_path = "/xd_receiver";	
+	</script>
 
 	<!-- MyController should always be set to {!this} on the page.  For this to work you need to make your controller
 		be an extension of AbsSocialController. -->
@@ -21,10 +25,67 @@
 	<apex:attribute name="requestPerms" type="String" required="false" default="no" description="" />
 	<apex:attribute name="permsNeeded" type="String" required="false" default="none" description="" />
 	<apex:attribute name="loginRedirect" type="String" required="false" assignTo="{!loginRedirect}" default="no-redirect" description="" />
+	<apex:attribute name="siteName" type="String" required="true" assignTo="{!siteName}" description="" />
 	
 	<apex:includescript value="http://www.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php" />
  
 	<div xmls="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml" >
+		
+		<apex:inputHidden id="expires" value="{!expires}" />
+		<apex:inputHidden id="secret" value="{!sessionSecret}" />
+		<apex:inputHidden id="sessionKey" value="{!sessionKey}" />
+		<apex:inputHidden id="sig" value="{!sig}" />
+		<apex:inputHidden id="uid" value="{!uid}" />
+		<apex:inputHidden id="APIKey" value="{!APIKey}"  />
+	
+		<apex:outputPanel id="areaone">
+			<apex:actionFunction id="regUser" name="registerUser" action="{!registerUser}" />
+			<apex:actionFunction id="regUserNR" name="registerUserNoRedirect" action="{!registerUser}" rerender="areaone"/>
+		</apex:outputPanel>
+
+		<div id="fb_conn_pan" style="width: 250px; display: {!IF(showUI, 'block', 'none')}" >
+			<apex:outputPanel rendered="{!NOT(AND(isFacebookUser, isPortalUser))}">
+				<h2><apex:outputText value="{!loginTitle}" /></h2>
+		  		<br/>
+		    	<apex:outputText value="{!loginMessage}" style="font-family: verdana; font-size: bigger;" />
+		  	</apex:outputPanel> 
+			<div class="bd">
+		    	<apex:panelGrid columns="1" >
+		      		<apex:panelGroup >
+			      		<center>
+		      				<apex:outputPanel id="login">
+		      					<apex:outputPanel rendered="{!NOT(isPortalUser)}" >
+									<fb:login-button onlogin='askPerms' ></fb:login-button>
+								</apex:outputPanel>
+							</apex:outputPanel>
+						</center>
+						
+						<apex:outputPanel id="logout">
+							<apex:outputPanel rendered="{!AND(isFacebookUser, isPortalUser)}" >
+		      					<apex:outputText value="You are currently logged-in using Facebook!" style="font-family: verdana; font-size: bigger;" />
+								<apex:outputPanel layout="block" 
+											onclick="FB.Connect.logoutAndRedirect('/secur/logout.jsp');" 
+											style="cursor: pointer" >
+									<img src="http://www.connect.facebook.com/images/fbconnect/logout-buttons/logout_large.gif" />
+								</apex:outputPanel>
+							</apex:outputPanel>
+						</apex:outputPanel>
+						<p /> 
+					</apex:panelGroup>
+		      	</apex:panelGrid>
+			</div>
+			<div class="ft" style="font-size: 10px;">
+				<apex:outputPanel >{!loginFooterMessage}</apex:outputPanel>
+			</div>
+		</div>
+	
+		<script>
+		FB.Bootstrap.requireFeatures(["XFBML"], function(){
+			FB.XFBML.Host.parseDomTree();
+		}); 
+		</script>
+		<apex:componentBody />
+	</div>
 	
 		<script>
 		var connectionState;
@@ -38,35 +99,30 @@
 			document.location.href = arg;
 		}
 		
-		function addLoadEvent(func) {
-			var oldonload = window.onload;
-			if (typeof window.onload != 'function') {
-				window.onload = func;
-			} else {
-				window.onload = function() {
-					if (oldonload) {
-						oldonload();
-					}
-					func();
-				}
-			}
-		} 	
 		function parseDomAgain() {
-			FB.XFBML.Host.parseDomTree();
-		//} catch(e) {}
+			FB.Bootstrap.requireFeatures(["XFBML"], function(){
+				FB.XFBML.Host.parseDomTree();
+			}); 			
 		}
 	    
 		if ("{!autoCheckConnection}" != "no") {
-			alert('auto check not equal to no');
-			addLoadEvent(checkMyConnection);
-			addLoadEvent(parseDomAgain);
+			myAlert('Auto Check: {!autoCheckConnection}');
+			checkMyConnection();
+			parseDomAgain();
 		}
 
 		var conn, unconn;
-		
+				
 		function checkMyConnection(arg1, arg2) {
-			FB.init(apiKey, "/xd_receiver", { "ifUserConnected": connected, "ifUserNotConnected": unconnected, "reloadIfSessionStateChanged":false});
 
+			myAlert("API Key: " + api_key + ", Path: " + channel_path );
+				
+			// Initialize Facebook
+		    FB.Bootstrap.requireFeatures(["Connect"], function()
+		    {  	
+				FB.init(api_key, channel_path, { "ifUserConnected": connected, "ifUserNotConnected": unconnected, "reloadIfSessionStateChanged":false});
+			});		
+		
 			myAlert("Check My Connection");
 			conn =  arg1;
 			unconn = arg2;
@@ -108,6 +164,7 @@
 		}
 		
 		function connected() {
+			myAlert("We are connected to facebook");
 			FB.FBDebug.logLevel = 4;
  			FB.FBDebug.isEnabled = true;
 			if (connectionState != "connected") {
@@ -159,6 +216,7 @@
 			}
 		}
 		function unconnected() {
+			myAlert("We are not connected");
 			FB.FBDebug.logLevel = 4;
  			FB.FBDebug.isEnabled = true;
 			if (connectionState != "unconnected") {
@@ -188,7 +246,6 @@
 		}
 		
 		function askPerms() {
-			myAlert("ask perms");
 			var api = FB.Facebook.apiClient;
 			//if (api.users_hasAppPermission("status_update", updatePerms)) {
 				myAlert("Asking for permission...");
@@ -204,57 +261,4 @@
 		}
 		</script>
 	
-		<apex:inputHidden id="expires" value="{!expires}" />
-		<apex:inputHidden id="secret" value="{!sessionSecret}" />
-		<apex:inputHidden id="sessionKey" value="{!sessionKey}" />
-		<apex:inputHidden id="sig" value="{!sig}" />
-		<apex:inputHidden id="uid" value="{!uid}" />
-		<apex:inputHidden id="APIKey" value="{!APIKey}"  />
-		<apex:outputPanel id="areaone">
-			<apex:actionFunction id="regUser" name="registerUser" action="{!registerUser}" />
-			<apex:actionFunction id="regUserNR" name="registerUserNoRedirect" action="{!registerUser}" rerender="areaone"/>
-		</apex:outputPanel>
-
-		<div id="fb_conn_pan" style="width: 250px; display: {!IF(showUI, 'block', 'none')}" >
-			<apex:outputPanel rendered="{!NOT(AND(isFacebookUser, isPortalUser))}">
-				<h2><apex:outputText value="{!loginTitle}" /></h2>
-		  		<br/>
-		    	<apex:outputText value="{!loginMessage}" style="font-family: verdana; font-size: bigger;" />
-		  	</apex:outputPanel> 
-			<div class="bd">
-		    	<apex:panelGrid columns="1" >
-		      		<apex:panelGroup >
-			      		<center>
-		      				<apex:outputPanel id="login">
-		      					<apex:outputPanel rendered="{!NOT(isPortalUser)}" >
-									<fb:login-button onlogin='askPerms' ></fb:login-button>
-								</apex:outputPanel>
-							</apex:outputPanel>
-						</center>
-						
-						<apex:outputPanel id="logout">
-							<apex:outputPanel rendered="{!AND(isFacebookUser, isPortalUser)}" >
-		      					<apex:outputText value="You are currently logged-in using Facebook!" style="font-family: verdana; font-size: bigger;" />
-								<apex:outputPanel layout="block" onclick="
-									FB.Connect.logoutAndRedirect('/secur/logout.jsp');
-										" 
-											style="cursor: pointer" >
-									<img src="http://www.connect.facebook.com/images/fbconnect/logout-buttons/logout_large.gif" />
-								</apex:outputPanel>
-							</apex:outputPanel>
-						</apex:outputPanel>
-						<p /> 
-					</apex:panelGroup>
-		      	</apex:panelGrid>
-			</div>
-			<div class="ft" style="font-size: 10px;">
-				<apex:outputPanel >{!loginFooterMessage}</apex:outputPanel>
-			</div>
-		</div>
-	
-		<script>
-			//FB.XFBML.Host.parseDomTree();
-		</script>
-		<apex:componentBody />
-	</div>
 </apex:component>

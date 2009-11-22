@@ -33,26 +33,28 @@ public virtual class FBCAuthenticator extends AbsAuthenticator {
 	public String grantedPerms { get; set; }
 
     public String siteAPIKey { get { return siteConfig.APIKey__c; } set; }
-	private String getSiteName() {
-		String siteName = Site.getName();
-		if (siteName == null) {
+    public String siteName {
+    	get {   		
+    		if (siteName == null) {
 			// This must not be running in Sites, ie: test Method
 			Account tempAcct = [Select id From Account Limit 1];
 			SiteConfig__c sc = new SiteConfig__c(APIKey__c = 'd5ad3c34b635e2a2f1206900e837b310', FacebookAppSecret__c='78d1a040bd144dce60dfb1c0906eda9d', Name='Testing', NewPortalUserAccount__c=tempAcct.Id);
 			insert sc;
 			siteName = 'testing';			
-		}
-		return siteName;
-	}
+			}
+			return siteName;
+    	}
+    	set; 
+    }
 	// Get the site configuration values. This uses the name of the site to fetch
 	// apikeys, secrets and such.
 	public override SiteConfig__c fetchSiteConfig() {
-  		System.debug('\n\nLooking up site config using ' + getSiteName() + '\n\n');
-    	List<SiteConfig__c> configs = [Select Id, Name, FacebookAppSecret__c, APIKey__c, NewPortalUserAccount__c From SiteConfig__c Where Name = :getSiteName() Limit 1];
+  		System.debug('\n\nLooking up site config using ' + siteName + '\n\n');
+    	List<SiteConfig__c> configs = [Select Id, Name, FacebookAppSecret__c, APIKey__c, NewPortalUserAccount__c From SiteConfig__c Where Name = :siteName Limit 1];
    		if (configs.size() == 1) {
    			return configs.get(0);
     	} else {
-    		return null; 
+    		return null;
     	}
 	}
 	

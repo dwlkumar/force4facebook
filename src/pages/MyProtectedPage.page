@@ -2,7 +2,9 @@
 	<apex:composition template="MyFacebookSiteTemplate">
 		<apex:define name="body">
 			<apex:form >
-				<c:FacebookConnect myController="{!pageController}"
+				<c:FacebookConnect
+					siteName="FB Example" 
+					myController="{!pageController}"
 					autoCheckConnection="yes"
 					loginMessage="You can now use Facebook to login to this site!"
 					loginFooterMessage="You can use this area to provide some fine print for you use if you so choose." />

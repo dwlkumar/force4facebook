@@ -1,12 +1,12 @@
 == Code Examples ==
 
-* Note: All examples require the facebook toolkit to be installed
+   * Note: All examples require the facebook toolkit to be installed
 
-# Sample Application using Facebook Connect 
+   # Sample Application using Facebook Connect 
 
-# Sample Canvas Application using Facebook Connect
+   # Sample Canvas Application using Facebook Connect
 
-# Sample Force.com Application using Facebook Connect
+   # Sample Force.com Application using Facebook Connect
 
 == Component Example ==
 Lorem ipsum

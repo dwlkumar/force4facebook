@@ -29,9 +29,8 @@
 							This is what provides the UI for the FBC. You can control various aspects with the attributes.
 							To see what is being passed around set debug="on".
 						 -->
-						<c:FacebookConnect 
-							siteName="FB Example"
-							autoCheckConnection="yes" 
+						<c:FacebookConnect siteName="FB Example"
+							autoCheckConnection="yes"
 							debug="off" 
 							showUI="true"
 							loginMessage="You can now use Facebook to login to this site!" 

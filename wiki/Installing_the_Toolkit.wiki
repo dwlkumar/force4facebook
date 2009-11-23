@@ -24,6 +24,7 @@ Follow the instructions here: [http://subclipse.tigris.org/install.html]
    * Navigate to https://login.salesforce.com/?startURL=%2Fpackaging%2FinstallPackage.apexp%3Fp0%3D04tA00000008wVJ
    * Walk through the install steps
    * That should be it
+   * If you would like to install the toolkit and the Facebook Connect Example, you can use this package - https://login.salesforce.com/?startURL=%2Fpackaging%2FinstallPackage.apexp%3Fp0%3D04tA00000000Y
 
 == Option 2: Export the Facebook Toolkit from !CodeShare ==
 
@@ -36,6 +37,7 @@ Steps to checkout
          # Go to export and enter the name of your new project when prompted for a project name.
          # You will be asked to delete and overwrite the existing project. Accept this.
    # Return to the Force.com IDE perspective and refresh your project to see the Force.com for Facebook items added to the project.
+   # Do the same for the sample application
 
 == Activate Force.com Sites ==
 

@@ -153,7 +153,7 @@ In order to adhere to the Salesforce terms of service, we must use the Salesforc
    # Click into your Site and click on *Login Settings*
          # Click *Edit* and change Login to 'Enabled for Customer Portal'
          # Leave the other settings to their defaults and click *Save*.
-   # Click on the *Public Access Settings* button on your Site to view the Guest License Profile ('FB Event Manager Profile' in this example)
+   # Click on the *Public Access Settings* button on your Site to view the Guest License Profile ('FB Example Profile' in this example)
          # Click Edit and find the _Custom Object Permissions_ section
                # Check all the boxes for GFC User
                # Check 'View All' and 'Read' for Site Configs

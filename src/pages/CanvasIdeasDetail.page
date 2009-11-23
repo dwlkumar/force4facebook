@@ -1,0 +1,29 @@
+<apex:page showHeader="false" standardController="idea" extensions="CanvasIdeasDetailController">
+	
+	<apex:includescript value="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php" />   
+	
+	<c:FacebookAppLogin id="fbLogin" />
+	
+	<apex:messages styleClass="error" />
+	
+	<apex:outputPanel id="social_container">
+		<div xmls="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml">
+		
+			<apex:pageBlock title="Idea">
+			<apex:pageMessages />
+            <apex:pageBlockSection >
+            	<apex:outputText value="{!idea.Title}"/>
+            	<apex:outputText value="{!idea.VoteTotal}"/>
+		    </apex:pageBlockSection>
+		    <apex:pageBlockSection >
+		    	<apex:outputText value="{!idea.Body}"/>
+		    </apex:pageBlockSection>
+		    </apex:pageBlock>
+			
+		<script> 
+		FB.XFBML.Host.parseDomTree();
+		</script>
+			
+		</div>
+	</apex:outputPanel>
+</apex:page>

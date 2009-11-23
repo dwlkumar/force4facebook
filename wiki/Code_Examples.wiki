@@ -1,8 +1,8 @@
 == Code Examples ==
 
-* Note: All examples require the facebook toolkit to be installed
-* Toolkit: http://force4facebook.googlecode.com/svn/branches/force4facebook3_toolkit/ 
-* Installation Guide: http://code.google.com/p/force4facebook/wiki/Installing_the_Toolkit
+All examples require the facebook toolkit to be installed.
+Toolkit: http://force4facebook.googlecode.com/svn/branches/force4facebook3_toolkit/ 
+Installation Guide: http://code.google.com/p/force4facebook/wiki/Installing_the_Toolkit
 
    # Sample Application using Facebook Connect
       * From SVN, navigate to /branches/force4facebook3_sample

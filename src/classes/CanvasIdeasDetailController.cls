@@ -13,7 +13,7 @@ public class CanvasIdeasDetailController extends AbsSocialController{
 		try {
 			// Create authenticator
 			fbAuth = new FBCAuthenticator();
-			fbAuth.siteName = 'Coco Ideas';
+			fbAuth.siteName = 'FB Example';
 		}
 		catch (Exception ex){
 			ApexPages.Message authError = new ApexPages.Message(ApexPages.severity.ERROR,

@@ -19,13 +19,13 @@ Follow the instructions here: [http://subclipse.tigris.org/install.html]
     * Be sure to *uncheck* Integrations containing Buckminster and Subclipse integration for Mylyn during the plugin installation.
     * If this is the first time you've used SVN, please read the supporting documentation that comes with the Subclipse plugin.
 
-== Install the Facebook Toolkit as a package ==
+== Option 1: Install the Facebook Toolkit as a package ==
    * If your org is a developer org or already has the XMLDom Class, rename or delete it
    * Navigate to https://login.salesforce.com/?startURL=%2Fpackaging%2FinstallPackage.apexp%3Fp0%3D04tA00000008wVJ
    * Walk through the install steps
    * That should be it
 
-== Export the Facebook Toolkit from !CodeShare ==
+== Option 2: Export the Facebook Toolkit from !CodeShare ==
 
 Steps to checkout
 

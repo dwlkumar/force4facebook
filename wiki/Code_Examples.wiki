@@ -1,5 +1,12 @@
 = Code Examples =
-== Hello Facebook ==
+
+* Note: All examples require the facebook toolkit to be installed
+
+# Sample Application using Facebook Connect 
+
+# Sample Canvas Application using Facebook Connect
+
+# Sample Force.com Application using Facebook Connect
 
 Component Example
 == Using Custom FBML & FBQL ==

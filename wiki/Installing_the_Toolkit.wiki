@@ -42,8 +42,8 @@ Steps to checkout
    # Go to *Setup > Develop > Sites*
    # Create and register a Force.com Domain
    # Click *New* to create a new site for this domain
-         # Enter a *Site Label*, such as 'FB Event Manager'
-         # *Site Name* will be autopopulated as <font size="4pt">{{{'FB_Event_Manager'}}}</font>
+         # Enter a *Site Label*, such as 'FB Example'
+         # *Site Name* will be autopopulated as <font size="4pt">{{{'FB_Example'}}}</font>
          # Select your user account as a *Site Contact*
          # Check the *Active* checkbox
          # Keep the rest of the options on their default settings
@@ -104,7 +104,7 @@ In order to adhere to the Salesforce terms of service, we must use the Salesforc
 
    # Go to the *Site Config* tab you created earlier
    # Create a *New* record for 'Site Config'
-         # Enter the *Site Name* as it is found in your Force.com Sites configuration, in this case: <font size="4pt">{{{'FB_Event_Manager'}}}</font>
+         # Enter the *Site Name* as it is found in your Force.com Sites configuration, in this case: <font size="4pt">{{{'FB Example'}}}</font>
          # Enter the *API Key* from your Facebook developer application
          # Enter your *Facebook Application Secret*
          # Lookup the *Portal User Account* that you created earlier

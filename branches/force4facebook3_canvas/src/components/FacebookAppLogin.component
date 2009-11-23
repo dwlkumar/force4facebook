@@ -15,11 +15,11 @@
 							This is what provides the UI for the FBC. You can control various aspects with the attributes.
 							To see what is being passed around set debug="on".
 						 -->
-						<c:FacebookAppConnect siteName="Coco Ideas"
-							autoCheckConnection="no" 
+						<c:FacebookAppConnect siteName="FB Example"
+							autoCheckConnection="yes" 
 							debug="off" 
 							showUI="true"
-							loginMessage="This application runs on force.com" 
+							loginMessage="This application runs on force.com"  
 						/>
 							
 					</apex:panelGroup>

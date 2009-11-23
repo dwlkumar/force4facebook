@@ -11,8 +11,7 @@
 			.clearboth { clear: both; }
 			</style>
 			<apex:form forceSSL="true">
-				<c:FacebookConnect
-					siteName="FB Example" 
+				<c:FacebookConnect siteName="FB Example" 
 					autoCheckConnection="no"
 					myController="{!pageController}"
 					loginMessage="You can now use Facebook to login to this site!"

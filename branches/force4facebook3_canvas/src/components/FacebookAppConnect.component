@@ -32,18 +32,18 @@
 	<div xmls="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml" >
 	
 		<apex:pageMessages id="error" />
-	
-		<apex:actionRegion renderRegionOnly="false">
-			<apex:outputPanel id="areaone">
-				<apex:actionFunction name="registerUser" action="{!registerUser}" />
-			</apex:outputPanel>
-			<apex:inputHidden id="expires" value="{!expires}" />
-			<apex:inputHidden id="secret" value="{!sessionSecret}" />
-			<apex:inputHidden id="sessionKey" value="{!sessionKey}" />
-			<apex:inputHidden id="sig" value="{!sig}" />
-			<apex:inputHidden id="uid" value="{!uid}" />
-			<apex:inputHidden id="APIKey" value="{!APIKey}"  />
-		</apex:actionRegion>
+		
+		<apex:inputHidden id="expires" value="{!expires}" />
+		<apex:inputHidden id="secret" value="{!sessionSecret}" />
+		<apex:inputHidden id="sessionKey" value="{!sessionKey}" />
+		<apex:inputHidden id="sig" value="{!sig}" />
+		<apex:inputHidden id="uid" value="{!uid}" />
+		<apex:inputHidden id="APIKey" value="{!APIKey}"  />
+		
+		<apex:outputPanel id="areaone">
+			<apex:actionFunction id="regUser" name="registerUser" action="{!registerUser}" />
+			<apex:actionFunction id="regUserNR" name="registerUserNoRedirect" action="{!registerUser}" rerender="areaone"/>
+		</apex:outputPanel>
 
 		<div id="fb_conn_pan" style="width: 250px; display: {!IF(showUI, 'block', 'none')};">
 			<div class="bd">
@@ -62,14 +62,39 @@
 	
 	<script>
 		var connectionState;
+		var conn, unconn;
 		var isFbConnected = '{!isFacebookUser}';
 		var isPortalUser = '{!isPortalUser}';
 		var currentUser = '{!currentUserName}';
-			
-		FB.init(api_key, channel_path, { "ifUserConnected": fbConnected, "ifUserNotConnected": fbUnconnected, "reloadIfSessionStateChanged":false});	
+		
+		if ("{!autoCheckConnection}" != "no") {
+			myAlert('Auto Check: {!autoCheckConnection}');
+			checkMyConnection();
+			parseDomAgain();
+		}
+		
+		function parseDomAgain() {
+			FB.Bootstrap.requireFeatures(["XFBML"], function(){
+				FB.XFBML.Host.parseDomTree();
+			}); 			
+		}
+				
+		function checkMyConnection(arg1, arg2) {
+
+			// Initialize Facebook
+		    FB.Bootstrap.requireFeatures(["Connect"], function()
+		    {  	
+				myAlert("API Key: " + api_key + ", Path: " + channel_path );
+				FB.init(api_key, channel_path, { "ifUserConnected": fbConnected, "ifUserNotConnected": fbUnconnected, "reloadIfSessionStateChanged":false});
+			});	
 	
+			conn =  arg1;
+			unconn = arg2;
+		}
+		
 		function fbConnected() {
 			connectionState = "connected";	
+			myAlert('We are connected');
 			if (document.getElementById("checking_label")) {
 				document.getElementById("checking_label").innerHTML = " We have a facebook session, logging in using Connect...";
 			}
@@ -159,12 +184,17 @@
 				document.getElementById("{!$Component.uid}").value = session.uid;
 				document.getElementById("{!$Component.APIKey}").value = api._apiKey;
 					
-				registerUser(session.expires, 
-							session.secret, 
-							session.session_key, 
-							session.sig, 
-							session.uid, 
-							api._apiKey);
+				myAlert("{!loginRedirect}");
+				try {
+					if ("{!loginRedirect}" != "no-redirect") {
+						registerUser();
+					} else {
+						myAlert("register user, no redirect");
+						registerUserNoRedirect();
+					}
+				} catch(e) {
+					
+				}
 			});
 			
 			return;

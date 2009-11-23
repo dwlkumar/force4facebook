@@ -1,0 +1,183 @@
+<apex:component controller="FBCAuthenticator" allowDML="true" selfClosing="true">
+
+	<script> 
+		var apiKey = "{!siteAPIKey}";
+		var api_key = apiKey;
+		var channel_path = "/xd_receiver";	
+	</script>
+
+	<!-- MyController should always be set to {!this} on the page.  For this to work you need to make your controller
+		be an extension of AbsSocialController. -->
+	<apex:attribute name="myController" type="AbsSocialController" assignTo="{!clientController}" required="false" description="" />
+	<!-- Title shown on the Facebook Connect dialog created at the bottom of this page -->
+	<apex:attribute name="LoginTitle" assignTo="{!loginTitle}" default="Login using Facebook" type="String" required="false" description="The title for the dialog to login using Facebook." />
+	<!--  This is an additional message displayed to the user on the login dialog. -->
+	<apex:attribute name="LoginMessage" assignTo="{!loginMessage}" default="You can use Facebook to register on this site." type="String" required="false" description="Simple message shown on the dialog to explain to users." />
+	<!-- The footer message for the login dialog. -->
+	<apex:attribute name="LoginFooterMessage" assignTo="{!loginFooterMessage}" type="String" required="false" description="Might be a terms of use (short) or other fine print." />
+	<!-- Setting this to on will spam you with alerts. -->
+	<apex:attribute name="Debug" type="String" required="false" default="off" description="" />
+	<!-- When set to yes will attempt to login automatically. -->
+	<apex:attribute name="autoCheckConnection" type="String" required="false" default="no" description="" />
+	<!-- Most pages don't need the UI, this is how you turn it off. -->
+	<apex:attribute name="showUI" type="Boolean" required="false" default="false" description="" />
+	<apex:attribute name="loginPage" type="String" required="false" description="" />
+	<apex:attribute name="requestPerms" type="String" required="false" default="no" description="" />
+	<apex:attribute name="permsNeeded" type="String" required="false" default="none" description="" />
+	<apex:attribute name="siteName" type="String" required="true" assignTo="{!siteName}" description="" />
+	
+	
+	<apex:includescript value="http://www.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php" />
+	
+	<div xmls="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml" >
+	
+		<apex:pageMessages id="error" />
+	
+		<apex:actionRegion renderRegionOnly="false">
+			<apex:outputPanel id="areaone">
+				<apex:actionFunction name="registerUser" action="{!registerUser}" />
+			</apex:outputPanel>
+			<apex:inputHidden id="expires" value="{!expires}" />
+			<apex:inputHidden id="secret" value="{!sessionSecret}" />
+			<apex:inputHidden id="sessionKey" value="{!sessionKey}" />
+			<apex:inputHidden id="sig" value="{!sig}" />
+			<apex:inputHidden id="uid" value="{!uid}" />
+			<apex:inputHidden id="APIKey" value="{!APIKey}"  />
+		</apex:actionRegion>
+
+		<div id="fb_conn_pan" style="width: 250px; display: {!IF(showUI, 'block', 'none')};">
+			<div class="bd">
+			Facebook App Connect
+			</div>
+		</div>
+	
+		<script>
+		FB.Bootstrap.requireFeatures(["XFBML"], function(){
+			FB.XFBML.Host.parseDomTree();
+		}); 
+		</script>
+
+		<apex:componentBody />
+	</div>
+	
+	<script>
+		var connectionState;
+		var isFbConnected = '{!isFacebookUser}';
+		var isPortalUser = '{!isPortalUser}';
+		var currentUser = '{!currentUserName}';
+			
+		FB.init(api_key, channel_path, { "ifUserConnected": fbConnected, "ifUserNotConnected": fbUnconnected, "reloadIfSessionStateChanged":false});	
+	
+		function fbConnected() {
+			connectionState = "connected";	
+			if (document.getElementById("checking_label")) {
+				document.getElementById("checking_label").innerHTML = " We have a facebook session, logging in using Connect...";
+			}
+			if (isFbConnected != "true" || isPortalUser != "true") {
+				myAlert('No social user record yet: '+isFbConnected+' or not logged in: '+isFbConnected);
+				askPerms();
+			}	
+			
+			myAlert('Want to show connected UI');
+			window.setTimeout(showConnectedUI, 200);
+		}
+
+		function fbUnconnected() {
+			myAlert('Want to redirect for signup');
+			FB_RequireFeatures(["Api"], function(){
+				FB.Facebook.apiClient.users_isAppUser(function(result,exception){
+		            if(result == null)
+		                window.parent.location.href = 'http://www.facebook.com/login.php?v=1.0&api_key='+api_key+'&next=http://apps.facebook.com/cocoideas/&canvas=';
+		        });
+		    });
+			connectionState = "unconnected";
+			//window.setTimeout(showUnconnectedUI, 200);
+		}
+				
+		function showConnectedUI() {
+			FB_RequireFeatures(["Api"], function(){
+				var api = FB.Facebook.apiClient;
+				var session = api.get_session();
+
+  				if (document.getElementById("checking")) {
+					document.getElementById("checking").style.display = "none";
+				}
+   				if (document.getElementById("fbconnect")) {
+	   				var markup = "";
+				    markup = '<div style="padding:5px;"><b>Connected</b> as <fb:name uid="{!uid}" useyou="false" linked="true"></fb:name> <br/>'
+				    	+ '<fb:profile-pic uid="{!uid}" size="square" facebook-logo="false"></fb:profile-pic>'
+				    	+ '<br/>Force uid: {!uid} <br/>JSAPI uid: '+session.uid
+				    	+ '<br/><br/> <small>Currently logged in as: ' + currentUser + '</small></div>';
+					    
+					document.getElementById("fbconnect").innerHTML = markup; 
+					document.getElementById("fbconnect").style.display = "block";
+   				}
+   				
+   				 FB.XFBML.Host.parseDomElement(document.getElementById("fbconnect"));
+			});
+		}
+		
+		function showUnconnectedUI() {
+			
+			if (document.getElementById("checking")) {
+				document.getElementById("checking").style.display = "none";
+			}
+			if (document.getElementById("fbconnect")) {
+				var markup = "";
+				markup = '<a href="#" onclick="FB.Connect.requireSession();return false;">Add this application</a>' 
+					   + '<br/><br/> <small>Currently logged in as: ' + currentUser + '</small>';
+				document.getElementById("fbconnect").innerHTML = markup; 
+				document.getElementById("fbconnect").style.display = "block";
+			}
+		}
+		
+		function askPerms() {
+			var api = FB.Facebook.apiClient;
+			if (api.users_hasAppPermission("publish_stream", updatePerms)) {
+				myAlert("Asking for publish_stream permission...");
+				FB.Connect.showPermissionDialog("publish_stream", updatePerms);
+			} else {
+				updatePerms();
+			}
+		}
+				
+		function updatePerms(perms) {
+
+			FB_RequireFeatures(["Api"], function(){
+				var api = FB.Facebook.apiClient;
+				var session = api.get_session();
+				
+				myAlert("CONNECTED FUNCTION: \n" + 
+				"Session Key: " + session.session_key + "\n" + 
+				"Session Secret: " + session.secret + "\n" + 
+				"Session Sig: " + session.sig);
+			
+				document.getElementById("{!$Component.expires}").value = session.expires;
+				document.getElementById("{!$Component.secret}").value = session.secret;
+				document.getElementById("{!$Component.sessionKey}").value = session.session_key;
+				document.getElementById("{!$Component.sig}").value =session.sig;
+				document.getElementById("{!$Component.uid}").value = session.uid;
+				document.getElementById("{!$Component.APIKey}").value = api._apiKey;
+					
+				registerUser(session.expires, 
+							session.secret, 
+							session.session_key, 
+							session.sig, 
+							session.uid, 
+							api._apiKey);
+			});
+			
+			return;
+
+		}
+
+		// Helper Stuff
+		function myAlert(msg) {
+			if ("{!Debug}" != "off") {
+				alert(msg);
+			}
+		}
+		
+		</script>
+
+</apex:component>

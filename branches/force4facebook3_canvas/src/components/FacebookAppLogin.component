@@ -1,0 +1,35 @@
+<apex:component id="loginComponent">
+	<apex:form id="loginForm">
+		 
+		<div id="checking">
+			<span id="checking_label"> Checking connection to Facebook ....</span><br /><br />
+			<apex:image url="{!$Resource.loadingBalls}"/>
+		</div>
+		 
+		<div id="fbconnect" style="display: none;" xmls="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml" > 
+			<apex:outputPanel layout="block">
+				<apex:pageMessages id="error" />
+				<apex:panelGrid columns="1">
+					<apex:panelGroup >
+						<!-- 
+							This is what provides the UI for the FBC. You can control various aspects with the attributes.
+							To see what is being passed around set debug="on".
+						 -->
+						<c:FacebookAppConnect siteName="Coco Ideas"
+							autoCheckConnection="no" 
+							debug="off" 
+							showUI="true"
+							loginMessage="This application runs on force.com" 
+						/>
+							
+					</apex:panelGroup>
+				</apex:panelGrid>
+			</apex:outputPanel>
+		</div>
+		
+		<div id="connected" style="display: none;"> 
+		
+		</div>	
+		
+	</apex:form>
+</apex:component>

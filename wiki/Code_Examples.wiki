@@ -1,4 +1,4 @@
-= Code Examples =
+== Code Examples ==
 
 * Note: All examples require the facebook toolkit to be installed
 
@@ -8,13 +8,14 @@
 
 # Sample Force.com Application using Facebook Connect
 
-Component Example
+== Component Example ==
+Lorem ipsum
+
 == Using Custom FBML & FBQL ==
-
 Lorem ipsum
+
 == Updating a Facebook User's Status ==
-
 Lorem ipsum
-== Advanced Tutorial ==
 
+== Advanced Tutorial ==
 Lorem ipsum

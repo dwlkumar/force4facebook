@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>CanvasIdeasController</members>
+        <members>CocoIdeasController</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>FacebookAppConnect</members>
+        <members>FacebookAppLogin</members>
+        <name>ApexComponent</name>
+    </types>
+    <types>
+        <members>CanvasIdeasHome</members>
+        <members>CocoIdeasHome</members>
+        <name>ApexPage</name>
+    </types>
+    <version>16.0</version>
+</Package>

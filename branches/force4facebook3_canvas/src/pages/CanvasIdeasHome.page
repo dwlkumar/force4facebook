@@ -14,7 +14,7 @@
             <apex:pageBlockTable value="{!Top10Ideas}" var="i">
             
               <apex:column headervalue="Title">
-                <apex:outputlink value="/CocoIdeasDetail?id={!i.id}">{!i.Title}</apex:outputlink>
+                <apex:outputlink value="/CanvasIdeasDetail?id={!i.id}">{!i.Title}</apex:outputlink>
               </apex:column>
               <apex:column value="{!i.NumComments}"/>
               <apex:column value="{!i.VoteScore}"/>

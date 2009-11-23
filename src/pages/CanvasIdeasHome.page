@@ -1,0 +1,34 @@
+<apex:page showHeader="false" standardController="idea" recordSetvar="ideas" extensions="CanvasIdeasController">
+    
+    <apex:includescript value="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php" />   
+    
+    <c:FacebookAppLogin id="fbLogin" />
+    
+    <apex:messages styleClass="error" />
+    
+    <apex:outputPanel id="social_container">
+        <div xmls="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml">
+            
+        <apex:pageBlock title="Top 10 Ideas">
+            
+            <apex:pageBlockTable value="{!Top10Ideas}" var="i">
+            
+              <apex:column headervalue="Title">
+                <apex:outputlink value="/CocoIdeasDetail?id={!i.id}">{!i.Title}</apex:outputlink>
+              </apex:column>
+              <apex:column value="{!i.NumComments}"/>
+              <apex:column value="{!i.VoteScore}"/>
+              <apex:column value="{!i.VoteTotal}"/>
+              
+            </apex:pageBlockTable>
+        
+        </apex:pageBlock>
+            
+        <script> 
+        FB.XFBML.Host.parseDomTree();
+        </script>
+            
+        </div>
+    </apex:outputPanel>
+    
+</apex:page>

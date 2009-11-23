@@ -1,9 +1,13 @@
 == Code Examples ==
 
-   * Note: All examples require the facebook toolkit to be installed
+* Note: All examples require the facebook toolkit to be installed
+* Toolkit: http://force4facebook.googlecode.com/svn/branches/force4facebook3_toolkit/ 
+* Installation Guide: http://code.google.com/p/force4facebook/wiki/Installing_the_Toolkit
 
-   # Sample Application using Facebook Connect 
+   # Sample Application using Facebook Connect
+      * From SVN, navigate to /branches/force4facebook3_sample
    # Sample Canvas Application using Facebook Connect
+      * From SVN, navigate to /branches/force4facebook3_canvas
    # Sample Force.com Application using Facebook Connect
 
 == Component Example ==

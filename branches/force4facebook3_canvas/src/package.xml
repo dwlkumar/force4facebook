@@ -3,6 +3,7 @@
     <types>
         <members>CanvasIdeasController</members>
         <members>CanvasIdeasDetailController</members>
+        <members>FBCAuthenticator</members>
         <name>ApexClass</name>
     </types>
     <types>

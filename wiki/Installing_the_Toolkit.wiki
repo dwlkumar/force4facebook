@@ -27,9 +27,9 @@ Follow the instructions here: [http://subclipse.tigris.org/install.html]
 
    === Other Packages ===
    * Toolkit and Facebook Connect for Sites, you can use this package 
-     https://login.salesforce.com/?startURL=%2Fpackaging%2FinstallPackage.apexp%3Fp0%3D04tA00000000Y
+   https://login.salesforce.com/?startURL=%2Fpackaging%2FinstallPackage.apexp%3Fp0%3D04tA00000000Y
    * Toolkit and Facebook Connect for Canvas Sites, you can use this package 
-     https://login.salesforce.com/?startURL=%2Fpackaging%2FinstallPackage.apexp%3Fp0%3D04tA00000004lOP
+   https://login.salesforce.com/?startURL=%2Fpackaging%2FinstallPackage.apexp%3Fp0%3D04tA00000004lOP
 
 == Option 2: Export the Facebook Toolkit from !CodeShare ==
 

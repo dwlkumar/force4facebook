@@ -24,6 +24,7 @@
 	<apex:attribute name="loginPage" type="String" required="false" description="" />
 	<apex:attribute name="requestPerms" type="String" required="false" default="no" description="" />
 	<apex:attribute name="permsNeeded" type="String" required="false" default="none" description="" />
+	<apex:attribute name="loginRedirect" type="String" required="false" assignTo="{!loginRedirect}" default="no-redirect" description="" />
 	<apex:attribute name="siteName" type="String" required="true" assignTo="{!siteName}" description="" />
 	
 	
@@ -41,7 +42,7 @@
 		<apex:inputHidden id="APIKey" value="{!APIKey}"  />
 		
 		<apex:outputPanel id="areaone">
-			<apex:actionFunction id="regUser" name="registerUser" action="{!registerUser}" />
+			<apex:actionFunction id="regUser" name="registerUser" action="{!registerUser}"/>
 			<apex:actionFunction id="regUserNR" name="registerUserNoRedirect" action="{!registerUser}" rerender="areaone"/>
 		</apex:outputPanel>
 
@@ -66,6 +67,7 @@
 		var isFbConnected = '{!isFacebookUser}';
 		var isPortalUser = '{!isPortalUser}';
 		var currentUser = '{!currentUserName}';
+		var canvasPage = 'forcecanvasapp';
 		
 		if ("{!autoCheckConnection}" != "no") {
 			myAlert('Auto Check: {!autoCheckConnection}');
@@ -99,12 +101,12 @@
 				document.getElementById("checking_label").innerHTML = " We have a facebook session, logging in using Connect...";
 			}
 			if (isFbConnected != "true" || isPortalUser != "true") {
-				myAlert('No social user record yet: '+isFbConnected+' or not logged in: '+isFbConnected);
+				myAlert('Social user record: '+isFbConnected+' Logged in: '+isFbConnected);
 				askPerms();
 			}	
 			
 			myAlert('Want to show connected UI');
-			window.setTimeout(showConnectedUI, 200);
+			window.setTimeout(showConnectedUI, 100);
 		}
 
 		function fbUnconnected() {
@@ -112,11 +114,11 @@
 			FB_RequireFeatures(["Api"], function(){
 				FB.Facebook.apiClient.users_isAppUser(function(result,exception){
 		            if(result == null)
-		                window.parent.location.href = 'http://www.facebook.com/login.php?v=1.0&api_key='+api_key+'&next=http://apps.facebook.com/cocoideas/&canvas=';
+		                window.parent.location.href = 'http://www.facebook.com/login.php?v=1.0&api_key='+api_key+'&next=http://apps.facebook.com/'+canvasPage+'/&canvas=';
 		        });
 		    });
 			connectionState = "unconnected";
-			//window.setTimeout(showUnconnectedUI, 200);
+			//window.setTimeout(showUnconnectedUI, 100);
 		}
 				
 		function showConnectedUI() {
@@ -157,13 +159,15 @@
 		}
 		
 		function askPerms() {
-			var api = FB.Facebook.apiClient;
-			if (api.users_hasAppPermission("publish_stream", updatePerms)) {
-				myAlert("Asking for publish_stream permission...");
-				FB.Connect.showPermissionDialog("publish_stream", updatePerms);
-			} else {
-				updatePerms();
-			}
+			FB_RequireFeatures(["Api"], function(){
+				var api = FB.Facebook.apiClient;
+				if (api.users_hasAppPermission("publish_stream", updatePerms)) {
+					myAlert("Asking for publish_stream permission...");
+					FB.Connect.showPermissionDialog("publish_stream", updatePerms);
+				} else {
+					updatePerms();
+				}
+			});
 		}
 				
 		function updatePerms(perms) {
@@ -196,8 +200,6 @@
 					
 				}
 			});
-			
-			return;
 
 		}
 

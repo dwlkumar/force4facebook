@@ -23,7 +23,7 @@ Follow the instructions here: [http://subclipse.tigris.org/install.html]
    * If your org is a developer org or already has the XMLDom Class, rename or delete it
    * Navigate to https://login.salesforce.com/?startURL=%2Fpackaging%2FinstallPackage.apexp%3Fp0%3D04tA00000008wVJ
    * Walk through the install steps
-   * That should be it
+   * Skip down and start setting up your site
 
    === Other Packages ===
    * Toolkit and Facebook Connect for Sites, you can use this package - https://login.salesforce.com/?startURL=%2Fpackaging%2FinstallPackage.apexp%3Fp0%3D04tA00000000Y

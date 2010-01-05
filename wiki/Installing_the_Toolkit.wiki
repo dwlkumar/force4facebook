@@ -21,7 +21,7 @@ Follow the instructions here: [http://subclipse.tigris.org/install.html]
 
 == Option 1: Install the Facebook Toolkit as a package ==
    * If your org is a developer org or already has the XMLDom Class, rename or delete it
-   * For the base package, navigate to https://login.salesforce.com/?startURL=%2Fpackaging%2FinstallPackage.apexp%3Fp0%3D04tA00000008wVJ
+   * For the base Toolkit Package, navigate to https://login.salesforce.com/?startURL=%2Fpackaging%2FinstallPackage.apexp%3Fp0%3D04tA00000008wVJ
    * Walk through the install steps
    * Start setting up your site following the instructions below
 

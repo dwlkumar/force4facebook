@@ -1,23 +1,7 @@
 == Code Examples ==
 
-All examples require the facebook toolkit to be installed.
-Toolkit: http://force4facebook.googlecode.com/svn/branches/force4facebook3_toolkit/ 
-Installation Guide: http://code.google.com/p/force4facebook/wiki/Installing_the_Toolkit
+All examples require the facebook toolkit to be installed. The installation guide can be found here: http://code.google.com/p/force4facebook/wiki/Installing_the_Toolkit
 
-   # Sample Application using Facebook Connect
-      * From SVN, navigate to /branches/force4facebook3_sample
-   # Sample Canvas Application using Facebook Connect
-      * From SVN, navigate to /branches/force4facebook3_canvas
-   # Sample Force.com Application using Facebook Connect
+    * Toolkit and Facebook Connect for Sites, you can use this package - https://login.salesforce.com/?startURL=%2Fpackaging%2FinstallPackage.apexp%3Fp0%3D04tA00000000Y6H 
 
-== Component Example ==
-Lorem ipsum
-
-== Using Custom FBML & FBQL ==
-Lorem ipsum
-
-== Updating a Facebook User's Status ==
-Lorem ipsum
-
-== Advanced Tutorial ==
-Lorem ipsum
+    * Toolkit and Facebook Connect for Canvas Sites, you can use this package - https://login.salesforce.com/?startURL=%2Fpackaging%2FinstallPackage.apexp%3Fp0%3D04tA00000004lOU 

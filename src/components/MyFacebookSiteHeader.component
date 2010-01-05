@@ -51,22 +51,25 @@
 					rm.style.display = "block";
 				}
 			}
-			if (FB) {
-				try {
-					FB.init(apiKey, "/xd_receiver");
-				} catch(e){}
-			}
+
+			// Initialize Facebook
+		    FB.Bootstrap.requireFeatures(["Connect"], function()
+		    {  	
+				FB.init(apiKey, "/xd_receiver");
+			});	
+
 		} 
 	  	
 	  	function loadnred() {
-	  		if (FB) {
-		  		FB.Connect.logoutAndRedirect("{!SUBSTITUTE($Site.CurrentSiteUrl, 'http:', 'https:')}" + 
-		  				"secur/logout.jsp");
+	  		if (FB.Connect.get_loggedInUser()) {
+	  			//alert('Redirecting to: {!$Site.Prefix}/secur/logout.jsp');
+		  		FB.Connect.logoutAndRedirect("/secur/logout.jsp");
 			} else {
 				document.location.href = "{!$Site.Prefix}/secur/logout.jsp";
 			}
 			return true;
 		}
+		
 		addLoadEvent(initFacebook);
 	</script>
 	

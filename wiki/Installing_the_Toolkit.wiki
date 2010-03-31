@@ -91,20 +91,13 @@ In order to adhere to the Salesforce terms of service, we must use the Salesforc
    # Click on the *Advanced* menu item and ensure that the *Application Type* is set to 'Web'
    # Click *Save Changes*
 
-== Setup a Portal User ==
+== Setup a Portal User Account ==
 
    # Go to the Accounts tab
    # Create a new account with the name of 'Facebook Portal' and any basic information you desire
    # Now we must setup role for the owner of the Portal User Account
          # Click on the Account Owner
          # Give the User a role. It can be any role.
-   # Return to the Account and retrieve the Salesforce ID for the record from the end of the URL
-   # Now we can add the Portal User Account Salesforce ID to the Force.com Site
-         # Return to the Force.com IDE
-         # Find the *!SiteRegisterController* class
-         # Change the following line to include your Account ID
-               # private static Id PORTAL_ACCOUNT_ID = 'xxxxxxxxxxxxxxx';
-         # Save the class
 
 == Setup the Site Configuration ==
 

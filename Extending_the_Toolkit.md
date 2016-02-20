@@ -1,0 +1,19 @@
+# Extending Force.com for Facebook #
+
+## Abstract ##
+
+When you install and start using the Force.com for Facebook toolkit, you will notice that you do not immediately have access to all of the different types of data within Facebook. For example, this version of the toolkit has built out the following items:
+
+  * Events
+  * Friends
+  * Notifications
+  * List others here
+
+In order to access other areas of Facebook, such as classified listings, etc, you will need to add those methods to the toolkit. The basic framework exists for all the methods, but they are currently inactive and are awaiting enterprising developers to build them out and utilize them in their applications.
+
+## Implementing A Facebook Method ##
+
+Some Facebook methods are not fully implemented
+## Testing ##
+
+When you implement a method for Facebook you must also write test methods to provide adequate test coverage for deploying the toolkit to a live Salesforce org. Read about Testing under Using Force.com for Facebook to learn more on the pitfalls that exist in testing an application that uses web services.

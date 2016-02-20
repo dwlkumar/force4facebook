@@ -1,0 +1,7 @@
+## Code Examples ##
+
+All examples require the facebook toolkit to be installed. The installation guide can be found here: http://code.google.com/p/force4facebook/wiki/Installing_the_Toolkit
+
+  * Toolkit and Facebook Connect for Sites, you can use this package - https://login.salesforce.com/?startURL=%2Fpackaging%2FinstallPackage.apexp%3Fp0%3D04tA00000000Y6H
+
+  * Toolkit and Facebook Connect for Canvas Sites, you can use this package - https://login.salesforce.com/?startURL=%2Fpackaging%2FinstallPackage.apexp%3Fp0%3D04tA00000004lOU

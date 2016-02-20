@@ -1,0 +1,283 @@
+Starting point: new Developer Edition
+
+In this guide we will be accessing several different apects of the Force.com Application Development model.  You should have, but are not required to, be familiar with editing Users, creating Accounts, editing Custom Objects, modifying security settings, using the Force.com IDE, Force.com Site creation and modification and Customer Portal creation and modification.
+
+If you already have Force.com Site up and running you can skip to the "Setting up your Customer Portal" section.  If you have a Force.com Site that is using Customer Portal for authentication you can skip to Creating the Facebook App.
+
+Setting up your Developer Edition
+Please refer to An Introduction to Force.com Sites on how to create a Force.com Site.
+
+Setting up Your Customer Portal to use with Force.com Sites
+Please refer to Authenticating Users on Force.com Sites on how to create a Force.com Site.
+
+
+Adding the Toolkit To your Developer Edition
+To add the assets contained in the Force.com Toolkit for Facebook you will need to have Eclipse and the Force.com IDE installed as well as an SVN client that can connect to Google Code.  NOTE: The Force.com IDE will not function in Eclipse versions higher than 3.4.2.
+
+1) Launch Eclipse
+2) Create a new Force.com project using your System Administrator credentials.
+> - When asked to specify the project contents select None.
+> - Please take note of the name of the project, you will need in one of the steps below.
+
+NOTE: The following SVN instructions are specific to the Subclipse SVN plugin.  Information on how to install the Subclipse SVN plugin can be found at Tigris.org.
+
+The Force.com Toolkit for Facebook is currently hosted at http://code.google.com/p/force4facebook. The repository URL is http://force4facebook.googlecode.com/svn/trunk/Force4Facebook2.
+
+3) Open the SVN perspective in Eclipse.  Right click in the white space of the SVN Repositores view and select "New/Repository Location".  In the Add SVN Repository dialog, enter the repository URL mentioned above and click the Finish button.
+
+Select the new repository and right-click.  In the pop-up menu select Check Out... to get the wizard shown below.
+
+Be sure to select the option to provide a Project Name when checking out the project in the workspace.  Enter the name of your Force.com project that you created in the Project Name: text box.  Click Finish to begin the checkout.
+You project will now be populated with the code from the toolkit and all the pages and components necessary to run the sample.
+
+Re-open the Force.com perspective by clicking on the Force.com tab in the upper right side of the Eclipse IDE.
+
+You can now select your Force.com project and right-click to bring up the pop-up menu.  Select the Refresh item.  This will cause the IDE to save all the artifacts just added to your project to your Developer Edition.
+
+You now have the Force.com Toolkit for Facebook installed.  This will allow you to easily communicate with the Facebook platform as well as provide authentication delegated to Facebook for your Customer Portal users.
+
+
+Set Custom Object Permissions
+Now that you have a Customer Portal setup you will need to allow read, write and delete access to a custom object that was created by the Toolkit.
+
+The Force.com Toolkit for Facebook uses a custom object to manage the mapping between a Facebook login and a Customer Portal User.  You will need to modify this object so that the checkbox next "Available to Customer Portal" is checked.  Prior to creating your Customer Portal, this option was not available.  If you don't set this option you won't be able to leverage Facebook Connect or run the samples.
+
+Enabling Your Site to Talk to Facebook
+To allow communication between your site and Facebook you will need to add two remote sites to the remote sites white list in App Builder.
+
+Click the Setup link in your Developer Edition.  In the Administration Setup section, expand the Security Controls section and click on the Remote Site Settings item.  Click the New Remote Site button to bring up the edit site page and enter the following:
+
+Remote Site Name: Facebook
+Remote Site URL: http://api.new.facebook.com
+
+Click the Save and New button and enter the following:
+
+Remote Site Name: FacebookSSL
+Remote Site URL: https://api.new.facebook.com
+
+Click the Save button.
+
+You have now enable server to server communication from your Site to the Facebook servers.
+
+Creating your Facebook Application
+Your site will need to pass identification information to Facebook to establish trust and communication.  When requesting data from Facebook you need to supply an API Key issued by Facebook and an application secret, also issued by Facebook.  Your application secret should NEVER be shared with anyone external to your organization.  The application secret is like a key to the information and functionality of your application.  If someone where to obtain your application secret, she could effectively impersonate your site and abscond with not only your customers information but their trust as well.
+
+To obtain the API Key and application secret you will need to create a Facebook application so that they can be generated and associated with your site.
+
+Login to your Facebook account and launch the Developer application.
+
+
+
+
+  1. Create a Site
+    1. New Domain
+> > 2. New Site
+> > 3. Edit Details (activate)
+
+> 2. Setup Customer Portal
+    1. Enable Self reg.
+> > 2. Set Profile Info
+> > 3. Set Administrator
+
+> 3. Setup account and owner role
+    1. Setup Account for customer portal users
+> > 2. Make sure the owner of the account has a role assigned.
+
+> 4. Edit SiteRegister page with new account Id
+> 5. Link Site and Customer Portal
+> 6. Create a simple new page
+    1. Use Template
+> > 2. Set as new Home Page for Site (this one you don't have to add explicitly)
+> > 3. View Page
+
+> 7. Create a second page
+    1. Use Template
+> > 2. Add to customer portal user profile
+> > 3. Add Link to Home page (be sure to use '$Page.MyProtectedPage'
+> > 4. The form tag MUST have forceSSL
+
+> 8. Register as a user
+> 9. View new page
+
+
+
+Setting Up Facebook
+
+  1. Create Facebook App
+    1. Login to facebook
+> > 2. Launch the developer app
+> > 3. Create New App
+
+
+Get The Toolkit Code
+
+  * Objects
+
+  1. GFCUserc
+
+
+  * Classes
+    1. AbsAuthenticator
+> > 2. AbsFacebookController
+> > 3. Authenticator
+> > 4. FacebookAlbum
+> > 5. FacebookClient
+> > 6. FacebookConnection
+> > 7. FacebookCookies
+> > 8. FacebookEvent
+> > 9. FacebookEventMember
+    1. . FacebookFriend
+    1. . FacebookFriendList
+    1. . FacebookFriendListMember
+    1. . FacebookFriendRequest
+    1. . FacebookGroup
+    1. . FacebookGroupMember
+    1. . FacebookInfoItem
+    1. . FacebookInfoSection
+    1. . FacebookListing
+    1. . FacebookMethod
+> > 20. FacebookPublicApplicationInfo
+> > 21. FacebookQueryString
+> > 22. FacebookSession
+> > 23. FacebookUserInfo
+> > 24. FacebookUtils
+> > 25. FBCAuthenticator
+> > 26. FBJSONObject
+> > 27. FBJSONParser
+> > 28. IFacebookController
+> > 29. IFacebookQueryResult
+> > 30. RestParameters
+> > 31. RestPostMethod
+> > 32. Server
+> > 33. UrlBuilder
+  * Pages
+    1. xd\_receiver
+  * Components
+    1. FacebookConnect2.component
+
+
+Enable The Facebook API Endpoint
+
+  1. Add two endpoints to the Remote Site Settings
+    * http://api.new.facebook.com
+    * https://api.new.facebook.com
+
+Edit the FBCAuthenticator
+
+  1. Change the PORTAL\_ACCOUNT\_ID to match the one in the SiteRegister Controller
+
+> 2. Copy the applicaton secret from Your app definition in Facebook to the appSecret value in the FBCAuthenticator constructor
+
+
+Edit the FacebookConnect Component
+
+  1. Change the value for the apiKey javascript variable to the value from your app definition in Facebook.
+
+
+Edit The SiteLogin Component
+
+  1. Modify the controller to extend AbsFacebookController
+> 2. Paste in the following vf to SiteLogin.component
+
+> 
+
+&lt;apex:panelGrid columns="1"&gt;
+
+
+> > 
+
+&lt;apex:panelGroup &gt;
+
+
+> > > <c:FacebookConnect2 myController="{!this}" autoCheckConnection="yes" debug="on"
+> > > > createPortalUser="false"
+> > > > loginMessage="You can now use Facebook to login to this site!"
+> > > > loginFooterMessage="You can use this area to provide some fine print for you use if you so choose." />
+
+> > 
+
+&lt;/apex:panelGroup&gt;
+
+
+
+> 
+
+&lt;/apex:panelGrid&gt;
+
+
+
+Add the xd\_receiver Page
+
+  1. Add the xs\_receiver page  to the site and the customer portal user profile
+
+
+Edit the Site Header Component
+
+  1. Add the following code to the SiteHeader.component
+
+
+
+
+&lt;script&gt;
+
+
+> var apiKey = "";
+
+> function addLoadEvent(func) {
+> > var oldonload = window.onload;
+> > if (typeof window.onload != 'function') {
+> > > window.onload = func;
+
+> > } else {
+> > > window.onload = function() {
+> > > > if (oldonload) {
+> > > > > oldonload();
+
+> > > > }
+> > > > func();
+
+> > > }
+
+> > }
+
+> }
+> function initFacebook() {
+> > FB.init(apiKey, "/xd\_receiver");
+
+> }
+
+> function loadnred() {
+> > FB.Connect.logoutAndRedirect("{!SUBSTITUTE($Site.CurrentSiteUrl, 'http:', 'https:')}" +
+> > > "secur/logout.jsp");
+
+> > return true;
+
+> }
+> addLoadEvent(initFacebook);
+> 
+
+&lt;/script&gt;
+
+
+
+2. replace the outputLink for logout.jsp with this code:
+> 
+
+&lt;apex:outputPanel rendered="{!NOT(ISPICKVAL($User.UserType,'Guest'))}"&gt;
+
+
+> > <a href=''>
+<blockquote>{!$Label.site.logout}<br>
+</blockquote><blockquote></a>
+</blockquote>
+> 
+
+&lt;/apex:outputPanel&gt;
+
+
+
+
+
+  1. Make sure you are logged out
+> 2. Refresh the home page
+> 3.
